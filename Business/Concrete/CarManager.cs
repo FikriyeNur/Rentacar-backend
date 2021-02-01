@@ -16,14 +16,14 @@ namespace Business.Concrete
             _carDal = carDal;
         }
 
-        public void Add()
+        public void Add(Car car)
         {
-            throw new NotImplementedException();
+            _carDal.Add(car);
         }
 
-        public void Delete()
+        public void Delete(Car car)
         {
-            throw new NotImplementedException();
+            _carDal.Delete(car);
         }
 
         public List<Car> GetAll()
@@ -31,14 +31,14 @@ namespace Business.Concrete
             return _carDal.GetAll();
         }
 
-        public List<Car> GetById(int carId)
+        public Car GetById(int carId)
         {
-            return _carDal.GetById(carId);
+           return _carDal.GetById(carId);
         }
 
-        public void Update()
+        public void Update(Car car)
         {
-            throw new NotImplementedException();
+            _carDal.Update(car);
         }
     }
 }
