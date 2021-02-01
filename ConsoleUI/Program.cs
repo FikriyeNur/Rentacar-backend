@@ -22,6 +22,12 @@ namespace ConsoleUI
             IColorDal colorDal = new InMemoryColorDal();
             ColorManager colorManager = new ColorManager(colorDal);
 
+            GetCarList(carManager, brandManager, modelManager, colorManager);
+
+        }
+
+        private static void GetCarList(CarManager carManager, BrandManager brandManager, ModelManager modelManager, ColorManager colorManager)
+        {
             var result = from c in carManager.GetAll()
                          join b in brandManager.GetAll()
                          on c.BrandId equals b.BrandId
@@ -29,15 +35,13 @@ namespace ConsoleUI
                          on c.ModelId equals m.ModelId
                          join co in colorManager.GetAll()
                          on c.ColorId equals co.ColorId
-                         select new CarDto { BrandName = b.BrandName, CarId = c.CarId, DailyPrice = c.DailyPrice, Description = c.Description, ModelYear = c.ModelYear, ColorName = co.ColorName, ModelName = m.ModelName };
+                         select new CarDto { BrandName = b.BrandName, CarId = c.CarId, DailyPrice = c.DailyPrice, Description = c.Description, ModelYear = m.ModelYear, ColorName = co.ColorName, ModelName = m.ModelName };
 
             foreach (var carDto in result)
             {
                 Console.WriteLine("Marka: {0} \nModel: {1} \nModel Yılı: {2} \nRenk: {3} \nGünlük Fiyat: {4} \nAçıklama: {5}", carDto.BrandName, carDto.ModelName, carDto.ModelYear, carDto.ColorName, carDto.DailyPrice, carDto.Description);
                 Console.WriteLine("--------------------------------");
             }
-
-
         }
 
         public class CarDto

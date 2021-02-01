@@ -15,12 +15,12 @@ namespace DataAccess.Concrete.InMemory
         {
             _cars = new List<Car>
             {
-                new Car {CarId=1, BrandId=1, ColorId=1, ModelId=1, ModelYear="2018", DailyPrice=210, Description="Otomatik Vites - Dizel"},
-                new Car {CarId=2, BrandId=2, ColorId=2, ModelId=2, ModelYear="2015", DailyPrice=209, Description="Düz Vites - Benzin"},
-                new Car {CarId=3, BrandId=3, ColorId=2, ModelId=3, ModelYear="2019", DailyPrice=245, Description="Düz Vites - Benzin"},
-                new Car {CarId=4, BrandId=1, ColorId=1, ModelId=4, ModelYear="2017", DailyPrice=265, Description="Otomatik Dizel"},
-                new Car {CarId=5, BrandId=2, ColorId=3, ModelId=5, ModelYear="2014", DailyPrice=265, Description="Düz Vites - Dizel"},
-                new Car {CarId=6, BrandId=3, ColorId=4, ModelId=6, ModelYear="2016", DailyPrice=251, Description="Düz Vites- Benzin"}
+                new Car {CarId=1, BrandId=1, ColorId=1, ModelId=1, DailyPrice=210, Description="Otomatik Vites - Dizel"},
+                new Car {CarId=2, BrandId=2, ColorId=2, ModelId=2, DailyPrice=209, Description="Düz Vites - Benzin"},
+                new Car {CarId=3, BrandId=3, ColorId=2, ModelId=3, DailyPrice=245, Description="Düz Vites - Benzin"},
+                new Car {CarId=4, BrandId=1, ColorId=1, ModelId=4, DailyPrice=265, Description="Otomatik Dizel"},
+                new Car {CarId=5, BrandId=2, ColorId=3, ModelId=5, DailyPrice=265, Description="Düz Vites - Dizel"},
+                new Car {CarId=6, BrandId=3, ColorId=4, ModelId=6, DailyPrice=251, Description="Düz Vites- Benzin"}
             };
         }
         public void Add(Car car)
