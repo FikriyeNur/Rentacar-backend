@@ -18,6 +18,15 @@ namespace DataAccess.Concrete.EntityFramework
                 var addedEntity = context.Entry(entity);
                 addedEntity.State = EntityState.Added;
                 context.SaveChanges();
+
+                if (entity.BrandId > 0)
+                {
+                    Console.WriteLine("Marka kayıt işlemi başarıyla gerçekleşti.");
+                }
+                else
+                {
+                    Console.WriteLine("Marka kayıt işlemi yapılamadı!!");
+                }
             }
         }
 
@@ -28,6 +37,11 @@ namespace DataAccess.Concrete.EntityFramework
                 var deletedContext = context.Entry(entity);
                 deletedContext.State = EntityState.Deleted;
                 context.SaveChanges();
+
+                if (entity.BrandId > 0)
+                {
+                    Console.WriteLine("Marka silme işlemi başarıyla gerçekleşti.");
+                }
             }
         }
 
@@ -56,6 +70,11 @@ namespace DataAccess.Concrete.EntityFramework
                 var updatedEntity = context.Entry(entity);
                 updatedEntity.State = EntityState.Modified;
                 context.SaveChanges();
+
+                if (entity.BrandId > 0)
+                {
+                    Console.WriteLine("Marka güncelleme işlemi başarıyla gerçekleşti.");
+                }
             }
         }
     }

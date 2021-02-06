@@ -18,6 +18,15 @@ namespace DataAccess.Concrete.EntityFramework
                 var addedEntity = context.Entry(entity);
                 addedEntity.State = EntityState.Added;
                 context.SaveChanges();
+
+                if (entity.CarId > 0)
+                {
+                    Console.WriteLine("Araba kayıt işlemi başarıyla gerçekleşti.");
+                }
+                else
+                {
+                    Console.WriteLine("Araba kayıt işlemi yapılamadı!!");
+                }
             }
         }
 
@@ -28,6 +37,10 @@ namespace DataAccess.Concrete.EntityFramework
                 var deletedEntity = context.Entry(entity);
                 deletedEntity.State = EntityState.Deleted;
                 context.SaveChanges();
+                if (entity.CarId > 0)
+                {
+                    Console.WriteLine("Araba silme işlemi başarıyla gerçekleşti.");
+                }
             }
         }
 
@@ -56,6 +69,10 @@ namespace DataAccess.Concrete.EntityFramework
                 var updatedEntity = context.Entry(entity);
                 updatedEntity.State = EntityState.Modified;
                 context.SaveChanges();
+                if (entity.CarId > 0)
+                {
+                    Console.WriteLine("Araba güncelleme işlemi başarıyla gerçekleşti.");
+                }
             }
         }
     }

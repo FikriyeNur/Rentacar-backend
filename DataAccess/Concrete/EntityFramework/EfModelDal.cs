@@ -18,6 +18,15 @@ namespace DataAccess.Concrete.EntityFramework
                 var addedEntity = context.Entry(entity);
                 addedEntity.State = EntityState.Added;
                 context.SaveChanges();
+
+                if (entity.ModelId > 0)
+                {
+                    Console.WriteLine("Model kayıt işlemi başarıyla gerçekleşti.");
+                }
+                else
+                {
+                    Console.WriteLine("Model kayıt işlemi yapılamadı!!");
+                }
             }
         }
 
@@ -28,6 +37,11 @@ namespace DataAccess.Concrete.EntityFramework
                 var deletedEntity = context.Entry(entity);
                 deletedEntity.State = EntityState.Deleted;
                 context.SaveChanges();
+
+                if (entity.ModelId > 0)
+                {
+                    Console.WriteLine("Model silme işlemi başarıyla gerçekleşti.");
+                }
             }
         }
 
@@ -56,6 +70,11 @@ namespace DataAccess.Concrete.EntityFramework
                 var updatedEntity = context.Entry(entity);
                 updatedEntity.State = EntityState.Modified;
                 context.SaveChanges();
+
+                if (entity.ModelId > 0)
+                {
+                    Console.WriteLine("Moded güncelleme işlemi başarıyla gerçekleşti.");
+                }
             }
         }
     }
