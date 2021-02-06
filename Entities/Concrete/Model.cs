@@ -10,6 +10,6 @@ namespace Entities.Concrete
         public int ModelId { get; set; }
         public int BrandId { get; set; }
         public string ModelName { get; set; }
-        public string ModelYear { get; set; }
+        //public string ModelYear { get; set; }
     }
 }

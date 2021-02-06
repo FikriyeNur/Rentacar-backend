@@ -3,6 +3,7 @@ using Entities.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 
 namespace DataAccess.Concrete.InMemory
@@ -27,11 +28,16 @@ namespace DataAccess.Concrete.InMemory
 
         public void Delete(Brand brand)
         {
-            Brand deleteToBrand = _brands.FirstOrDefault(b => b.BrandId == brand.BrandId);
+            Brand deleteToBrand = _brands.FirstOrDefault(b => b.BrandId ==brand.BrandId);
             _brands.Remove(deleteToBrand);
         }
 
-        public List<Brand> GetAll()
+        public Brand Get(Expression<Func<Brand, bool>> filter)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Brand> GetAll(Expression<Func<Brand, bool>> filter = null)
         {
             return _brands;
         }

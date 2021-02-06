@@ -5,12 +5,8 @@ using System.Text;
 
 namespace DataAccess.Abstract
 {
-    public interface IModelDal
-    {
-        List<Model> GetAll();
-        void Add(Model model);
-        void Update(Model model);
-        void Delete(Model model);
-        List<Model> GetById(int Id);
+    public interface IModelDal : IEntityRepository<Model>
+    { 
+
     }
 }

@@ -16,9 +16,32 @@ namespace Business.Concrete
             _brandDal = brandDal;
         }
 
+        public void Add(Brand brand)
+        {
+            if (brand.BrandName.Length > 2)
+            {
+                _brandDal.Add(brand);
+            }
+            else
+            {
+                Console.WriteLine("Marka ismi 2 karakterden fazla olmalıdır!! Lütfen geçerli marka giriniz.");
+            }
+
+        }
+
+        public void Delete(Brand brand)
+        {
+            _brandDal.Delete(brand);
+        }
+
         public List<Brand> GetAll()
         {
             return _brandDal.GetAll();
+        }
+
+        public void Update(Brand brand)
+        {
+            _brandDal.Update(brand);
         }
     }
 }
