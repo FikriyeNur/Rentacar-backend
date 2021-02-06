@@ -38,6 +38,7 @@ namespace ConsoleUI
             ColorManager colorManager = new ColorManager(new EfColorDal());
             ModelManager modelManager = new ModelManager(new EfModelDal());
 
+            #region  Car
             //CarGetList(carManager);
             //CarGetById(carManager);
             //GetCarList(carManager, brandManager, modelManager, colorManager);
@@ -47,27 +48,60 @@ namespace ConsoleUI
             //CarDelete(carManager);
             //GetCarsByBrandId(carManager);
             //GetCarsByColorId(carManager);
-            //GetCarsByModelId(carManager);
+            //GetCarsByModelId(carManager); 
+            #endregion
 
+            #region Brand
             //GetBrandList(brandManager);
             //BrandAdd(brandManager);
             //BrandUpdate(brandManager);
-            //BrandDelete(brandManager);
+            //BrandDelete(brandManager); 
+            #endregion
 
+            #region Color
             //GetColorList(colorManager);
             //ColorAdd(colorManager);
             //ColorUpdate(colorManager);
-            //ColorDelete(colorManager);
+            //ColorDelete(colorManager); 
+            #endregion
 
+            #region Model
             //GetModelList(modelManager);
             //ModelAdd(modelManager);
             //ModelUpdate(modelManager);
-            //ModelDelete(modelManager); 
-
-
+            //ModelDelete(modelManager);  
             #endregion
 
+            //GetAllCarDetailsDTO(carManager);
+            //GetCarDetailDTO(carManager);
+
             Console.ReadLine();
+        }
+
+        private static void GetCarDetailDTO(CarManager carManager)
+        {
+            Console.WriteLine("---------- Araç Detay Ekranı ----------");
+            Console.WriteLine("Araba Id'si giriniz: ");
+            int id = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine(" ");
+
+            Console.WriteLine("Car Id\tBrand Name\tModel Name\tModel Year\tColor Name\tDaily Price\tDescriptions");
+
+            var result = carManager.GetCarDetail(id);
+            Console.WriteLine($"{result.CarId}\t{result.BrandName}\t\t{result.ModelName}\t\t{result.ModelYear}\t\t{result.ColorName}\t\t{result.DailyPrice}\t{result.Description}");
+        }
+
+        private static void GetAllCarDetailsDTO(CarManager carManager)
+        {
+            Console.WriteLine("---------- Araç Liste Ekranı ----------");
+            Console.WriteLine($"Araç sayısı: {carManager.GetAllCarDetails().Count()}");
+            Console.WriteLine(" ");
+
+            Console.WriteLine("Car Id\tBrand Name\tModel Name\tModel Year\tColor Name\tDaily Price\tDescriptions");
+            foreach (var carDto in carManager.GetAllCarDetails())
+            {
+                Console.WriteLine($"{carDto.CarId}\t{carDto.BrandName}\t\t{carDto.ModelName}\t\t{carDto.ModelYear}\t\t{carDto.ColorName}\t\t{carDto.DailyPrice}\t{carDto.Description}");
+            }
         }
 
         private static void ModelDelete(ModelManager modelManager)
@@ -264,7 +298,7 @@ namespace ConsoleUI
 
         private static void GetCarsByModelId(CarManager carManager)
         {
-            Console.WriteLine("---------- Arabaları Modele Göre Filtreleme ----------");
+            Console.WriteLine("---------- Araçları Modele Göre Filtreleme ----------");
             Console.WriteLine("Model Id'si giriniz: ");
             int id = Convert.ToInt32(Console.ReadLine());
 
@@ -288,7 +322,7 @@ namespace ConsoleUI
 
         private static void GetCarsByColorId(CarManager carManager)
         {
-            Console.WriteLine("---------- Arabaları Renge Göre Filtreleme ----------");
+            Console.WriteLine("---------- Araçları Renge Göre Filtreleme ----------");
             Console.WriteLine("Renk Id'si giriniz: ");
             int id = Convert.ToInt32(Console.ReadLine());
 
@@ -312,7 +346,7 @@ namespace ConsoleUI
 
         private static void GetCarsByBrandId(CarManager carManager)
         {
-            Console.WriteLine("---------- Arabaları Markaya Göre Filtreleme ----------");
+            Console.WriteLine("---------- Araçları Markaya Göre Filtreleme ----------");
             Console.WriteLine("Marka Id'si giriniz: ");
             int id = Convert.ToInt32(Console.ReadLine());
 
@@ -338,7 +372,7 @@ namespace ConsoleUI
 
         private static void CarDelete(CarManager carManager)
         {
-            Console.WriteLine("---------- Araba Kayıt Silme Ekranı ----------");
+            Console.WriteLine("---------- Araç Kayıt Silme Ekranı ----------");
             Console.WriteLine("Araba Id:");
             int id = Convert.ToInt32(Console.ReadLine());
             var deletedCar = carManager.GetById(id);
@@ -366,21 +400,14 @@ namespace ConsoleUI
             CarGetById(carManager);
             Console.WriteLine(" ");
 
-            Console.WriteLine("---------- Araba Kayıt Güncelleme Ekranı ----------");
+            Console.WriteLine("---------- Araç Kayıt Güncelleme Ekranı ----------");
             Console.WriteLine("Araba Id: ");
             int carId = Convert.ToInt32(Console.ReadLine());
-            Console.WriteLine("Marka Id: ");
-            int brandId = Convert.ToInt32(Console.ReadLine());
-            Console.WriteLine("Model Id: ");
-            int modelId = Convert.ToInt32(Console.ReadLine());
-            Console.WriteLine("Renk Id: ");
-            int colorId = Convert.ToInt32(Console.ReadLine());
-            Console.WriteLine("Model Yılı: ");
-            string modelYear = Console.ReadLine();
-            Console.WriteLine("Günlük Ücret: ");
-            decimal dailyPrice = Convert.ToDecimal(Console.ReadLine());
-            Console.WriteLine("Açıklama: ");
-            string description = Console.ReadLine();
+
+            int brandId, modelId, colorId;
+            string modelYear, description;
+            decimal dailyPrice;
+            CarColons(out brandId, out modelId, out colorId, out modelYear, out dailyPrice, out description);
 
             Car updatedCar = new Car { CarId = carId, BrandId = brandId, ModelId = modelId, ColorId = colorId, ModelYear = modelYear, DailyPrice = dailyPrice, Description = description };
             carManager.Update(updatedCar);
@@ -391,21 +418,13 @@ namespace ConsoleUI
 
         private static void CarAdd(CarManager carManager)
         {
-            Console.WriteLine("---------- Araba Kayıt Ekranı ----------");
+            Console.WriteLine("---------- Araç Kayıt Ekranı ----------");
             // Id bilgisi veri tabanından otomatik atanıyor.
-            Console.WriteLine("Marka Id: ");
-            int brandId = Convert.ToInt32(Console.ReadLine());
-            Console.WriteLine("Model Id: ");
-            int modelId = Convert.ToInt32(Console.ReadLine());
-            Console.WriteLine("Renk Id: ");
-            int colorId = Convert.ToInt32(Console.ReadLine());
-            Console.WriteLine("Model Yılı: ");
-            string modelYear = Console.ReadLine();
-            Console.WriteLine("Günlük Ücret: ");
-            
-            decimal dailyPrice = Convert.ToDecimal(Console.ReadLine());
-            Console.WriteLine("Açıklama: ");
-            string description = Console.ReadLine();
+
+            int brandId, modelId, colorId;
+            string modelYear, description;
+            decimal dailyPrice;
+            CarColons(out brandId, out modelId, out colorId, out modelYear, out dailyPrice, out description);
 
             Car addedCar = new Car { BrandId = brandId, ColorId = colorId, ModelId = modelId, ModelYear = modelYear, DailyPrice = dailyPrice, Description = description };
             carManager.Add(addedCar);
@@ -414,9 +433,25 @@ namespace ConsoleUI
             CarGetList(carManager);
         }
 
+        private static void CarColons(out int brandId, out int modelId, out int colorId, out string modelYear, out decimal dailyPrice, out string description)
+        {
+            Console.WriteLine("Brand Id: ");
+            brandId = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Model Id: ");
+            modelId = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Color Id: ");
+            colorId = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Model Year: ");
+            modelYear = Console.ReadLine();
+            Console.WriteLine("Daily Price: ");
+            dailyPrice = Convert.ToDecimal(Console.ReadLine());
+            Console.WriteLine("Description: ");
+            description = Console.ReadLine();
+        }
+
         private static void CarGetById(CarManager carManager)
         {
-            Console.WriteLine("---------- Araba Detay Ekranı ----------");
+            Console.WriteLine("---------- Araç Detay Ekranı ----------");
             Console.WriteLine("Araba Id'si giriniz: ");
             int id = Convert.ToInt32(Console.ReadLine());
             Console.WriteLine(" ");
@@ -428,7 +463,7 @@ namespace ConsoleUI
 
         private static void CarGetList(CarManager carManager)
         {
-            Console.WriteLine("---------- Araba Liste Ekranı ----------");
+            Console.WriteLine("---------- Araç Liste Ekranı ----------");
 
             Console.WriteLine($"Car Id\tBrand Id\tModel Id\tModel Year\tColor Id\tDaily Price\tDescriptions");
             foreach (var car in carManager.GetAll())
@@ -437,73 +472,5 @@ namespace ConsoleUI
             }
         }
 
-        private static void GetById(CarManager carManager, BrandManager brandManager, ModelManager modelManager, ColorManager colorManager)
-        {
-            Console.WriteLine("---------- Araba Detay Ekranı ----------");
-            Console.WriteLine(" ");
-            Console.WriteLine("Araba Id'si giriniz: ");
-            int id = Convert.ToInt32(Console.ReadLine());
-            Console.WriteLine(" ");
-
-            var result = from c in carManager.GetAll()
-                         join b in brandManager.GetAll()
-                         on c.BrandId equals b.BrandId
-                         join m in modelManager.GetAll()
-                         on c.ModelId equals m.ModelId
-                         join co in colorManager.GetAll()
-                         on c.ColorId equals co.ColorId
-                         where c.CarId == id
-                         select new CarDto { BrandName = b.BrandName, CarId = c.CarId, DailyPrice = c.DailyPrice, Description = c.Description, ModelYear = c.ModelYear, ColorName = co.ColorName, ModelName = m.ModelName };
-
-            Console.WriteLine("Car Id\tBrand Name\tModel Name\tModel Year\tColor Name\tDaily Price\tDescriptions");
-            if (result.Any(c => c.CarId == id))
-            {
-                foreach (var carDto in result)
-                {
-                    Console.WriteLine($"{carDto.CarId}\t{carDto.BrandName}\t\t{carDto.ModelName}\t\t{carDto.ModelYear}\t\t{carDto.ColorName}\t\t{carDto.DailyPrice}\t{carDto.Description}");
-                }
-            }
-            else
-            {
-                Console.WriteLine("Giridiğiniz Id'ye ait kayıt bulunmamıştır! Lütfen geçerli ID giriniz.");
-            }
-
-            Console.ReadLine();
-        }
-
-        private static void GetCarList(CarManager carManager, BrandManager brandManager, ModelManager modelManager, ColorManager colorManager)
-        {
-            Console.WriteLine("---------- Araba Liste Ekranı ----------");
-
-            var result = from c in carManager.GetAll()
-                         join b in brandManager.GetAll()
-                         on c.BrandId equals b.BrandId
-                         join m in modelManager.GetAll()
-                         on c.ModelId equals m.ModelId
-                         join co in colorManager.GetAll()
-                         on c.ColorId equals co.ColorId
-                         orderby c.DailyPrice descending
-                         select new CarDto { BrandName = b.BrandName, CarId = c.CarId, DailyPrice = c.DailyPrice, Description = c.Description, ModelYear = c.ModelYear, ColorName = co.ColorName, ModelName = m.ModelName };
-
-            Console.WriteLine($"Araç sayısı: {result.Count()}");
-            Console.WriteLine(" ");
-
-            Console.WriteLine("Car Id\tBrand Name\tModel Name\tModel Year\tColor Name\tDaily Price\tDescriptions");
-            foreach (var carDto in result)
-            {
-                Console.WriteLine($"{carDto.CarId}\t{carDto.BrandName}\t\t{carDto.ModelName}\t\t{carDto.ModelYear}\t\t{carDto.ColorName}\t\t{carDto.DailyPrice}\t{carDto.Description}");
-            }
-        }
-
-        public class CarDto
-        {
-            public int CarId { get; set; }
-            public string BrandName { get; set; }
-            public string ColorName { get; set; }
-            public string ModelName { get; set; }
-            public string ModelYear { get; set; }
-            public decimal DailyPrice { get; set; }
-            public string Description { get; set; }
-        }
     }
 }
