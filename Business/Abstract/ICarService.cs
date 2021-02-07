@@ -18,6 +18,9 @@ namespace Business.Abstract
         List<Car> GetCarsByModelId(int id);
         List<CarDetailDto> GetAllCarDetails();
         CarDetailDto GetCarDetail(int carId);
+        List<Car> GetEconomicCars();
+        List<Car> GetConfortCars();
+        List<Car> GetLuxuryCars();
 
     }
 }

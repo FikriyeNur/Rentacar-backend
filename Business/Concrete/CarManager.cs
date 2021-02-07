@@ -69,6 +69,21 @@ namespace Business.Concrete
             return _carDal.GetAll(c => c.ModelId == id);
         }
 
+        public List<Car> GetConfortCars()
+        {
+            return _carDal.GetAll(c => c.Description.Contains("Kon"));
+        }
+
+        public List<Car> GetEconomicCars()
+        {
+            return _carDal.GetAll(c => c.Description.Contains("Eko"));
+        }
+
+        public List<Car> GetLuxuryCars()
+        {
+            return _carDal.GetAll(c => c.Description.Contains("Lüks"));
+        }
+
         public void Update(Car car)
         {
             if (car.DailyPrice > 0)

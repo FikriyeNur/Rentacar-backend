@@ -75,7 +75,46 @@ namespace ConsoleUI
             //GetAllCarDetailsDTO(carManager);
             //GetCarDetailDTO(carManager);
 
+            //GetEconomicCars(carManager);
+            //GetConfortCars(carManager);
+            //GetLuxuryCars(carManager);
+
+            #endregion
+
             Console.ReadLine();
+        }
+
+        private static void GetLuxuryCars(CarManager carManager)
+        {
+            Console.WriteLine("---------- Lüks Sınıf Araçlar ----------");
+            Console.WriteLine(" ");
+            Console.WriteLine($"Car Id\tBrand Id\tModel Id\tModel Year\tColor Id\tDaily Price\tDescriptions");
+            foreach (var car in carManager.GetLuxuryCars())
+            {
+                Console.WriteLine($"{car.CarId}\t{car.BrandId}\t\t{car.ModelId}\t\t{car.ModelYear}\t\t{car.ColorId}\t\t{car.DailyPrice}\t{car.Description}");
+            }
+        }
+
+        private static void GetConfortCars(CarManager carManager)
+        {
+            Console.WriteLine("---------- Konfor Sınıf Araçlar ----------");
+            Console.WriteLine(" ");
+            Console.WriteLine($"Car Id\tBrand Id\tModel Id\tModel Year\tColor Id\tDaily Price\tDescriptions");
+            foreach (var car in carManager.GetConfortCars())
+            {
+                Console.WriteLine($"{car.CarId}\t{car.BrandId}\t\t{car.ModelId}\t\t{car.ModelYear}\t\t{car.ColorId}\t\t{car.DailyPrice}\t{car.Description}");
+            }
+        }
+
+        private static void GetEconomicCars(CarManager carManager)
+        {
+            Console.WriteLine("---------- Ekonomik Sınıf Araçlar ----------");
+            Console.WriteLine(" ");
+            Console.WriteLine($"Car Id\tBrand Id\tModel Id\tModel Year\tColor Id\tDaily Price\tDescriptions");
+            foreach (var car in carManager.GetEconomicCars())
+            {
+                Console.WriteLine($"{car.CarId}\t{car.BrandId}\t\t{car.ModelId}\t\t{car.ModelYear}\t\t{car.ColorId}\t\t{car.DailyPrice}\t{car.Description}");
+            }
         }
 
         private static void GetCarDetailDTO(CarManager carManager)
