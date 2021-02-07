@@ -31,6 +31,11 @@ namespace Business.Concrete
             return _modelDal.GetAll();
         }
 
+        public Model GetById(int modelId)
+        {
+            return _modelDal.Get(m => m.ModelId == modelId);
+        }
+
         public void Update(Model model)
         {
             _modelDal.Update(model);

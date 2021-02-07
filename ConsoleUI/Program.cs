@@ -39,20 +39,18 @@ namespace ConsoleUI
             ModelManager modelManager = new ModelManager(new EfModelDal());
 
             #region  Car
-            //CarGetList(carManager);
-            //CarGetById(carManager);
+            //GetCarList(carManager);
+            //GetCarById(carManager);
             //GetCarList(carManager, brandManager, modelManager, colorManager);
             //GetById(carManager, brandManager, modelManager, colorManager);
             //CarAdd(carManager);
             //CarUpdate(carManager);
-            //CarDelete(carManager);
-            //GetCarsByBrandId(carManager);
-            //GetCarsByColorId(carManager);
-            //GetCarsByModelId(carManager); 
+            //CarDelete(carManager);         
             #endregion
 
             #region Brand
             //GetBrandList(brandManager);
+            GetBrandById(brandManager);
             //BrandAdd(brandManager);
             //BrandUpdate(brandManager);
             //BrandDelete(brandManager); 
@@ -60,6 +58,7 @@ namespace ConsoleUI
 
             #region Color
             //GetColorList(colorManager);
+            GetColorById(colorManager);
             //ColorAdd(colorManager);
             //ColorUpdate(colorManager);
             //ColorDelete(colorManager); 
@@ -67,17 +66,25 @@ namespace ConsoleUI
 
             #region Model
             //GetModelList(modelManager);
+            GetModelById(modelManager);
             //ModelAdd(modelManager);
             //ModelUpdate(modelManager);
             //ModelDelete(modelManager);  
             #endregion
 
+            #region DTO Car Details
             //GetAllCarDetailsDTO(carManager);
-            //GetCarDetailDTO(carManager);
+            //GetCarDetailDTO(carManager); 
+            #endregion
 
+            #region Car Filter
+            //GetCarsByBrandId(carManager);
+            //GetCarsByColorId(carManager);
+            //GetCarsByModelId(carManager); 
             //GetEconomicCars(carManager);
             //GetConfortCars(carManager);
-            //GetLuxuryCars(carManager);
+            //GetLuxuryCars(carManager); 
+            #endregion
 
             #endregion
 
@@ -88,7 +95,7 @@ namespace ConsoleUI
         {
             Console.WriteLine("---------- Lüks Sınıf Araçlar ----------");
             Console.WriteLine(" ");
-            Console.WriteLine($"Car Id\tBrand Id\tModel Id\tModel Year\tColor Id\tDaily Price\tDescriptions");
+            Console.WriteLine("Car Id\tBrand Id\tModel Id\tModel Year\tColor Id\tDaily Price\tDescriptions");
             foreach (var car in carManager.GetLuxuryCars())
             {
                 Console.WriteLine($"{car.CarId}\t{car.BrandId}\t\t{car.ModelId}\t\t{car.ModelYear}\t\t{car.ColorId}\t\t{car.DailyPrice}\t{car.Description}");
@@ -99,7 +106,7 @@ namespace ConsoleUI
         {
             Console.WriteLine("---------- Konfor Sınıf Araçlar ----------");
             Console.WriteLine(" ");
-            Console.WriteLine($"Car Id\tBrand Id\tModel Id\tModel Year\tColor Id\tDaily Price\tDescriptions");
+            Console.WriteLine("Car Id\tBrand Id\tModel Id\tModel Year\tColor Id\tDaily Price\tDescriptions");
             foreach (var car in carManager.GetConfortCars())
             {
                 Console.WriteLine($"{car.CarId}\t{car.BrandId}\t\t{car.ModelId}\t\t{car.ModelYear}\t\t{car.ColorId}\t\t{car.DailyPrice}\t{car.Description}");
@@ -110,7 +117,7 @@ namespace ConsoleUI
         {
             Console.WriteLine("---------- Ekonomik Sınıf Araçlar ----------");
             Console.WriteLine(" ");
-            Console.WriteLine($"Car Id\tBrand Id\tModel Id\tModel Year\tColor Id\tDaily Price\tDescriptions");
+            Console.WriteLine("Car Id\tBrand Id\tModel Id\tModel Year\tColor Id\tDaily Price\tDescriptions");
             foreach (var car in carManager.GetEconomicCars())
             {
                 Console.WriteLine($"{car.CarId}\t{car.BrandId}\t\t{car.ModelId}\t\t{car.ModelYear}\t\t{car.ColorId}\t\t{car.DailyPrice}\t{car.Description}");
@@ -200,6 +207,18 @@ namespace ConsoleUI
             GetModelList(modelManager);
         }
 
+        private static void GetModelById(ModelManager modelManager)
+        {
+            Console.WriteLine("---------- Model Detay Ekranı ----------");
+            Console.WriteLine("Model Id'si giriniz: ");
+            int id = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine(" ");
+            var result = modelManager.GetById(id);
+
+            Console.WriteLine("Model Id\tBrand Id\tModel Name");
+            Console.WriteLine($"{result.ModelId}\t\t{result.BrandId}\t\t{result.ModelName}");
+        }
+
         private static void GetModelList(ModelManager modelManager)
         {
             Console.WriteLine("---------- Model Listesi ----------");
@@ -261,6 +280,18 @@ namespace ConsoleUI
 
             Console.WriteLine(" ");
             GetColorList(colorManager);
+        }
+
+        private static void GetColorById(ColorManager colorManager)
+        {
+            Console.WriteLine("---------- Renk Detay Ekranı ----------");
+            Console.WriteLine("Renk Id'si giriniz: ");
+            int id = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine(" ");
+            var result = colorManager.GetById(id);
+
+            Console.WriteLine("Color Id\tColor Name");
+            Console.WriteLine($"{result.ColorId}\t\t{result.ColorName}");
         }
 
         private static void GetColorList(ColorManager colorManager)
@@ -325,6 +356,19 @@ namespace ConsoleUI
             Console.WriteLine(" ");
             GetBrandList(brandManager);
         }
+
+        private static void GetBrandById(BrandManager brandManager)
+        {
+            Console.WriteLine("---------- Marka Detay Ekranı ----------");
+            Console.WriteLine("Marka Id'si giriniz: ");
+            int id = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine(" ");
+            var result = brandManager.GetById(id);
+
+            Console.WriteLine("Brand Id\tBrand Name");
+            Console.WriteLine($"{result.BrandId}\t\t{result.BrandName}");
+        }
+
         private static void GetBrandList(BrandManager brandManager)
         {
             Console.WriteLine("---------- Marka Listesi ----------");
@@ -347,7 +391,7 @@ namespace ConsoleUI
                 Console.WriteLine($"{carManager.GetCarsByModelId(id).Count()} adet araç bulundu.");
                 Console.WriteLine(" ");
 
-                Console.WriteLine($"Car Id\tBrand Id\tModel Id\tModel Year\tColor Id\tDaily Price\tDescriptions");
+                Console.WriteLine("Car Id\tBrand Id\tModel Id\tModel Year\tColor Id\tDaily Price\tDescriptions");
                 foreach (var byModelId in carManager.GetCarsByModelId(id))
                 {
                     Console.WriteLine($"{byModelId.CarId}\t{byModelId.BrandId}\t\t{byModelId.ModelId}\t\t{byModelId.ModelYear}\t\t{byModelId.ColorId}\t\t{byModelId.DailyPrice}\t{byModelId.Description}");
@@ -371,7 +415,7 @@ namespace ConsoleUI
                 Console.WriteLine($"{carManager.GetCarsByColorId(id).Count()} adet araç bulundu.");
                 Console.WriteLine(" ");
 
-                Console.WriteLine($"Car Id\tBrand Id\tModel Id\tModel Year\tColor Id\tDaily Price\tDescriptions");
+                Console.WriteLine("Car Id\tBrand Id\tModel Id\tModel Year\tColor Id\tDaily Price\tDescriptions");
                 foreach (var byColorId in carManager.GetCarsByColorId(id))
                 {
                     Console.WriteLine($"{byColorId.CarId}\t{byColorId.BrandId}\t\t{byColorId.ModelId}\t\t{byColorId.ModelYear}\t\t{byColorId.ColorId}\t\t{byColorId.DailyPrice}\t{byColorId.Description}");
@@ -395,7 +439,7 @@ namespace ConsoleUI
                 Console.WriteLine($"{carManager.GetCarsByBrandId(id).Count()} adet araç bulundu.");
                 Console.WriteLine(" ");
 
-                Console.WriteLine($"Car Id\tBrand Id\tModel Id\tModel Year\tColor Id\tDaily Price\tDescriptions");
+                Console.WriteLine("Car Id\tBrand Id\tModel Id\tModel Year\tColor Id\tDaily Price\tDescriptions");
                 foreach (var byBrandId in carManager.GetCarsByBrandId(id))
                 {
                     Console.WriteLine($"{byBrandId.CarId}\t{byBrandId.BrandId}\t\t{byBrandId.ModelId}\t\t{byBrandId.ModelYear}\t\t{byBrandId.ColorId}\t\t{byBrandId.DailyPrice}\t{byBrandId.Description}");
@@ -431,12 +475,12 @@ namespace ConsoleUI
             }
 
             Console.WriteLine(" ");
-            CarGetList(carManager);
+            GetCarList(carManager);
         }
 
         private static void CarUpdate(CarManager carManager)
         {
-            CarGetById(carManager);
+            GetCarById(carManager);
             Console.WriteLine(" ");
 
             Console.WriteLine("---------- Araç Kayıt Güncelleme Ekranı ----------");
@@ -452,7 +496,7 @@ namespace ConsoleUI
             carManager.Update(updatedCar);
 
             Console.WriteLine(" ");
-            CarGetList(carManager);
+            GetCarList(carManager);
         }
 
         private static void CarAdd(CarManager carManager)
@@ -469,7 +513,7 @@ namespace ConsoleUI
             carManager.Add(addedCar);
 
             Console.WriteLine(" ");
-            CarGetList(carManager);
+            GetCarList(carManager);
         }
 
         private static void CarColons(out int brandId, out int modelId, out int colorId, out string modelYear, out decimal dailyPrice, out string description)
@@ -488,7 +532,7 @@ namespace ConsoleUI
             description = Console.ReadLine();
         }
 
-        private static void CarGetById(CarManager carManager)
+        private static void GetCarById(CarManager carManager)
         {
             Console.WriteLine("---------- Araç Detay Ekranı ----------");
             Console.WriteLine("Araba Id'si giriniz: ");
@@ -496,15 +540,15 @@ namespace ConsoleUI
             Console.WriteLine(" ");
             var result = carManager.GetById(id);
 
-            Console.WriteLine($"Car Id\tBrand Id\tModel Id\tModel Year\tColor Id\tDaily Price\tDescriptions");
+            Console.WriteLine("Car Id\tBrand Id\tModel Id\tModel Year\tColor Id\tDaily Price\tDescriptions");
             Console.WriteLine($"{result.CarId}\t{result.BrandId}\t\t{result.ModelId}\t\t{result.ModelYear}\t\t{result.ColorId}\t\t{result.DailyPrice}\t{result.Description}");
         }
 
-        private static void CarGetList(CarManager carManager)
+        private static void GetCarList(CarManager carManager)
         {
             Console.WriteLine("---------- Araç Liste Ekranı ----------");
 
-            Console.WriteLine($"Car Id\tBrand Id\tModel Id\tModel Year\tColor Id\tDaily Price\tDescriptions");
+            Console.WriteLine("Car Id\tBrand Id\tModel Id\tModel Year\tColor Id\tDaily Price\tDescriptions");
             foreach (var car in carManager.GetAll())
             {
                 Console.WriteLine($"{car.CarId}\t{car.BrandId}\t\t{car.ModelId}\t\t{car.ModelYear}\t\t{car.ColorId}\t\t{car.DailyPrice}\t{car.Description}");
