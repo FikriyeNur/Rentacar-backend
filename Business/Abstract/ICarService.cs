@@ -19,7 +19,7 @@ namespace Business.Abstract
         List<CarDetailDto> GetAllCarDetails();
         CarDetailDto GetCarDetail(int carId);
         List<Car> GetEconomicCars();
-        List<Car> GetConfortCars();
+        List<Car> GetComfortCars();
         List<Car> GetLuxuryCars();
 
     }

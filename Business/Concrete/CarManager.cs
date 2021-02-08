@@ -69,7 +69,7 @@ namespace Business.Concrete
             return _carDal.GetAll(c => c.ModelId == modelId);
         }
 
-        public List<Car> GetConfortCars()
+        public List<Car> GetComfortCars()
         {
             return _carDal.GetAll(c => c.Description.Contains("Kon"));
         }

@@ -1,5 +1,6 @@
 ﻿using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -44,6 +45,11 @@ namespace DataAccess.Concrete.InMemory
         public List<Model> GetAll(Expression<Func<Model, bool>> filter = null)
         {
             return _models;
+        }
+
+        public List<ModelDetailDto> GetAllModelDetails()
+        {
+            throw new NotImplementedException();
         }
 
         public List<Model> GetById(int Id)

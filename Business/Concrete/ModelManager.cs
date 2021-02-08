@@ -1,6 +1,7 @@
 ﻿using Business.Abstract;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -34,6 +35,11 @@ namespace Business.Concrete
         public Model GetById(int modelId)
         {
             return _modelDal.Get(m => m.ModelId == modelId);
+        }
+
+        public List<ModelDetailDto> GetAllModelDetails()
+        {
+            return _modelDal.GetAllModelDetails();
         }
 
         public void Update(Model model)

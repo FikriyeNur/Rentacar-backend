@@ -1,4 +1,5 @@
 ﻿using Entities.Concrete;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -12,5 +13,6 @@ namespace Business.Abstract
         void Add(Model model);
         void Update(Model model);
         void Delete(Model model);
+        List<ModelDetailDto> GetAllModelDetails();
     }
 }

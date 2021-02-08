@@ -31,69 +31,215 @@ namespace ConsoleUI
 
             #endregion
 
-            #region Entity Framework
-
             CarManager carManager = new CarManager(new EfCarDal());
             BrandManager brandManager = new BrandManager(new EfBrandDal());
             ColorManager colorManager = new ColorManager(new EfColorDal());
             ModelManager modelManager = new ModelManager(new EfModelDal());
 
-            #region  Car
-            //GetCarList(carManager);
-            //GetCarById(carManager);
-            //GetCarList(carManager, brandManager, modelManager, colorManager);
-            //GetById(carManager, brandManager, modelManager, colorManager);
-            //CarAdd(carManager);
-            //CarUpdate(carManager);
-            //CarDelete(carManager);         
-            #endregion
 
-            #region Brand
-            //GetBrandList(brandManager);
-            GetBrandById(brandManager);
-            //BrandAdd(brandManager);
-            //BrandUpdate(brandManager);
-            //BrandDelete(brandManager); 
-            #endregion
+            // Entity Framework Car - Brand - Model - Color Bilgileri
 
-            #region Color
-            //GetColorList(colorManager);
-            GetColorById(colorManager);
-            //ColorAdd(colorManager);
-            //ColorUpdate(colorManager);
-            //ColorDelete(colorManager); 
-            #endregion
+            //GetCarFilter(carManager);
 
-            #region Model
-            //GetModelList(modelManager);
-            GetModelById(modelManager);
-            //ModelAdd(modelManager);
-            //ModelUpdate(modelManager);
-            //ModelDelete(modelManager);  
-            #endregion
+            //GetCarInformation(carManager);
 
-            #region DTO Car Details
-            //GetAllCarDetailsDTO(carManager);
-            //GetCarDetailDTO(carManager); 
-            #endregion
+            //GetBrandInformation(brandManager);
 
-            #region Car Filter
-            //GetCarsByBrandId(carManager);
-            //GetCarsByColorId(carManager);
-            //GetCarsByModelId(carManager); 
-            //GetEconomicCars(carManager);
-            //GetConfortCars(carManager);
-            //GetLuxuryCars(carManager); 
-            #endregion
+            //GetModelInformation(modelManager);
 
-            #endregion
+            //GetColorInformation(colorManager);
 
             Console.ReadLine();
+        }
+
+        private static void GetColorInformation(ColorManager colorManager)
+        {
+            Console.WriteLine("----- Renk İşlemleri -----");
+            Console.WriteLine("1.Renk Listesi");
+            Console.WriteLine("2.Renk Detayı");
+            Console.WriteLine("3.Yeni Renk Ekleme");
+            Console.WriteLine("4.Renk Bilgileri Güncelleme");
+            Console.WriteLine("5.Renk Verileri Silme");
+            Console.WriteLine(" ");
+            Console.WriteLine("Seçmek istediğiniz işlemin numarasını giriniz: ");
+
+            int result = Convert.ToInt32(Console.ReadLine());
+
+            switch (result)
+            {
+                case 1:
+                    GetColorList(colorManager);
+                    break;
+                case 2:
+                    GetColorById(colorManager);
+                    break;
+                case 3:
+                    ColorAdd(colorManager);
+                    break;
+                case 4:
+                    ColorUpdate(colorManager);
+                    break;
+                case 5:
+                    ColorDelete(colorManager);
+                    break;
+                default:
+                    Console.WriteLine("Hatalı seçim yaptınız!! Lütfen tekrar deneyiniz.");
+                    break;
+            }
+        }
+
+        private static void GetModelInformation(ModelManager modelManager)
+        {
+            Console.WriteLine("----- Model İşlemleri -----");
+            Console.WriteLine("1.Model Listesi");
+            Console.WriteLine("2.Model Detayları");
+            Console.WriteLine("3.Yeni Model Ekleme");
+            Console.WriteLine("4.Model Bilgileri Güncelleme");
+            Console.WriteLine("5.Model Verileri Silme");
+            Console.WriteLine(" ");
+            Console.WriteLine("Seçmek istediğiniz işlemin numarasını giriniz: ");
+
+            int result = Convert.ToInt32(Console.ReadLine());
+
+            switch (result)
+            {
+                case 1:
+                    GetAllModelDetailsDto(modelManager);
+                    break;
+                case 2:
+                    GetModelById(modelManager);
+                    break;
+                case 3:
+                    ModelAdd(modelManager);
+                    break;
+                case 4:
+                    ModelUpdate(modelManager);
+                    break;
+                case 5:
+                    ModelDelete(modelManager);
+                    break;
+                default:
+                    Console.WriteLine("Hatalı seçim yaptınız!! Lütfen tekrar deneyiniz.");
+                    break;
+            }
+        }
+
+        private static void GetBrandInformation(BrandManager brandManager)
+        {
+            Console.WriteLine("----- Marka İşlemleri -----");
+            Console.WriteLine("1.Marka Listesi");
+            Console.WriteLine("2.Marka Detayı");
+            Console.WriteLine("3.Yeni Marka Ekleme");
+            Console.WriteLine("4.Marka Bilgileri Güncelleme");
+            Console.WriteLine("5.Marka Verileri Silme");
+            Console.WriteLine(" ");
+            Console.WriteLine("Seçmek istediğiniz işlemin numarasını giriniz: ");
+
+            int result = Convert.ToInt32(Console.ReadLine());
+
+            switch (result)
+            {
+                case 1:
+                    GetBrandList(brandManager);
+                    break;
+                case 2:
+                    GetBrandById(brandManager);
+                    break;
+                case 3:
+                    BrandAdd(brandManager);
+                    break;
+                case 4:
+                    BrandUpdate(brandManager);
+                    break;
+                case 5:
+                    BrandDelete(brandManager);
+                    break;
+                default:
+                    Console.WriteLine("Hatalı seçim yaptınız!! Lütfen tekrar deneyiniz.");
+                    break;
+            }
+        }
+
+        private static void GetCarInformation(CarManager carManager)
+        {
+            Console.WriteLine("----- FNH Araç Kiralama Sistemi -----");
+            Console.WriteLine("1.Araba Listesi");
+            Console.WriteLine("2.Araç Detayları");
+            Console.WriteLine("3.Yeni Araç Ekleme");
+            Console.WriteLine("4.Araç Bilgileri Güncelleme");
+            Console.WriteLine("5.Araç Verileri Silme");
+            Console.WriteLine(" ");
+            Console.WriteLine("Seçmek istediğiniz işlemin numarasını giriniz: ");
+
+            int result = Convert.ToInt32(Console.ReadLine());
+
+            switch (result)
+            {
+                case 1:
+                    GetAllCarDetailsDto(carManager);
+                    break;
+                case 2:
+                    GetCarDetailDto(carManager);
+                    break;
+                case 3:
+                    CarAdd(carManager);
+                    break;
+                case 4:
+                    CarUpdate(carManager);
+                    break;
+                case 5:
+                    CarDelete(carManager);
+                    break;
+                default:
+                    Console.WriteLine("Hatalı seçim yaptınız!! Lütfen tekrar deneyiniz.");
+                    break;
+            }
+        }
+
+        private static void GetCarFilter(CarManager carManager)
+        {
+            Console.WriteLine("Araba filtereleme seçenekleri: ");
+            Console.WriteLine("1.Markaya Göre");
+            Console.WriteLine("2.Renge Göre");
+            Console.WriteLine("3.Modele Göre");
+            Console.WriteLine("4.Ekonomik Sınıf Arabalar");
+            Console.WriteLine("5.Konfor Sınıf Arabalar");
+            Console.WriteLine("6.Lüks Sınıf Arabalar");
+            Console.WriteLine(" ");
+            Console.WriteLine("Seçmek istediğiniz filtremele işleminin numarasını giriniz: ");
+
+            int result = Convert.ToInt32(Console.ReadLine());
+
+            switch (result)
+            {
+                case 1:
+                    GetCarsByBrandId(carManager);
+                    break;
+                case 2:
+                    GetCarsByColorId(carManager);
+                    break;
+                case 3:
+                    GetCarsByModelId(carManager);
+                    break;
+                case 4:
+                    GetEconomicCars(carManager);
+                    break;
+                case 5:
+                    GetComfortCars(carManager);
+                    break;
+                case 6:
+                    GetLuxuryCars(carManager);
+                    break;
+                default:
+                    Console.WriteLine("Hatalı seçim yaptınız!! Lütfen tekrar deneyiniz.");
+                    break;
+            }
         }
 
         private static void GetLuxuryCars(CarManager carManager)
         {
             Console.WriteLine("---------- Lüks Sınıf Araçlar ----------");
+            Console.WriteLine($"Araç sayısı: {carManager.GetLuxuryCars().Count()}");
             Console.WriteLine(" ");
             Console.WriteLine("Car Id\tBrand Id\tModel Id\tModel Year\tColor Id\tDaily Price\tDescriptions");
             foreach (var car in carManager.GetLuxuryCars())
@@ -102,12 +248,13 @@ namespace ConsoleUI
             }
         }
 
-        private static void GetConfortCars(CarManager carManager)
+        private static void GetComfortCars(CarManager carManager)
         {
             Console.WriteLine("---------- Konfor Sınıf Araçlar ----------");
+            Console.WriteLine($"Araç sayısı: {carManager.GetComfortCars().Count()}");
             Console.WriteLine(" ");
             Console.WriteLine("Car Id\tBrand Id\tModel Id\tModel Year\tColor Id\tDaily Price\tDescriptions");
-            foreach (var car in carManager.GetConfortCars())
+            foreach (var car in carManager.GetComfortCars())
             {
                 Console.WriteLine($"{car.CarId}\t{car.BrandId}\t\t{car.ModelId}\t\t{car.ModelYear}\t\t{car.ColorId}\t\t{car.DailyPrice}\t{car.Description}");
             }
@@ -116,6 +263,7 @@ namespace ConsoleUI
         private static void GetEconomicCars(CarManager carManager)
         {
             Console.WriteLine("---------- Ekonomik Sınıf Araçlar ----------");
+            Console.WriteLine($"Araç sayısı: {carManager.GetEconomicCars().Count()}");
             Console.WriteLine(" ");
             Console.WriteLine("Car Id\tBrand Id\tModel Id\tModel Year\tColor Id\tDaily Price\tDescriptions");
             foreach (var car in carManager.GetEconomicCars())
@@ -124,7 +272,7 @@ namespace ConsoleUI
             }
         }
 
-        private static void GetCarDetailDTO(CarManager carManager)
+        private static void GetCarDetailDto(CarManager carManager)
         {
             Console.WriteLine("---------- Araç Detay Ekranı ----------");
             Console.WriteLine("Araba Id'si giriniz: ");
@@ -137,7 +285,7 @@ namespace ConsoleUI
             Console.WriteLine($"{result.CarId}\t{result.BrandName}\t\t{result.ModelName}\t\t{result.ModelYear}\t\t{result.ColorName}\t\t{result.DailyPrice}\t{result.Description}");
         }
 
-        private static void GetAllCarDetailsDTO(CarManager carManager)
+        private static void GetAllCarDetailsDto(CarManager carManager)
         {
             Console.WriteLine("---------- Araç Liste Ekranı ----------");
             Console.WriteLine($"Araç sayısı: {carManager.GetAllCarDetails().Count()}");
@@ -219,13 +367,29 @@ namespace ConsoleUI
             Console.WriteLine($"{result.ModelId}\t\t{result.BrandId}\t\t{result.ModelName}");
         }
 
+        private static void GetAllModelDetailsDto(ModelManager modelManager)
+        {
+            Console.WriteLine("---------- Model Listesi ----------");
+            Console.WriteLine($"Model sayısı: {modelManager.GetAllModelDetails().Count()}");
+            Console.WriteLine(" ");
+
+            Console.WriteLine("Model Id\tBrand Name\t\tModel Name");
+            foreach (var model in modelManager.GetAllModelDetails())
+            {
+                Console.WriteLine($"{model.ModelId}\t\t{model.BrandName}\t\t\t{model.ModelName}");
+            }
+        }
+
         private static void GetModelList(ModelManager modelManager)
         {
             Console.WriteLine("---------- Model Listesi ----------");
+            Console.WriteLine($"Model sayısı: {modelManager.GetAll().Count()}");
+            Console.WriteLine(" ");
+
             Console.WriteLine("Model Id\tBrand Id\tModel Name");
             foreach (var model in modelManager.GetAll())
             {
-                Console.WriteLine($"{model.ModelId}\t\t{model.BrandId}\tt\t{model.ModelName}");
+                Console.WriteLine($"{model.ModelId}\t\t{model.BrandId}\t\t{model.ModelName}");
             }
         }
 
@@ -297,6 +461,9 @@ namespace ConsoleUI
         private static void GetColorList(ColorManager colorManager)
         {
             Console.WriteLine("---------- Renk Listesi ----------");
+            Console.WriteLine($"Renk sayısı: {colorManager.GetAll().Count()}");
+            Console.WriteLine(" ");
+
             Console.WriteLine("Color Id\tColor Name");
             foreach (var color in colorManager.GetAll())
             {
@@ -372,6 +539,9 @@ namespace ConsoleUI
         private static void GetBrandList(BrandManager brandManager)
         {
             Console.WriteLine("---------- Marka Listesi ----------");
+            Console.WriteLine($"Marka sayısı: {brandManager.GetAll().Count()}");
+            Console.WriteLine(" ");
+
             Console.WriteLine("Brand Id\tBrand Name");
             foreach (var brand in brandManager.GetAll())
             {
@@ -547,6 +717,8 @@ namespace ConsoleUI
         private static void GetCarList(CarManager carManager)
         {
             Console.WriteLine("---------- Araç Liste Ekranı ----------");
+            Console.WriteLine($"Araç sayısı: {carManager.GetAll().Count()}");
+            Console.WriteLine(" ");
 
             Console.WriteLine("Car Id\tBrand Id\tModel Id\tModel Year\tColor Id\tDaily Price\tDescriptions");
             foreach (var car in carManager.GetAll())
