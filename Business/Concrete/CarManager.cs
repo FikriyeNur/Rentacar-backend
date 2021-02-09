@@ -71,7 +71,7 @@ namespace Business.Concrete
 
         public List<Car> GetComfortCars()
         {
-            return _carDal.GetAll(c => c.Description.Contains("Kon"));
+            return _carDal.GetAll(c => c.Description.Contains("Konfor"));
         }
 
         public List<Car> GetEconomicCars()
