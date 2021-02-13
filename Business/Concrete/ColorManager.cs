@@ -1,8 +1,12 @@
 ﻿using Business.Abstract;
+using Business.Contants;
+using Core.Utilities.Results.Abstract;
+using Core.Utilities.Results.Concrete;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Business.Concrete
@@ -16,29 +20,69 @@ namespace Business.Concrete
             _colorDal = colorDal;
         }
 
-        public void Add(Color color)
+        public IResult Add(Color color)
         {
-            _colorDal.Add(color);
+            if (color != null)
+            {
+                _colorDal.Add(color);
+                return new SuccessResult(ColorMessages.ColorAdded);
+            }
+            else
+            {
+                return new ErrorResult(ColorMessages.FailedColorInformation);
+            }
         }
 
-        public void Delete(Color color)
+        public IResult Delete(Color color)
         {
-            _colorDal.Delete(color);
+            if (color != null)
+            {
+                _colorDal.Delete(color);
+                return new SuccessResult(ColorMessages.ColorDeleted);
+            }
+            else
+            {
+                return new ErrorResult(ColorMessages.FailedColorDeleted);
+            }
         }
 
-        public List<Color> GetAll()
+        public IDataResult<List<Color>> GetAll()
         {
-            return _colorDal.GetAll();
+            var result = _colorDal.GetAll();
+            if (result.Count() > 0)
+            {
+                return new SuccessDataResult<List<Color>>();
+            }
+            else
+            {
+                return new ErrorDataResult<List<Color>>(result, ColorMessages.FailedColorListed);
+            }
         }
 
-        public Color GetById(int colorId)
+        public IDataResult<Color> GetById(int colorId)
         {
-            return _colorDal.Get(co => co.ColorId == colorId);
+            var result = _colorDal.Get(b => b.ColorId == colorId);
+            if (result != null)
+            {
+                return new SuccessDataResult<Color>(result);
+            }
+            else
+            {
+                return new ErrorDataResult<Color>(result, ColorMessages.FailedColorById);
+            }
         }
 
-        public void Update(Color color)
+        public IResult Update(Color color)
         {
-            _colorDal.Update(color);
+            if (color != null)
+            {
+                _colorDal.Update(color);
+                return new SuccessResult(ColorMessages.ColorUpdated);
+            }
+            else
+            {
+                return new ErrorResult(ColorMessages.FailedColorInformation);
+            }
         }
     }
 }

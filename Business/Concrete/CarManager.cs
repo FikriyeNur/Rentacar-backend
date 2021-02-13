@@ -1,9 +1,13 @@
 ﻿using Business.Abstract;
+using Business.Contants;
+using Core.Utilities.Results.Abstract;
+using Core.Utilities.Results.Concrete;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using Entities.DTOs;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Business.Concrete
@@ -17,83 +21,174 @@ namespace Business.Concrete
             _carDal = carDal;
         }
 
-        public void Add(Car car)
+        public IResult Add(Car car)
         {
             if (car.DailyPrice > 0)
             {
                 _carDal.Add(car);
+                return new SuccessResult(CarMessages.CarAdded);
             }
             else
             {
-                Console.WriteLine("Geçersiz fiyat bilgisi girdiniz!! Günlük araba ücreti 0'dan büyük olmalı.");
+                return new ErrorResult(CarMessages.FailedCarInformation);
+            }
+        } 
+
+        public IResult Delete(Car car)
+        {
+            if (car != null)
+            {
+                _carDal.Delete(car);
+                return new SuccessResult(CarMessages.CarDeleted);
+            }
+            else
+            {
+                return new ErrorResult(CarMessages.FailedCarDeleted);
+            }
+        } 
+
+        public IDataResult<List<Car>> GetAll()
+        {
+            var result = _carDal.GetAll();
+            if (result != null)
+            {
+                return new SuccessDataResult<List<Car>>(result);
+            }
+            else
+            {
+                return new ErrorDataResult<List<Car>>(result, CarMessages.FailedCarListed);
+            }
+        } 
+
+        public IDataResult<List<CarDetailDto>> GetAllCarDetails()
+        {
+            var result = _carDal.GetAllCarDetails();
+            if (result.Count() > 0)
+            {
+                return new SuccessDataResult<List<CarDetailDto>>(result);
+            }
+            else
+            {
+                return new ErrorDataResult<List<CarDetailDto>>(result, CarMessages.FailedCarListed);
             }
         }
 
-        public void Delete(Car car)
+        public IDataResult<Car> GetById(int carId)
         {
-            _carDal.Delete(car);
+            var result = _carDal.Get(c => c.CarId == carId);
+            if (result != null)
+            {
+                return new SuccessDataResult<Car>(result);
+            }
+            else
+            {
+                return new ErrorDataResult<Car>(result, CarMessages.FailedCarById);
+            }
+        }  
+
+        public IDataResult<CarDetailDto> GetCarDetail(int carId)
+        {
+            var result = _carDal.GetCarDetail(carId);
+            if (result != null)
+            {
+                return new SuccessDataResult<CarDetailDto>(result);
+            }
+            else
+            {
+                return new ErrorDataResult<CarDetailDto>(result, CarMessages.FailedCarById);
+            }
         }
 
-        public List<Car> GetAll()
+        public IDataResult<List<Car>> GetCarsByBrandId(int brandId)
         {
-            return _carDal.GetAll();
+            var result = (_carDal.GetAll(c => c.BrandId == brandId));
+
+            if (result.Count() > 0)
+            {
+                return new SuccessDataResult<List<Car>>(result);
+            }
+            else
+            {
+                return new ErrorDataResult<List<Car>>(result, CarMessages.FailedCarListed);
+            }
         }
 
-        public List<CarDetailDto> GetAllCarDetails()
+        public IDataResult<List<Car>> GetCarsByColorId(int colorId)
         {
-            return _carDal.GetAllCarDetails();
+            var result = _carDal.GetAll(c => c.ColorId == colorId);
+            if (result.Count() > 0)
+            {
+                return new SuccessDataResult<List<Car>>(result);
+            }
+            else
+            {
+                return new ErrorDataResult<List<Car>>(result, CarMessages.FailedCarListed);
+            }
         }
 
-        public Car GetById(int carId)
+        public IDataResult<List<Car>> GetCarsByModelId(int modelId)
         {
-            return _carDal.Get(c => c.CarId == carId);
+            var result = _carDal.GetAll(c => c.ModelId == modelId);
+            if (result.Count() > 0)
+            {
+                return new SuccessDataResult<List<Car>>(result);
+            }
+            else
+            {
+                return new ErrorDataResult<List<Car>>(result, CarMessages.FailedCarListed);
+            }
         }
 
-        public CarDetailDto GetCarDetail(int carId)
+        public IDataResult<List<Car>> GetComfortCars()
         {
-            return _carDal.GetCarDetail(carId);
+            var result = _carDal.GetAll(c => c.Description.Contains("Konfor"));
+            if (result.Count() > 0)
+            {
+                return new SuccessDataResult<List<Car>>(result);
+            }
+            else
+            {
+                return new ErrorDataResult<List<Car>>(result, CarMessages.FailedCarListed);
+            }
         }
 
-        public List<Car> GetCarsByBrandId(int brandId)
+        public IDataResult<List<Car>> GetEconomicCars()
         {
-            return _carDal.GetAll(c => c.BrandId == brandId);
+            var result = _carDal.GetAll(c => c.Description.Contains("Eko"));
+            if (result.Count() > 0)
+            {
+                return new SuccessDataResult<List<Car>>(result);
+            }
+            else
+            {
+                return new ErrorDataResult<List<Car>>(result, CarMessages.FailedCarListed);
+            }
         }
 
-        public List<Car> GetCarsByColorId(int colorId)
+        public IDataResult<List<Car>> GetLuxuryCars()
         {
-            return _carDal.GetAll(c => c.ColorId == colorId);
+            var result = _carDal.GetAll(c => c.Description.Contains("Lüks"));
+            if (result.Count() > 0)
+            {
+                return new SuccessDataResult<List<Car>>(result);
+            }
+            else
+            {
+                return new ErrorDataResult<List<Car>>(result, CarMessages.FailedCarListed);
+            }
         }
 
-        public List<Car> GetCarsByModelId(int modelId)
-        {
-            return _carDal.GetAll(c => c.ModelId == modelId);
-        }
-
-        public List<Car> GetComfortCars()
-        {
-            return _carDal.GetAll(c => c.Description.Contains("Konfor"));
-        }
-
-        public List<Car> GetEconomicCars()
-        {
-            return _carDal.GetAll(c => c.Description.Contains("Eko"));
-        }
-
-        public List<Car> GetLuxuryCars()
-        {
-            return _carDal.GetAll(c => c.Description.Contains("Lüks"));
-        }
-
-        public void Update(Car car)
+        public IResult Update(Car car)
         {
             if (car.DailyPrice > 0)
             {
                 _carDal.Update(car);
+                return new SuccessResult(CarMessages.CarUpdated);
             }
             else
             {
-                Console.WriteLine("Geçersiz fiyat bilgisi girdiniz!! Günlük araba ücreti 0'dan büyük olmalı.");
+                return new ErrorResult(CarMessages.FailedCarInformation);
             }
-        }
+        } 
     }
 }

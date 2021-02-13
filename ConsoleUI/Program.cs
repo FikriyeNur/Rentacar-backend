@@ -37,7 +37,8 @@ namespace ConsoleUI
             ModelManager modelManager = new ModelManager(new EfModelDal());
 
 
-            // Entity Framework Car - Brand - Model - Color Bilgileri
+            #region Ef
+            //Entity Framework Car - Brand - Model - Color Bilgileri
 
             Console.WriteLine("*-*-* FNH Araç Kiralama Sitemi *-*-*");
             Console.WriteLine("1.Müşteri Araç Bilgileri");
@@ -55,7 +56,9 @@ namespace ConsoleUI
                     Console.WriteLine("Hatalı seçim yaptınız!! Lütfen tekrar deneyiniz.");
                     break;
             }
-         
+
+            #endregion
+
             Console.ReadLine();
         }
 
@@ -234,68 +237,6 @@ namespace ConsoleUI
             }
         }
 
-        private static void GetLuxuryCars(CarManager carManager)
-        {
-            Console.WriteLine("---------- Lüks Sınıf Araçlar ----------");
-            Console.WriteLine($"Araç sayısı: {carManager.GetLuxuryCars().Count()}");
-            Console.WriteLine(" ");
-            Console.WriteLine("Car Id\t\tModel Year\tDaily Price\tDescriptions");
-            foreach (var car in carManager.GetLuxuryCars())
-            {
-                Console.WriteLine($"{car.CarId}\t\t{car.ModelYear}\t\t{car.DailyPrice}\t{car.Description}");
-            }
-        }
-
-        private static void GetComfortCars(CarManager carManager)
-        {
-            Console.WriteLine("---------- Konfor Sınıf Araçlar ----------");
-            Console.WriteLine($"Araç sayısı: {carManager.GetComfortCars().Count()}");
-            Console.WriteLine(" ");
-            Console.WriteLine("Car Id\t\tModel Year\tDaily Price\tDescriptions");
-            foreach (var car in carManager.GetComfortCars())
-            {
-                Console.WriteLine($"{car.CarId}\t\t{car.ModelYear}\t\t{car.DailyPrice}\t{car.Description}");
-            }
-        }
-
-        private static void GetEconomicCars(CarManager carManager)
-        {
-            Console.WriteLine("---------- Ekonomik Sınıf Araçlar ----------");
-            Console.WriteLine($"Araç sayısı: {carManager.GetEconomicCars().Count()}");
-            Console.WriteLine(" ");
-            Console.WriteLine("Car Id\t\tModel Year\tDaily Price\tDescriptions");
-            foreach (var car in carManager.GetEconomicCars())
-            {
-                Console.WriteLine($"{car.CarId}\t\t{car.ModelYear}\t\t{car.DailyPrice}\t{car.Description}");
-            }
-        }
-
-        private static void GetCarDetailDto(CarManager carManager)
-        {
-            Console.WriteLine("---------- Araç Detay Ekranı ----------");
-            Console.WriteLine("Araba Id'si giriniz: ");
-            int id = Convert.ToInt32(Console.ReadLine());
-            Console.WriteLine(" ");
-
-            Console.WriteLine("Car Id\tBrand Name\tModel Name\tModel Year\tColor Name\tDaily Price\tDescriptions");
-
-            var result = carManager.GetCarDetail(id);
-            Console.WriteLine($"{result.CarId}\t{result.BrandName}\t\t{result.ModelName}\t\t{result.ModelYear}\t\t{result.ColorName}\t\t{result.DailyPrice}\t{result.Description}");
-        }
-
-        private static void GetAllCarDetailsDto(CarManager carManager)
-        {
-            Console.WriteLine("---------- Araç Liste Ekranı ----------");
-            Console.WriteLine($"Araç sayısı: {carManager.GetAllCarDetails().Count()}");
-            Console.WriteLine(" ");
-
-            Console.WriteLine("Car Id\tBrand Name\tModel Name\tDaily Price");
-            foreach (var carDto in carManager.GetAllCarDetails())
-            {
-                Console.WriteLine($"{carDto.CarId}\t{carDto.BrandName}\t\t{carDto.ModelName}\t\t{carDto.DailyPrice}");
-            }
-        }
-
         private static void ModelDelete(ModelManager modelManager)
         {
             Console.WriteLine("---------- Model Kayıt Silme Ekranı ----------");
@@ -303,22 +244,17 @@ namespace ConsoleUI
             int id = Convert.ToInt32(Console.ReadLine());
             Model deletedModel = new Model { ModelId = id };
 
-            if (id == deletedModel.ModelId)
+            var result = modelManager.Delete(deletedModel); ;
+            if (result.Success)
             {
-                Console.WriteLine("Model kaydını silmek üzeresiniz!! İşleme devam etmek için EVET yazınız.");
-                string answer = Console.ReadLine();
-                if (answer == "EVET".ToLower())
-                {
-                    modelManager.Delete(deletedModel);
-                }
-                else
-                {
-                    Console.WriteLine("Marka kaydı silme işlemi yapılmadı!!");
-                }
+                Console.WriteLine("\n"+ result.Message);
+                Console.WriteLine(" ");
+                GetModelList(modelManager);
             }
-
-            Console.WriteLine(" ");
-            GetModelList(modelManager);
+            else
+            {
+                Console.WriteLine(result.Message);
+            }
         }
 
         private static void ModelUpdate(ModelManager modelManager)
@@ -332,10 +268,18 @@ namespace ConsoleUI
             string modelName = Console.ReadLine();
 
             Model updatedModel = new Model { ModelId = modelId, BrandId = brandId, ModelName = modelName };
-            modelManager.Update(updatedModel);
 
-            Console.WriteLine(" ");
-            GetModelList(modelManager);
+            var result = modelManager.Update(updatedModel);
+            if (result.Success)
+            {
+                Console.WriteLine("\n" + result.Message);
+                Console.WriteLine(" ");
+                GetModelList(modelManager);
+            }
+            else
+            {
+                Console.WriteLine("\n" + result.Message);
+            }
         }
 
         private static void ModelAdd(ModelManager modelManager)
@@ -347,10 +291,18 @@ namespace ConsoleUI
             string modelName = Console.ReadLine();
 
             Model addedModel = new Model { BrandId = brandId, ModelName = modelName };
-            modelManager.Add(addedModel);
 
-            Console.WriteLine(" ");
-            GetModelList(modelManager);
+            var result = modelManager.Add(addedModel);
+            if (result.Success)
+            {
+                Console.WriteLine("\n" + result.Message);
+                Console.WriteLine(" ");
+                GetModelList(modelManager);
+            }
+            else
+            {
+                Console.WriteLine("\n" + result.Message);
+            }
         }
 
         private static void GetModelById(ModelManager modelManager)
@@ -359,35 +311,58 @@ namespace ConsoleUI
             Console.WriteLine("Model Id'si giriniz: ");
             int id = Convert.ToInt32(Console.ReadLine());
             Console.WriteLine(" ");
-            var result = modelManager.GetById(id);
 
-            Console.WriteLine("Model Id\tBrand Id\tModel Name");
-            Console.WriteLine($"{result.ModelId}\t\t{result.BrandId}\t\t{result.ModelName}");
+            var result = modelManager.GetById(id);
+            if (result.Data != null)
+            {
+                Console.WriteLine("Model Id\tBrand Id\tModel Name");
+                Console.WriteLine($"{result.Data.ModelId}\t\t{result.Data.BrandId}\t\t{result.Data.ModelName}");
+            }
+            else
+            {
+                Console.WriteLine(result.Message);
+            }
         }
 
         private static void GetAllModelDetailsDto(ModelManager modelManager)
         {
             Console.WriteLine("---------- Model Listesi ----------");
-            Console.WriteLine($"Model sayısı: {modelManager.GetAllModelDetails().Count()}");
+            Console.WriteLine($"Model sayısı: {modelManager.GetAllModelDetails().Data.Count()}");
             Console.WriteLine(" ");
 
-            Console.WriteLine("Model Id\tBrand Name\t\tModel Name");
-            foreach (var model in modelManager.GetAllModelDetails())
+            var result = modelManager.GetAllModelDetails();
+            if (result.Data.Count() > 0)
             {
-                Console.WriteLine($"{model.ModelId}\t\t{model.BrandName}\t\t\t{model.ModelName}");
+                Console.WriteLine("Model Id\tBrand Name\t\tModel Name");
+                foreach (var model in result.Data)
+                {
+                    Console.WriteLine($"{model.ModelId}\t\t{model.BrandName}\t\t\t{model.ModelName}");
+                }
+            }
+            else
+            {
+                Console.WriteLine(result.Message);
             }
         }
 
         private static void GetModelList(ModelManager modelManager)
         {
             Console.WriteLine("---------- Model Listesi ----------");
-            Console.WriteLine($"Model sayısı: {modelManager.GetAll().Count()}");
+            Console.WriteLine($"Model sayısı: {modelManager.GetAll().Data.Count()}");
             Console.WriteLine(" ");
 
-            Console.WriteLine("Model Id\tBrand Id\tModel Name");
-            foreach (var model in modelManager.GetAll())
+            var result = modelManager.GetAll();
+            if (result.Data.Count() > 0)
             {
-                Console.WriteLine($"{model.ModelId}\t\t{model.BrandId}\t\t{model.ModelName}");
+                Console.WriteLine("Model Id\tBrand Id\tModel Name");
+                foreach (var model in result.Data)
+                {
+                    Console.WriteLine($"{model.ModelId}\t\t{model.BrandId}\t\t{model.ModelName}");
+                }
+            }
+            else
+            {
+                Console.WriteLine(result.Message);
             }
         }
 
@@ -398,22 +373,17 @@ namespace ConsoleUI
             int id = Convert.ToInt32(Console.ReadLine());
             Color deletedColor = new Color { ColorId = id };
 
-            if (id == deletedColor.ColorId)
+            var result = colorManager.Delete(deletedColor);
+            if (result.Success)
             {
-                Console.WriteLine("Renk kaydını silmek üzeresiniz!! İşleme devam etmek için EVET yazınız.");
-                string answer = Console.ReadLine();
-                if (answer == "EVET".ToLower())
-                {
-                    colorManager.Delete(deletedColor);
-                }
-                else
-                {
-                    Console.WriteLine("Renk kaydı silme işlemi yapılmadı!!");
-                }
+                Console.WriteLine("\n" + result.Message);
+                Console.WriteLine(" ");
+                GetColorList(colorManager);
             }
-
-            Console.WriteLine(" ");
-            GetColorList(colorManager);
+            else
+            {
+                Console.WriteLine("\n" + result.Message);
+            }
         }
 
         private static void ColorUpdate(ColorManager colorManager)
@@ -425,10 +395,18 @@ namespace ConsoleUI
             string colorName = Console.ReadLine();
 
             Color updatedColor = new Color { ColorId = colorId, ColorName = colorName };
-            colorManager.Update(updatedColor);
 
-            Console.WriteLine(" ");
-            GetColorList(colorManager);
+            var result = colorManager.Update(updatedColor);
+            if (result.Success)
+            {
+                Console.WriteLine("\n" + result.Message);
+                Console.WriteLine(" ");
+                GetColorList(colorManager);
+            }
+            else
+            {
+                Console.WriteLine("\n" + result.Message);
+            }
         }
 
         private static void ColorAdd(ColorManager colorManager)
@@ -438,10 +416,18 @@ namespace ConsoleUI
             string colorName = Console.ReadLine();
 
             Color addedColor = new Color { ColorName = colorName };
-            colorManager.Add(addedColor);
 
-            Console.WriteLine(" ");
-            GetColorList(colorManager);
+            var result = colorManager.Add(addedColor);
+            if (result.Success)
+            {
+                Console.WriteLine("\n" + result.Message);
+                Console.WriteLine(" ");
+                GetColorList(colorManager);
+            }
+            else
+            {
+                Console.WriteLine("\n" + result.Message);
+            }
         }
 
         private static void GetColorById(ColorManager colorManager)
@@ -450,22 +436,39 @@ namespace ConsoleUI
             Console.WriteLine("Renk Id'si giriniz: ");
             int id = Convert.ToInt32(Console.ReadLine());
             Console.WriteLine(" ");
-            var result = colorManager.GetById(id);
 
-            Console.WriteLine("Color Id\tColor Name");
-            Console.WriteLine($"{result.ColorId}\t\t{result.ColorName}");
+            var result = colorManager.GetById(id);
+            if (result.Data != null)
+            {
+                Console.WriteLine("Color Id\tColor Name");
+                Console.WriteLine($"{result.Data.ColorId}\t\t{result.Data.ColorName}");
+            }
+            else
+            {
+                Console.WriteLine(result.Message);
+            }
+
         }
 
         private static void GetColorList(ColorManager colorManager)
         {
             Console.WriteLine("---------- Renk Listesi ----------");
-            Console.WriteLine($"Renk sayısı: {colorManager.GetAll().Count()}");
-            Console.WriteLine(" ");
 
-            Console.WriteLine("Color Id\tColor Name");
-            foreach (var color in colorManager.GetAll())
+            var result = colorManager.GetAll();
+            if (result.Data.Count() > 0)
             {
-                Console.WriteLine($"{color.ColorId}\t\t{color.ColorName}");
+                Console.WriteLine($"Renk sayısı: {result.Data.Count()}");
+                Console.WriteLine(" ");
+
+                Console.WriteLine("Color Id\tColor Name");
+                foreach (var color in result.Data)
+                {
+                    Console.WriteLine($"{color.ColorId}\t\t{color.ColorName}");
+                }
+            }
+            else
+            {
+                Console.WriteLine(result.Message);
             }
         }
 
@@ -474,24 +477,20 @@ namespace ConsoleUI
             Console.WriteLine("---------- Marka Kayıt Silme Ekranı ----------");
             Console.WriteLine("Marka Id:");
             int id = Convert.ToInt32(Console.ReadLine());
-            Brand deletedBrand = new Brand { BrandId = id };
+            Brand deleteBrand = new Brand { BrandId = id };
 
-            if (id == deletedBrand.BrandId)
+            var result = brandManager.Delete(deleteBrand);
+            if (result.Success)
             {
-                Console.WriteLine("Marka kaydını silmek üzeresiniz!! İşleme devam etmek için EVET yazınız.");
-                string answer = Console.ReadLine();
-                if (answer == "EVET".ToLower())
-                {
-                    brandManager.Delete(deletedBrand);
-                }
-                else
-                {
-                    Console.WriteLine("Marka kaydı silme işlemi yapılmadı!!");
-                }
+                Console.WriteLine("\n" + result.Message);
+                Console.WriteLine(" ");
+                GetBrandList(brandManager);
+            }
+            else
+            {
+                Console.WriteLine("\n" + result.Message);
             }
 
-            Console.WriteLine(" ");
-            GetBrandList(brandManager);
         }
 
         private static void BrandUpdate(BrandManager brandManager)
@@ -502,11 +501,19 @@ namespace ConsoleUI
             Console.WriteLine("Marka Adı: ");
             string brandName = Console.ReadLine();
 
-            Brand updatedBrand = new Brand { BrandId = brandId, BrandName = brandName };
-            brandManager.Update(updatedBrand);
+            Brand updateBrand = new Brand { BrandId = brandId, BrandName = brandName };
+            var result = brandManager.Update(updateBrand);
 
-            Console.WriteLine(" ");
-            GetBrandList(brandManager);
+            if (result.Success)
+            {
+                Console.WriteLine("\n" + result.Message);
+                Console.WriteLine(" ");
+                GetBrandList(brandManager);
+            }
+            else
+            {
+                Console.WriteLine("\n" + result.Message);
+            }
         }
 
         private static void BrandAdd(BrandManager brandManager)
@@ -515,11 +522,19 @@ namespace ConsoleUI
             Console.WriteLine("Marka Adı: ");
             string brandName = Console.ReadLine();
 
-            Brand addedBrand = new Brand { BrandName = brandName };
-            brandManager.Add(addedBrand);
+            Brand addBrand = new Brand { BrandName = brandName };
 
-            Console.WriteLine(" ");
-            GetBrandList(brandManager);
+            var result = brandManager.Add(addBrand);
+            if (result.Success)
+            {
+                Console.WriteLine("\n" + result.Message);
+                Console.WriteLine(" ");
+                GetBrandList(brandManager);
+            }
+            else
+            {
+                Console.WriteLine("\n" + result.Message);
+            }
         }
 
         private static void GetBrandById(BrandManager brandManager)
@@ -528,22 +543,143 @@ namespace ConsoleUI
             Console.WriteLine("Marka Id'si giriniz: ");
             int id = Convert.ToInt32(Console.ReadLine());
             Console.WriteLine(" ");
-            var result = brandManager.GetById(id);
 
-            Console.WriteLine("Brand Id\tBrand Name");
-            Console.WriteLine($"{result.BrandId}\t\t{result.BrandName}");
+            var result = brandManager.GetById(id);
+            if (result.Data != null)
+            {
+                Console.WriteLine("Brand Id\tBrand Name");
+                Console.WriteLine($"{result.Data.BrandId}\t\t{result.Data.BrandName}");
+            }
+            else
+            {
+                Console.WriteLine(result.Message);
+            }
         }
 
         private static void GetBrandList(BrandManager brandManager)
         {
             Console.WriteLine("---------- Marka Listesi ----------");
-            Console.WriteLine($"Marka sayısı: {brandManager.GetAll().Count()}");
+
+            var result = brandManager.GetAll();
+            if (result.Data.Count() > 0)
+            {
+                Console.WriteLine($"Marka sayısı: {result.Data.Count()}");
+                Console.WriteLine(" ");
+
+                Console.WriteLine("Brand Id\tBrand Name");
+                foreach (var brand in result.Data)
+                {
+                    Console.WriteLine($"{brand.BrandId}\t\t{brand.BrandName}");
+                }
+            }
+            else
+            {
+                Console.WriteLine(result.Message);
+            }
+        }
+
+        private static void GetLuxuryCars(CarManager carManager)
+        {
+            Console.WriteLine("---------- Lüks Sınıf Araçlar ----------");
+
+            var result = carManager.GetLuxuryCars();
+            if (result.Data.Count() > 0)
+            {
+                Console.WriteLine($"Araç sayısı: {result.Data.Count()}");
+                Console.WriteLine(" ");
+                Console.WriteLine("Car Id\t\tModel Year\tDaily Price\tDescriptions");
+                foreach (var car in result.Data)
+                {
+                    Console.WriteLine($"{car.CarId}\t\t{car.ModelYear}\t\t{car.DailyPrice}\t{car.Description}");
+                }
+            }
+            else
+            {
+                Console.WriteLine(result.Message);
+            }
+        }
+
+        private static void GetComfortCars(CarManager carManager)
+        {
+            Console.WriteLine("---------- Konfor Sınıf Araçlar ----------");
+
+            var result = carManager.GetComfortCars();
+            if (result.Data.Count() > 0)
+            {
+                Console.WriteLine($"Araç sayısı: {result.Data.Count()}");
+                Console.WriteLine(" ");
+                Console.WriteLine("Car Id\t\tModel Year\tDaily Price\tDescriptions");
+                foreach (var car in result.Data)
+                {
+                    Console.WriteLine($"{car.CarId}\t\t{car.ModelYear}\t\t{car.DailyPrice}\t{car.Description}");
+                }
+            }
+            else
+            {
+                Console.WriteLine(result.Message);
+            }
+        }
+
+        private static void GetEconomicCars(CarManager carManager)
+        {
+            Console.WriteLine("---------- Ekonomik Sınıf Araçlar ----------");
+
+            var result = carManager.GetEconomicCars();
+            if (result.Data.Count() > 0)
+            {
+                Console.WriteLine($"Araç sayısı: {result.Data.Count()}");
+                Console.WriteLine(" ");
+                Console.WriteLine("Car Id\t\tModel Year\tDaily Price\tDescriptions");
+                foreach (var car in result.Data)
+                {
+                    Console.WriteLine($"{car.CarId}\t\t{car.ModelYear}\t\t{car.DailyPrice}\t{car.Description}");
+                }
+            }
+            else
+            {
+                Console.WriteLine(result.Message);
+            }
+        }
+
+        private static void GetCarDetailDto(CarManager carManager)
+        {
+            Console.WriteLine("---------- Araç Detay Ekranı ----------");
+            Console.WriteLine("Araba Id'si giriniz: ");
+            int id = Convert.ToInt32(Console.ReadLine());
             Console.WriteLine(" ");
 
-            Console.WriteLine("Brand Id\tBrand Name");
-            foreach (var brand in brandManager.GetAll())
+            var result = carManager.GetCarDetail(id);
+            if (result.Data != null)
             {
-                Console.WriteLine($"{brand.BrandId}\t\t{brand.BrandName}");
+                Console.WriteLine("Car Id\tBrand Name\tModel Name\tModel Year\tColor Name\tDaily Price\tDescriptions");
+                Console.WriteLine($"{result.Data.CarId}\t{result.Data.BrandName}\t\t{result.Data.ModelName}\t\t{result.Data.ModelYear}\t\t{result.Data.ColorName}\t\t{result.Data.DailyPrice}\t{result.Data.Description}");
+            }
+            else
+            {
+                Console.WriteLine(result.Message);
+            }
+        }
+
+        private static void GetAllCarDetailsDto(CarManager carManager)
+        {
+            Console.WriteLine("---------- Araç Liste Ekranı ----------");
+
+            var result = carManager.GetAllCarDetails();
+
+            if (result.Data.Count() > 0)
+            {
+                Console.WriteLine($"Araç sayısı: {result.Data.Count()}");
+                Console.WriteLine(" ");
+
+                Console.WriteLine("Car Id\tBrand Name\tModel Name\tDaily Price");
+                foreach (var carDto in result.Data)
+                {
+                    Console.WriteLine($"{carDto.CarId}\t{carDto.BrandName}\t\t{carDto.ModelName}\t\t{carDto.DailyPrice}");
+                }
+            }
+            else
+            {
+                Console.WriteLine("\n" + result.Message);
             }
         }
 
@@ -553,21 +689,23 @@ namespace ConsoleUI
             Console.WriteLine("Model Id'si giriniz: ");
             int id = Convert.ToInt32(Console.ReadLine());
 
-            if (id > 0)
+            var result = carManager.GetCarsByModelId(id);
+
+            if (result.Data.Count() > 0)
             {
                 Console.WriteLine(" ");
-                Console.WriteLine($"{carManager.GetCarsByModelId(id).Count()} adet araç bulundu.");
+                Console.WriteLine($"{result.Data.Count()} adet araç bulundu.");
                 Console.WriteLine(" ");
 
                 Console.WriteLine("Car Id\tModel Year\tDaily Price\tDescriptions");
-                foreach (var byModelId in carManager.GetCarsByModelId(id))
+                foreach (var byModelId in result.Data)
                 {
-                    Console.WriteLine($"{byModelId.CarId}\t\t{byModelId.ModelYear}\t\t{byModelId.DailyPrice}\t{byModelId.Description}");
+                    Console.WriteLine($"{byModelId.CarId}\t{byModelId.ModelYear}\t\t{byModelId.DailyPrice}\t{byModelId.Description}");
                 }
             }
             else
             {
-                Console.WriteLine("Girdiğiniz Id'ye ait araç bulunamadı!!");
+                Console.WriteLine("\n" + result.Message);
             }
         }
 
@@ -577,21 +715,23 @@ namespace ConsoleUI
             Console.WriteLine("Renk Id'si giriniz: ");
             int id = Convert.ToInt32(Console.ReadLine());
 
-            if (id > 0)
+            var result = carManager.GetCarsByColorId(id);
+
+            if (result.Data.Count() > 0)
             {
                 Console.WriteLine(" ");
-                Console.WriteLine($"{carManager.GetCarsByColorId(id).Count()} adet araç bulundu.");
+                Console.WriteLine($"{result.Data.Count()} adet araç bulundu.");
                 Console.WriteLine(" ");
 
                 Console.WriteLine("Car Id\tModel Year\tDaily Price\tDescriptions");
-                foreach (var byColorId in carManager.GetCarsByColorId(id))
+                foreach (var byColorId in result.Data)
                 {
-                    Console.WriteLine($"{byColorId.CarId}\t\t{byColorId.ModelYear}\t\t{byColorId.DailyPrice}\t{byColorId.Description}");
+                    Console.WriteLine($"{byColorId.CarId}\t{byColorId.ModelYear}\t\t{byColorId.DailyPrice}\t{byColorId.Description}");
                 }
             }
             else
             {
-                Console.WriteLine("Girdiğiniz Id'ye ait araç bulunamadı!!");
+                Console.WriteLine("\n" + result.Message);
             }
         }
 
@@ -601,24 +741,23 @@ namespace ConsoleUI
             Console.WriteLine("Marka Id'si giriniz: ");
             int id = Convert.ToInt32(Console.ReadLine());
 
-            if (id > 0)
+            var result = carManager.GetCarsByBrandId(id);
+
+            if (result.Data.Count() > 0)
             {
                 Console.WriteLine(" ");
-                Console.WriteLine($"{carManager.GetCarsByBrandId(id).Count()} adet araç bulundu.");
+                Console.WriteLine($"{result.Data.Count()} adet araç bulundu.");
                 Console.WriteLine(" ");
-
                 Console.WriteLine("Car Id\tModel Year\tDaily Price\tDescriptions");
-                foreach (var byBrandId in carManager.GetCarsByBrandId(id))
+                foreach (var byBrandId in result.Data)
                 {
-                    Console.WriteLine($"{byBrandId.CarId}\t\t{byBrandId.ModelYear}\t\t{byBrandId.DailyPrice}\t{byBrandId.Description}");
+                    Console.WriteLine($"{byBrandId.CarId}\t{byBrandId.ModelYear}\t\t{byBrandId.DailyPrice}\t{byBrandId.Description}");
                 }
             }
             else
             {
-                Console.WriteLine("Girdiğiniz Id'ye ait araç bulunamadı!!");
+                Console.WriteLine("\n" + result.Message);
             }
-            Console.WriteLine(" ");
-
         }
 
         private static void CarDelete(CarManager carManager)
@@ -626,31 +765,24 @@ namespace ConsoleUI
             Console.WriteLine("---------- Araç Kayıt Silme Ekranı ----------");
             Console.WriteLine("Araba Id:");
             int id = Convert.ToInt32(Console.ReadLine());
-            var deletedCar = carManager.GetById(id);
 
-            if (id == deletedCar.CarId)
+            var deleteCar = carManager.GetById(id).Data;
+            var result = carManager.Delete(deleteCar);
+
+            if (result.Success)
             {
-                Console.WriteLine("Araba kaydını silmek üzeresiniz!! İşleme devam etmek için EVET yazınız.");
-                string answer = Console.ReadLine();
-                if (answer == "EVET".ToLower())
-                {
-                    carManager.Delete(deletedCar);
-                }
-                else
-                {
-                    Console.WriteLine("Araba kaydı silme işlemi yapılmadı!!");
-                }
+                Console.WriteLine("\n" + result.Message);
+                Console.WriteLine(" ");
+                GetCarList(carManager);
             }
-
-            Console.WriteLine(" ");
-            GetCarList(carManager);
+            else
+            {
+                Console.WriteLine("\n" + result.Message);
+            }
         }
 
         private static void CarUpdate(CarManager carManager)
         {
-            GetCarById(carManager);
-            Console.WriteLine(" ");
-
             Console.WriteLine("---------- Araç Kayıt Güncelleme Ekranı ----------");
             Console.WriteLine("Araba Id: ");
             int carId = Convert.ToInt32(Console.ReadLine());
@@ -660,11 +792,19 @@ namespace ConsoleUI
             decimal dailyPrice;
             CarColons(out brandId, out modelId, out colorId, out modelYear, out dailyPrice, out description);
 
-            Car updatedCar = new Car { CarId = carId, BrandId = brandId, ModelId = modelId, ColorId = colorId, ModelYear = modelYear, DailyPrice = dailyPrice, Description = description };
-            carManager.Update(updatedCar);
+            Car updateCar = new Car { CarId = carId, BrandId = brandId, ModelId = modelId, ColorId = colorId, ModelYear = modelYear, DailyPrice = dailyPrice, Description = description };
 
-            Console.WriteLine(" ");
-            GetCarList(carManager);
+            var result = carManager.Update(updateCar);
+            if (result.Success)
+            {
+                Console.WriteLine("\n" + result.Message);
+                Console.WriteLine(" ");
+                GetCarList(carManager);
+            }
+            else
+            {
+                Console.WriteLine("\n" + result.Message);
+            }
         }
 
         private static void CarAdd(CarManager carManager)
@@ -677,11 +817,19 @@ namespace ConsoleUI
             decimal dailyPrice;
             CarColons(out brandId, out modelId, out colorId, out modelYear, out dailyPrice, out description);
 
-            Car addedCar = new Car { BrandId = brandId, ColorId = colorId, ModelId = modelId, ModelYear = modelYear, DailyPrice = dailyPrice, Description = description };
-            carManager.Add(addedCar);
+            Car addCar = new Car { BrandId = brandId, ColorId = colorId, ModelId = modelId, ModelYear = modelYear, DailyPrice = dailyPrice, Description = description };
 
-            Console.WriteLine(" ");
-            GetCarList(carManager);
+            var result = carManager.Add(addCar);
+            if (result.Success)
+            {
+                Console.WriteLine("\n" + result.Message);
+                Console.WriteLine(" ");
+                GetCarList(carManager);
+            }
+            else
+            {
+                Console.WriteLine("\n" + result.Message);
+            }
         }
 
         private static void CarColons(out int brandId, out int modelId, out int colorId, out string modelYear, out decimal dailyPrice, out string description)
@@ -706,24 +854,39 @@ namespace ConsoleUI
             Console.WriteLine("Araba Id'si giriniz: ");
             int id = Convert.ToInt32(Console.ReadLine());
             Console.WriteLine(" ");
-            var result = carManager.GetById(id);
 
-            Console.WriteLine("Car Id\tBrand Id\tModel Id\tModel Year\tColor Id\tDaily Price\tDescriptions");
-            Console.WriteLine($"{result.CarId}\t{result.BrandId}\t\t{result.ModelId}\t\t{result.ModelYear}\t\t{result.ColorId}\t\t{result.DailyPrice}\t{result.Description}");
+            var result = carManager.GetById(id);
+            if (result.Data != null)
+            {
+                Console.WriteLine("Car Id\tBrand Id\tModel Id\tModel Year\tColor Id\tDaily Price\tDescriptions");
+                Console.WriteLine($"{result.Data.CarId}\t{result.Data.BrandId}\t\t{result.Data.ModelId}\t\t{result.Data.ModelYear}\t\t{result.Data.ColorId}\t\t{result.Data.DailyPrice}\t{result.Data.Description}");
+            }
+            else
+            {
+                Console.WriteLine(result.Message);
+            }
         }
 
         private static void GetCarList(CarManager carManager)
         {
             Console.WriteLine("---------- Araç Liste Ekranı ----------");
-            Console.WriteLine($"Araç sayısı: {carManager.GetAll().Count()}");
-            Console.WriteLine(" ");
 
-            Console.WriteLine("Car Id\tBrand Id\tModel Id\tModel Year\tColor Id\tDaily Price\tDescriptions");
-            foreach (var car in carManager.GetAll())
+            var result = carManager.GetAll();
+            if (result.Data != null)
             {
-                Console.WriteLine($"{car.CarId}\t{car.BrandId}\t\t{car.ModelId}\t\t{car.ModelYear}\t\t{car.ColorId}\t\t{car.DailyPrice}\t{car.Description}");
+                Console.WriteLine($"Araç sayısı: {result.Data.Count()}");
+                Console.WriteLine(" ");
+
+                Console.WriteLine("Car Id\tBrand Id\tModel Id\tModel Year\tColor Id\tDaily Price\tDescriptions");
+                foreach (var car in result.Data)
+                {
+                    Console.WriteLine($"{car.CarId}\t{car.BrandId}\t\t{car.ModelId}\t\t{car.ModelYear}\t\t{car.ColorId}\t\t{car.DailyPrice}\t{car.Description}");
+                }
+            }
+            else
+            {
+                Console.WriteLine(result.Message);
             }
         }
-
     }
 }

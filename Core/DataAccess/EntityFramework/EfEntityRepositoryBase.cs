@@ -17,19 +17,12 @@ namespace Core.DataAccess.EntityFramework
             using (TContext context = new TContext())
             {
                 var addedEntity = context.Entry(entity);
-                addedEntity.State = EntityState.Added;
-                context.SaveChanges();
-
+              
                 if (addedEntity.Properties.Count() > 0)
                 {
-                    Console.WriteLine("Veri kayıt işlemi başarıyla gerçekleşti.");
+                    addedEntity.State = EntityState.Added;
+                    context.SaveChanges();
                 }
-                else
-                {
-                    Console.WriteLine("Veri kayıt işlemi yapılamadı!!");
-                }
-
-
             }
         }
 
@@ -38,12 +31,11 @@ namespace Core.DataAccess.EntityFramework
             using (TContext context = new TContext())
             {
                 var deletedEntity = context.Entry(entity);
-                deletedEntity.State = EntityState.Deleted;
-                context.SaveChanges();
 
                 if (deletedEntity.Properties.Count() > 0)
                 {
-                    Console.WriteLine("Veri silme işlemi başarıyla gerçekleşti.");
+                    deletedEntity.State = EntityState.Deleted;
+                    context.SaveChanges();
                 }
             }
         }
@@ -71,11 +63,11 @@ namespace Core.DataAccess.EntityFramework
             using (TContext context = new TContext())
             {
                 var updatedEntity = context.Entry(entity);
-                updatedEntity.State = EntityState.Modified;
-                context.SaveChanges();
+
                 if (updatedEntity.Properties.Count() > 0)
                 {
-                    Console.WriteLine("Veri güncelleme işlemi başarıyla gerçekleşti.");
+                    updatedEntity.State = EntityState.Modified;
+                    context.SaveChanges();
                 }
             }
         }

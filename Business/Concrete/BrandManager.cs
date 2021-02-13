@@ -1,8 +1,12 @@
 ﻿using Business.Abstract;
+using Business.Contants;
+using Core.Utilities.Results.Abstract;
+using Core.Utilities.Results.Concrete;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Business.Concrete
@@ -16,43 +20,68 @@ namespace Business.Concrete
             _brandDal = brandDal;
         }
 
-        public void Add(Brand brand)
+        public IResult Add(Brand brand)
         {
             if (brand.BrandName.Length > 2)
             {
                 _brandDal.Add(brand);
+                return new SuccessResult(BrandMessages.BrandAdded);
             }
             else
             {
-                Console.WriteLine("Marka ismi 2 karakterden fazla olmalıdır!! Lütfen geçerli marka giriniz.");
+                return new ErrorResult(BrandMessages.FailedBrandInformation);
             }
-
         }
 
-        public void Delete(Brand brand)
+        public IResult Delete(Brand brand)
         {
-            _brandDal.Delete(brand);
+            if (brand != null)
+            {
+                _brandDal.Delete(brand);
+                return new SuccessResult(BrandMessages.BrandDeleted);
+            }
+            else
+            {
+                return new ErrorResult(BrandMessages.FailedBrandDeleted);
+            }
         }
 
-        public List<Brand> GetAll()
+        public IDataResult<List<Brand>> GetAll()
         {
-            return _brandDal.GetAll();
+            var result = _brandDal.GetAll();
+            if (result.Count() > 0)
+            {
+                return new SuccessDataResult<List<Brand>>();
+            }
+            else
+            {
+                return new ErrorDataResult<List<Brand>>(result, BrandMessages.FailedBrandListed);
+            }
         }
 
-        public Brand GetById(int brandId)
+        public IDataResult<Brand> GetById(int brandId)
         {
-            return _brandDal.Get(b => b.BrandId == brandId);
+            var result = _brandDal.Get(b => b.BrandId == brandId);
+            if (result != null)
+            {
+                return new SuccessDataResult<Brand>(result);
+            }
+            else
+            {
+                return new ErrorDataResult<Brand>(result, BrandMessages.FailedBrandById);
+            }
         }
 
-        public void Update(Brand brand)
+        public IResult Update(Brand brand)
         {
             if (brand.BrandName.Length > 2)
             {
                 _brandDal.Update(brand);
+                return new SuccessResult(BrandMessages.BrandUpdated);
             }
             else
             {
-                Console.WriteLine("Marka ismi 2 karakterden fazla olmalıdır!! Lütfen geçerli marka giriniz.");
+                return new ErrorResult(BrandMessages.FailedBrandInformation);
             }
         }
     }

@@ -1,9 +1,13 @@
 ﻿using Business.Abstract;
+using Business.Contants;
+using Core.Utilities.Results.Abstract;
+using Core.Utilities.Results.Concrete;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using Entities.DTOs;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Business.Concrete
@@ -17,34 +21,82 @@ namespace Business.Concrete
             _modelDal = modelDal;
         }
 
-        public void Add(Model model)
+        public IResult Add(Model model)
         {
-            _modelDal.Add(model);
+            if (model != null)
+            {
+                _modelDal.Add(model);
+                return new SuccessResult(ModelMessages.ModelAdded);
+            }
+            else
+            {
+                return new ErrorResult(ModelMessages.FailedModelInformation);
+            }
         }
 
-        public void Delete(Model model)
+        public IResult Delete(Model model)
         {
-            _modelDal.Delete(model);
+            if (model != null)
+            {
+                _modelDal.Delete(model);
+                return new SuccessResult(ModelMessages.ModelDeleted);
+            }
+            else
+            {
+                return new ErrorResult(ModelMessages.FailedModelDeleted);
+            }
         }
 
-        public List<Model> GetAll()
+        public IDataResult<List<Model>> GetAll()
         {
-            return _modelDal.GetAll();
+            var result = _modelDal.GetAll();
+            if (result.Count() > 0)
+            {
+                return new SuccessDataResult<List<Model>>();
+            }
+            else
+            {
+                return new ErrorDataResult<List<Model>>(result, ModelMessages.FailedModelListed);
+            }
         }
 
-        public Model GetById(int modelId)
+        public IDataResult<Model> GetById(int modelId)
         {
-            return _modelDal.Get(m => m.ModelId == modelId);
+            var result = _modelDal.Get(b => b.ModelId == modelId);
+            if (result != null)
+            {
+                return new SuccessDataResult<Model>(result);
+            }
+            else
+            {
+                return new ErrorDataResult<Model>(result, ModelMessages.FailedModelById);
+            }
         }
 
-        public List<ModelDetailDto> GetAllModelDetails()
+        public IDataResult<List<ModelDetailDto>> GetAllModelDetails()
         {
-            return _modelDal.GetAllModelDetails();
+            var result = _modelDal.GetAllModelDetails();
+            if (result.Count()>0)
+            {
+                return new SuccessDataResult<List<ModelDetailDto>>(result);
+            }
+            else
+            {
+                return new ErrorDataResult<List<ModelDetailDto>>(result, ModelMessages.FailedModelListed);
+            }
         }
 
-        public void Update(Model model)
+        public IResult Update(Model model)
         {
-            _modelDal.Update(model);
+            if (model != null)
+            {
+                _modelDal.Update(model);
+                return new SuccessResult(ModelMessages.ModelUpdated);
+            }
+            else
+            {
+                return new ErrorResult(ModelMessages.FailedModelInformation);
+            }
         }
     }
 }
