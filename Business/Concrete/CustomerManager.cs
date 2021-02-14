@@ -4,6 +4,7 @@ using Core.Utilities.Results.Abstract;
 using Core.Utilities.Results.Concrete;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -56,6 +57,20 @@ namespace Business.Concrete
             else
             {
                 return new ErrorDataResult<List<Customer>>(result, CustomerMessages.FailedCustomerListed);
+
+            }
+        }
+
+        public IDataResult<List<CustomerDetailDto>> GetAllCustomerDetails()
+        {
+            var result = _customerDal.GetAllCustomerDetails();
+            if (result.Count() > 0)
+            {
+                return new SuccessDataResult<List<CustomerDetailDto>>(result);
+            }
+            else
+            {
+                return new ErrorDataResult<List<CustomerDetailDto>>(result, CustomerMessages.FailedCustomerListed);
 
             }
         }

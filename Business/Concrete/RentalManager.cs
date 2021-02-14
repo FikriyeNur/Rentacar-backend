@@ -4,6 +4,7 @@ using Core.Utilities.Results.Abstract;
 using Core.Utilities.Results.Concrete;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,14 +23,32 @@ namespace Business.Concrete
 
         public IResult Add(Rental rental)
         {
-            if (rental != null)
+            var result = _rentalDal.GetAll(r => r.CarId == rental.CarId && r.ReturnDate == null);
+            var carId = _rentalDal.GetAllRentalDetails(c => c.CarId == rental.CarId);
+            var customerId = _rentalDal.GetAllRentalDetails(cu => cu.CustomerId == rental.CustomerId);
+
+            if (carId.Count() > 0)
             {
-                _rentalDal.Add(rental);
-                return new SuccessResult(RentalMessages.RentalAdded);
+                if (customerId.Count() > 0)
+                {
+                    if (result.Count() > 0)
+                    {
+                        return new ErrorResult(RentalMessages.FailedRentalInformation);
+                    }
+                    else
+                    {
+                        _rentalDal.Add(rental);
+                        return new SuccessResult(RentalMessages.RentalAdded);
+                    }
+                }
+                else
+                {
+                    return new ErrorResult(RentalMessages.failedCustomerId);
+                }
             }
             else
             {
-                return new ErrorResult(RentalMessages.FailedRentalInformation);
+                return new ErrorResult(RentalMessages.failedCarId);
             }
         }
 
@@ -59,6 +78,19 @@ namespace Business.Concrete
             }
         }
 
+        public IDataResult<List<RentalDetailDto>> GetAllRentalDetails()
+        {
+            var result = _rentalDal.GetAllRentalDetails();
+            if (result.Count() > 0)
+            {
+                return new SuccessDataResult<List<RentalDetailDto>>(result);
+            }
+            else
+            {
+                return new ErrorDataResult<List<RentalDetailDto>>(result, RentalMessages.FailedRentalListed);
+            }
+        }
+
         public IDataResult<Rental> GetById(int rentalId)
         {
             var result = _rentalDal.Get(r => r.Id == rentalId);
@@ -68,20 +100,38 @@ namespace Business.Concrete
             }
             else
             {
-                return new ErrorDataResult<Rental>((result), RentalMessages.FailedRentalById);
+                return new ErrorDataResult<Rental>(result);
             }
         }
 
         public IResult Uptade(Rental rental)
         {
-            if (rental != null)
+            var result = _rentalDal.GetAll(r => r.CarId == rental.CarId && r.ReturnDate == null);
+            var carId = _rentalDal.GetAll(r => r.CarId == rental.CarId);
+            var customerId = _rentalDal.GetAll(r => r.CustomerId == rental.CustomerId);
+
+            if (carId.Count() > 0)
             {
-                _rentalDal.Update(rental);
-                return new SuccessResult(RentalMessages.RentalUpdated);
+                if (customerId.Count() > 0)
+                {
+                    if (result.Count() > 0)
+                    {
+                        return new ErrorResult(RentalMessages.FailedRentalInformation);
+                    }
+                    else
+                    {
+                        _rentalDal.Update(rental);
+                        return new SuccessResult(RentalMessages.RentalUpdated);
+                    }
+                }
+                else
+                {
+                    return new ErrorResult(RentalMessages.failedCustomerId);
+                }
             }
             else
             {
-                return new ErrorResult(RentalMessages.FailedRentalInformation);
+                return new ErrorResult(RentalMessages.failedCarId);
             }
         }
     }
