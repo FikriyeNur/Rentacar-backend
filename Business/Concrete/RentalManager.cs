@@ -104,7 +104,7 @@ namespace Business.Concrete
             }
         }
 
-        public IResult Uptade(Rental rental)
+        public IResult Update(Rental rental)
         {
             var result = _rentalDal.GetAll(r => r.CarId == rental.CarId && r.ReturnDate == null);
             var carId = _rentalDal.GetAll(r => r.CarId == rental.CarId);

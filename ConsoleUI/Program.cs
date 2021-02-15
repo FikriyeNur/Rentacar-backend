@@ -32,6 +32,8 @@ namespace ConsoleUI
 
             #endregion
 
+            #region Managers
+
             CarManager carManager = new CarManager(new EfCarDal());
             BrandManager brandManager = new BrandManager(new EfBrandDal());
             ColorManager colorManager = new ColorManager(new EfColorDal());
@@ -39,8 +41,9 @@ namespace ConsoleUI
 
             UserManager userManager = new UserManager(new EfUserDal());
             CustomerManager customerManager = new CustomerManager(new EfCustomerDal());
-            RentalManager rentalManager = new RentalManager(new EfRentalDal());
+            RentalManager rentalManager = new RentalManager(new EfRentalDal()); 
 
+            #endregion
 
             #region EntityFramework Car - Brand - Model - Color - User - Customer - Rental Bilgileri
 
@@ -71,8 +74,6 @@ namespace ConsoleUI
             }
 
             #endregion
-
-
 
             Console.ReadLine();
         }
@@ -366,7 +367,7 @@ namespace ConsoleUI
 
             Rental addRental = new Rental { Id = id, CarId = carId, CustomerId = customerId, RentDate = Convert.ToDateTime(rentDate), ReturnDate = returnDateConvert };
 
-            var result = rentalManager.Uptade(addRental);
+            var result = rentalManager.Update(addRental);
             SuccessRental(result);
         }
 
@@ -440,7 +441,7 @@ namespace ConsoleUI
 
             Customer addCustomer = new Customer { CustomerId = customerId, UserId = userId, CompanyName = companyName };
 
-            var result = customerManager.Uptade(addCustomer);
+            var result = customerManager.Update(addCustomer);
             SuccessCustomer(customerManager, result);
         }
 
@@ -546,7 +547,7 @@ namespace ConsoleUI
 
             User updateUser = new User { UserId = userId, FirstName = firstName, LastName = lastName, EMail = eMail, Password = password };
 
-            var result = userManager.Uptade(updateUser);
+            var result = userManager.Update(updateUser);
             SuccessUser(userManager, result);
         }
 
@@ -1151,6 +1152,7 @@ namespace ConsoleUI
         #endregion 
 
         #region Success
+
         private static void SuccessRental(IResult result)
         {
             if (result.Success)

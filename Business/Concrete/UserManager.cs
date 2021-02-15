@@ -74,7 +74,7 @@ namespace Business.Concrete
             }
         }
 
-        public IResult Uptade(User user)
+        public IResult Update(User user)
         {
             if (Convert.ToInt32(user.Password) == 4)
             {

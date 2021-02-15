@@ -89,7 +89,7 @@ namespace Business.Concrete
             }
         }
 
-        public IResult Uptade(Customer customer)
+        public IResult Update(Customer customer)
         {
             if (customer != null)
             {
