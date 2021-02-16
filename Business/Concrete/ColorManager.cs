@@ -51,7 +51,7 @@ namespace Business.Concrete
             var result = _colorDal.GetAll();
             if (result.Count() > 0)
             {
-                return new SuccessDataResult<List<Color>>();
+                return new SuccessDataResult<List<Color>>(result);
             }
             else
             {

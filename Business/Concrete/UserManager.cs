@@ -22,7 +22,7 @@ namespace Business.Concrete
 
         public IResult Add(User user)
         {
-            if (Convert.ToInt32(user.Password) == 4)
+            if (user.Password.Length == 4)
             {
                 _userDal.Add(user);
                 return new SuccessResult(UserMessages.UserAdded);
@@ -76,7 +76,7 @@ namespace Business.Concrete
 
         public IResult Update(User user)
         {
-            if (Convert.ToInt32(user.Password) == 4)
+            if (user.Password.Length == 4)
             {
                 _userDal.Update(user);
                 return new SuccessResult(UserMessages.UserUpdated);

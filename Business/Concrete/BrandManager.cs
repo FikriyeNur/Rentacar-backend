@@ -51,7 +51,7 @@ namespace Business.Concrete
             var result = _brandDal.GetAll();
             if (result.Count() > 0)
             {
-                return new SuccessDataResult<List<Brand>>();
+                return new SuccessDataResult<List<Brand>>(result);
             }
             else
             {

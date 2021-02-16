@@ -52,7 +52,7 @@ namespace Business.Concrete
             var result = _modelDal.GetAll();
             if (result.Count() > 0)
             {
-                return new SuccessDataResult<List<Model>>();
+                return new SuccessDataResult<List<Model>>(result);
             }
             else
             {
