@@ -8,7 +8,6 @@ namespace Business.Contants
     {
         public static string UserAdded = "Kullanıcı ekleme işlemi başarıyla gerçekleşti.";
         public static string UserUpdated = "Kullanıcı güncelleme işlemi başarıyla gerçekleşti.";
-        public static string FailedUserInformation = "Şifreniz 4 karakter olmalıdır!!";
 
         public static string UserDeleted = "Kullanıcı silme işlemi başarıyla gerçekleşti.";
         public static string FailedUserDeleted = "Geçersiz Id girdiniz. Kullanıcı silme işlemi gerçekleştirilemedi.";

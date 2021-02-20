@@ -9,6 +9,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Business.ValidationRules.FluentValidation;
+using Core.CrossCuttingConcerns.Validation;
 
 namespace Business.Concrete
 {
@@ -23,15 +25,10 @@ namespace Business.Concrete
 
         public IResult Add(Model model)
         {
-            if (model != null)
-            {
-                _modelDal.Add(model);
-                return new SuccessResult(ModelMessages.ModelAdded);
-            }
-            else
-            {
-                return new ErrorResult(ModelMessages.FailedModelInformation);
-            }
+            ValidationTool.Validate(new ModelValidator(), model);
+
+            _modelDal.Add(model);
+            return new SuccessResult(ModelMessages.ModelAdded);
         }
 
         public IResult Delete(Model model)
@@ -76,7 +73,7 @@ namespace Business.Concrete
         public IDataResult<List<ModelDetailDto>> GetAllModelDetails()
         {
             var result = _modelDal.GetAllModelDetails();
-            if (result.Count()>0)
+            if (result.Count() > 0)
             {
                 return new SuccessDataResult<List<ModelDetailDto>>(result);
             }
@@ -88,15 +85,10 @@ namespace Business.Concrete
 
         public IResult Update(Model model)
         {
-            if (model != null)
-            {
-                _modelDal.Update(model);
-                return new SuccessResult(ModelMessages.ModelUpdated);
-            }
-            else
-            {
-                return new ErrorResult(ModelMessages.FailedModelInformation);
-            }
+            ValidationTool.Validate(new ModelValidator(), model);
+
+            _modelDal.Update(model);
+            return new SuccessResult(ModelMessages.ModelUpdated);
         }
     }
 }

@@ -9,6 +9,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Business.ValidationRules.FluentValidation;
+using Core.CrossCuttingConcerns.Validation;
 
 namespace Business.Concrete
 {
@@ -23,33 +25,14 @@ namespace Business.Concrete
 
         public IResult Add(Rental rental)
         {
-            var result = _rentalDal.GetAll(r => r.CarId == rental.CarId && r.ReturnDate == null);
-            var carId = _rentalDal.GetAllRentalDetails(c => c.CarId == rental.CarId);
-            var customerId = _rentalDal.GetAllRentalDetails(cu => cu.CustomerId == rental.CustomerId);
+            ValidationTool.Validate(new RentalValidator(), rental);
 
-            if (carId.Count() > 0)
+            if (_rentalDal.GetAll(r => r.CarId == rental.CarId && r.ReturnDate == null).Count > 0)
             {
-                if (customerId.Count() > 0)
-                {
-                    if (result.Count() > 0)
-                    {
-                        return new ErrorResult(RentalMessages.FailedRentalInformation);
-                    }
-                    else
-                    {
-                        _rentalDal.Add(rental);
-                        return new SuccessResult(RentalMessages.RentalAdded);
-                    }
-                }
-                else
-                {
-                    return new ErrorResult(RentalMessages.failedCustomerId);
-                }
+                return new ErrorResult(RentalMessages.FailedRentalInformation);
             }
-            else
-            {
-                return new ErrorResult(RentalMessages.failedCarId);
-            }
+            _rentalDal.Add(rental);
+            return new SuccessResult(RentalMessages.RentalAdded);
         }
 
         public IResult Delete(Rental rental)
@@ -106,33 +89,14 @@ namespace Business.Concrete
 
         public IResult Update(Rental rental)
         {
-            var result = _rentalDal.GetAll(r => r.CarId == rental.CarId && r.ReturnDate == null);
-            var carId = _rentalDal.GetAll(r => r.CarId == rental.CarId);
-            var customerId = _rentalDal.GetAll(r => r.CustomerId == rental.CustomerId);
+            ValidationTool.Validate(new RentalValidator(), rental);
 
-            if (carId.Count() > 0)
+            if (_rentalDal.GetAll(r => r.CarId == rental.CarId && r.ReturnDate == null).Count > 0)
             {
-                if (customerId.Count() > 0)
-                {
-                    if (result.Count() > 0)
-                    {
-                        return new ErrorResult(RentalMessages.FailedRentalInformation);
-                    }
-                    else
-                    {
-                        _rentalDal.Update(rental);
-                        return new SuccessResult(RentalMessages.RentalUpdated);
-                    }
-                }
-                else
-                {
-                    return new ErrorResult(RentalMessages.failedCustomerId);
-                }
+                return new ErrorResult(RentalMessages.FailedRentalInformation);
             }
-            else
-            {
-                return new ErrorResult(RentalMessages.failedCarId);
-            }
+            _rentalDal.Update(rental);
+            return new SuccessResult(RentalMessages.RentalAdded);
         }
     }
 }

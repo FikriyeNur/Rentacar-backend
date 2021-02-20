@@ -14,8 +14,5 @@ namespace Business.Contants
         public static string FailedRentalDeleted = "Araç kiralama işlemi iptalinde hata meydana geldi!!";
 
         public static string FailedRentalListed = "Araç kiralama bilgileri listelenirken beklenmeyen bir hata oluştu!";
-
-        public static string failedCustomerId = "Girdiğiniz Id'ye ait müşteri bulunamadı!!";
-        public static string failedCarId = "Girdiğiniz Id'ye ait araç bulunamadı!!";
     }
 }

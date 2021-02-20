@@ -8,7 +8,6 @@ namespace Business.Contants
     {
         public static string ModelAdded = "Model ekleme işlemi başarıyla gerçekleşti.";
         public static string ModelUpdated = "Model güncelleme işlemi başarıyla gerçekleşti.";
-        public static string FailedModelInformation = "Bilgileri eksiksiz girdiğinizden emin olunuz!!";
 
         public static string ModelDeleted = "Model silme işlemi başarıyla gerçekleşti.";
         public static string FailedModelDeleted = "Geçersiz Id girdiniz. Model silme işlemi gerçekleştirilemedi.";

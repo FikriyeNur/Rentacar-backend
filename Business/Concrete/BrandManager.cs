@@ -8,6 +8,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Business.ValidationRules.FluentValidation;
+using Core.CrossCuttingConcerns.Validation;
 
 namespace Business.Concrete
 {
@@ -22,15 +24,9 @@ namespace Business.Concrete
 
         public IResult Add(Brand brand)
         {
-            if (brand.BrandName.Length > 2)
-            {
-                _brandDal.Add(brand);
-                return new SuccessResult(BrandMessages.BrandAdded);
-            }
-            else
-            {
-                return new ErrorResult(BrandMessages.FailedBrandInformation);
-            }
+            ValidationTool.Validate(new BrandValidator(), brand);
+            _brandDal.Add(brand);
+            return new SuccessResult(BrandMessages.BrandAdded);
         }
 
         public IResult Delete(Brand brand)
@@ -74,15 +70,10 @@ namespace Business.Concrete
 
         public IResult Update(Brand brand)
         {
-            if (brand.BrandName.Length > 2)
-            {
-                _brandDal.Update(brand);
-                return new SuccessResult(BrandMessages.BrandUpdated);
-            }
-            else
-            {
-                return new ErrorResult(BrandMessages.FailedBrandInformation);
-            }
+            ValidationTool.Validate(new BrandValidator(), brand);
+
+            _brandDal.Update(brand);
+            return new SuccessResult(BrandMessages.BrandUpdated);
         }
     }
 }

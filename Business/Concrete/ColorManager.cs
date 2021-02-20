@@ -8,6 +8,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Business.ValidationRules.FluentValidation;
+using Core.CrossCuttingConcerns.Validation;
 
 namespace Business.Concrete
 {
@@ -22,15 +24,10 @@ namespace Business.Concrete
 
         public IResult Add(Color color)
         {
-            if (color != null)
-            {
-                _colorDal.Add(color);
-                return new SuccessResult(ColorMessages.ColorAdded);
-            }
-            else
-            {
-                return new ErrorResult(ColorMessages.FailedColorInformation);
-            }
+            ValidationTool.Validate(new ColorValidator(), color);
+
+            _colorDal.Add(color);
+            return new SuccessResult(ColorMessages.ColorAdded);
         }
 
         public IResult Delete(Color color)
@@ -74,15 +71,10 @@ namespace Business.Concrete
 
         public IResult Update(Color color)
         {
-            if (color != null)
-            {
-                _colorDal.Update(color);
-                return new SuccessResult(ColorMessages.ColorUpdated);
-            }
-            else
-            {
-                return new ErrorResult(ColorMessages.FailedColorInformation);
-            }
+            ValidationTool.Validate(new ColorValidator(), color);
+
+            _colorDal.Update(color);
+            return new SuccessResult(ColorMessages.ColorUpdated);
         }
     }
 }

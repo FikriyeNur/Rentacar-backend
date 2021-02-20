@@ -8,7 +8,6 @@ namespace Business.Contants
     {
         public static string CustomerAdded = "Müşteri ekleme işlemi başarıyla gerçekleşti.";
         public static string CustomerUpdated = "Müşteri güncelleme işlemi başarıyla gerçekleşti.";
-        public static string FailedCustomerInformation = "Bilgileri eksiksiz girdiğinizden emin olunuz!!";
 
         public static string CustomerDeleted = "Müşteri silme işlemi başarıyla gerçekleşti.";
         public static string FailedCustomerDeleted = "Geçersiz Id girdiniz. Müşter silme işlemi gerçekleştirilemedi.";

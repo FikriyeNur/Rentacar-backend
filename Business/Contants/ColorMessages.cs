@@ -8,7 +8,6 @@ namespace Business.Contants
     {
         public static string ColorAdded = "Araç renk ekleme işlemi başarıyla gerçekleşti.";
         public static string ColorUpdated = "Araç renk güncelleme işlemi başarıyla gerçekleşti.";
-        public static string FailedColorInformation = "Bilgileri eksiksiz girdiğinizden emin olunuz!!";
 
         public static string ColorDeleted = "Araç renk silme işlemi başarıyla gerçekleşti.";
         public static string FailedColorDeleted = "Geçersiz Id girdiniz. Araç renk silme işlemi gerçekleştirilemedi.";

@@ -9,6 +9,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Business.ValidationRules.FluentValidation;
+using Core.CrossCuttingConcerns.Validation;
+using FluentValidation;
 
 namespace Business.Concrete
 {
@@ -21,18 +24,15 @@ namespace Business.Concrete
             _carDal = carDal;
         }
 
+        // Cross Cutting Concerns : Validation, Log, Cache, Performans, Transaction, Authorization => AOP (Aspect Oriented Programming) kullanarak bu işlemleri yapacağız. AOP sadece bu işlemleri yaparken kullanılmalıdır.
+
         public IResult Add(Car car)
         {
-            if (car.DailyPrice > 0)
-            {
-                _carDal.Add(car);
-                return new SuccessResult(CarMessages.CarAdded);
-            }
-            else
-            {
-                return new ErrorResult(CarMessages.FailedCarInformation);
-            }
-        } 
+            ValidationTool.Validate(new CarValidator(), car);
+
+            _carDal.Add(car);
+            return new SuccessResult(CarMessages.CarAdded);
+        }
 
         public IResult Delete(Car car)
         {
@@ -45,7 +45,7 @@ namespace Business.Concrete
             {
                 return new ErrorResult(CarMessages.FailedCarDeleted);
             }
-        } 
+        }
 
         public IDataResult<List<Car>> GetAll()
         {
@@ -58,7 +58,7 @@ namespace Business.Concrete
             {
                 return new ErrorDataResult<List<Car>>(result, CarMessages.FailedCarListed);
             }
-        } 
+        }
 
         public IDataResult<List<CarDetailDto>> GetAllCarDetails()
         {
@@ -84,7 +84,7 @@ namespace Business.Concrete
             {
                 return new ErrorDataResult<Car>(result, CarMessages.FailedCarById);
             }
-        }  
+        }
 
         public IDataResult<CarDetailDto> GetCarDetail(int carId)
         {
@@ -180,15 +180,10 @@ namespace Business.Concrete
 
         public IResult Update(Car car)
         {
-            if (car.DailyPrice > 0)
-            {
-                _carDal.Update(car);
-                return new SuccessResult(CarMessages.CarUpdated);
-            }
-            else
-            {
-                return new ErrorResult(CarMessages.FailedCarInformation);
-            }
-        } 
+            ValidationTool.Validate(new CarValidator(), car);
+
+            _carDal.Update(car);
+            return new SuccessResult(CarMessages.CarUpdated);
+        }
     }
 }
