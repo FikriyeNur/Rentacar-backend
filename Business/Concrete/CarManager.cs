@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingConcerns.Validation;
 using FluentValidation;
 
@@ -26,10 +27,9 @@ namespace Business.Concrete
 
         // Cross Cutting Concerns : Validation, Log, Cache, Performans, Transaction, Authorization => AOP (Aspect Oriented Programming) kullanarak bu işlemleri yapacağız. AOP sadece bu işlemleri yaparken kullanılmalıdır.
 
+        [FluentValidationAspect(typeof(CarValidator))]
         public IResult Add(Car car)
         {
-            ValidationTool.Validate(new CarValidator(), car);
-
             _carDal.Add(car);
             return new SuccessResult(CarMessages.CarAdded);
         }
@@ -178,10 +178,9 @@ namespace Business.Concrete
             }
         }
 
+        [FluentValidationAspect(typeof(CarValidator))]
         public IResult Update(Car car)
         {
-            ValidationTool.Validate(new CarValidator(), car);
-
             _carDal.Update(car);
             return new SuccessResult(CarMessages.CarUpdated);
         }

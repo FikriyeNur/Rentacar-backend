@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingConcerns.Validation;
 
 namespace Business.Concrete
@@ -23,10 +24,9 @@ namespace Business.Concrete
             _rentalDal = rentalDal;
         }
 
+        [FluentValidationAspect(typeof(RentalValidator))]
         public IResult Add(Rental rental)
         {
-            ValidationTool.Validate(new RentalValidator(), rental);
-
             if (_rentalDal.GetAll(r => r.CarId == rental.CarId && r.ReturnDate == null).Count > 0)
             {
                 return new ErrorResult(RentalMessages.FailedRentalInformation);
@@ -87,10 +87,9 @@ namespace Business.Concrete
             }
         }
 
+        [FluentValidationAspect(typeof(RentalValidator))]
         public IResult Update(Rental rental)
         {
-            ValidationTool.Validate(new RentalValidator(), rental);
-
             if (_rentalDal.GetAll(r => r.CarId == rental.CarId && r.ReturnDate == null).Count > 0)
             {
                 return new ErrorResult(RentalMessages.FailedRentalInformation);

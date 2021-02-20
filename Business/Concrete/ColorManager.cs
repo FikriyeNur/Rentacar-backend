@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingConcerns.Validation;
 
 namespace Business.Concrete
@@ -22,10 +23,9 @@ namespace Business.Concrete
             _colorDal = colorDal;
         }
 
+        [FluentValidationAspect(typeof(ColorValidator))]
         public IResult Add(Color color)
         {
-            ValidationTool.Validate(new ColorValidator(), color);
-
             _colorDal.Add(color);
             return new SuccessResult(ColorMessages.ColorAdded);
         }
@@ -69,10 +69,10 @@ namespace Business.Concrete
             }
         }
 
+
+        [FluentValidationAspect(typeof(ColorValidator))]
         public IResult Update(Color color)
         {
-            ValidationTool.Validate(new ColorValidator(), color);
-
             _colorDal.Update(color);
             return new SuccessResult(ColorMessages.ColorUpdated);
         }

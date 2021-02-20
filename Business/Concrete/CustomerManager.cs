@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingConcerns.Validation;
 
 namespace Business.Concrete
@@ -23,10 +24,9 @@ namespace Business.Concrete
             _customerDal = customerDal;
         }
 
+        [FluentValidationAspect(typeof(CustomerValidator))]
         public IResult Add(Customer customer)
         {
-            ValidationTool.Validate(new CustomerValidator(), customer);
-
             _customerDal.Add(customer);
             return new SuccessResult(CustomerMessages.CustomerAdded);
         }
@@ -86,10 +86,9 @@ namespace Business.Concrete
             }
         }
 
+        [FluentValidationAspect(typeof(CustomerValidator))]
         public IResult Update(Customer customer)
         {
-            ValidationTool.Validate(new CustomerValidator(), customer);
-
             _customerDal.Update(customer);
             return new SuccessResult(CustomerMessages.CustomerUpdated);
         }
