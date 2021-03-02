@@ -42,10 +42,7 @@ namespace Business.Concrete
                 _rentalDal.Delete(rental);
                 return new SuccessResult(RentalMessages.RentalDeleted);
             }
-            else
-            {
-                return new ErrorResult(RentalMessages.FailedRentalDeleted);
-            }
+            return new ErrorResult(RentalMessages.FailedRentalDeleted);
         }
 
         public IDataResult<List<Rental>> GetAll()
@@ -55,10 +52,7 @@ namespace Business.Concrete
             {
                 return new SuccessDataResult<List<Rental>>(result);
             }
-            else
-            {
-                return new ErrorDataResult<List<Rental>>(result, RentalMessages.FailedRentalListed);
-            }
+            return new ErrorDataResult<List<Rental>>(result, RentalMessages.FailedRentalListed);
         }
 
         public IDataResult<List<RentalDetailDto>> GetAllRentalDetails()
@@ -68,10 +62,7 @@ namespace Business.Concrete
             {
                 return new SuccessDataResult<List<RentalDetailDto>>(result);
             }
-            else
-            {
-                return new ErrorDataResult<List<RentalDetailDto>>(result, RentalMessages.FailedRentalListed);
-            }
+            return new ErrorDataResult<List<RentalDetailDto>>(result, RentalMessages.FailedRentalListed);
         }
 
         public IDataResult<Rental> GetById(int rentalId)
@@ -81,10 +72,7 @@ namespace Business.Concrete
             {
                 return new SuccessDataResult<Rental>(result);
             }
-            else
-            {
-                return new ErrorDataResult<Rental>(result);
-            }
+            return new ErrorDataResult<Rental>(result);
         }
 
         [FluentValidationAspect(typeof(RentalValidator))]

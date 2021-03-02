@@ -41,10 +41,8 @@ namespace Business.Concrete
                 _carDal.Delete(car);
                 return new SuccessResult(CarMessages.CarDeleted);
             }
-            else
-            {
-                return new ErrorResult(CarMessages.FailedCarDeleted);
-            }
+            return new ErrorResult(CarMessages.FailedCarDeleted);
+
         }
 
         public IDataResult<List<Car>> GetAll()
@@ -54,10 +52,7 @@ namespace Business.Concrete
             {
                 return new SuccessDataResult<List<Car>>(result);
             }
-            else
-            {
-                return new ErrorDataResult<List<Car>>(result, CarMessages.FailedCarListed);
-            }
+            return new ErrorDataResult<List<Car>>(result, CarMessages.FailedCarListed);
         }
 
         public IDataResult<List<CarDetailDto>> GetAllCarDetails()
@@ -67,10 +62,7 @@ namespace Business.Concrete
             {
                 return new SuccessDataResult<List<CarDetailDto>>(result);
             }
-            else
-            {
-                return new ErrorDataResult<List<CarDetailDto>>(result, CarMessages.FailedCarListed);
-            }
+            return new ErrorDataResult<List<CarDetailDto>>(result, CarMessages.FailedCarListed);
         }
 
         public IDataResult<Car> GetById(int carId)
@@ -80,10 +72,7 @@ namespace Business.Concrete
             {
                 return new SuccessDataResult<Car>(result);
             }
-            else
-            {
-                return new ErrorDataResult<Car>(result, CarMessages.FailedCarById);
-            }
+            return new ErrorDataResult<Car>(result, CarMessages.FailedCarById);
         }
 
         public IDataResult<CarDetailDto> GetCarDetail(int carId)
@@ -93,24 +82,18 @@ namespace Business.Concrete
             {
                 return new SuccessDataResult<CarDetailDto>(result);
             }
-            else
-            {
-                return new ErrorDataResult<CarDetailDto>(result, CarMessages.FailedCarById);
-            }
+            return new ErrorDataResult<CarDetailDto>(result, CarMessages.FailedCarById);
         }
 
         public IDataResult<List<Car>> GetCarsByBrandId(int brandId)
         {
-            var result = (_carDal.GetAll(c => c.BrandId == brandId));
+            var result = _carDal.GetAll(c => c.BrandId == brandId);
 
             if (result.Count() > 0)
             {
                 return new SuccessDataResult<List<Car>>(result);
             }
-            else
-            {
-                return new ErrorDataResult<List<Car>>(result, CarMessages.FailedCarListed);
-            }
+            return new ErrorDataResult<List<Car>>(result, CarMessages.FailedCarListed);
         }
 
         public IDataResult<List<Car>> GetCarsByColorId(int colorId)
@@ -120,10 +103,7 @@ namespace Business.Concrete
             {
                 return new SuccessDataResult<List<Car>>(result);
             }
-            else
-            {
-                return new ErrorDataResult<List<Car>>(result, CarMessages.FailedCarListed);
-            }
+            return new ErrorDataResult<List<Car>>(result, CarMessages.FailedCarListed);
         }
 
         public IDataResult<List<Car>> GetCarsByModelId(int modelId)
@@ -133,10 +113,7 @@ namespace Business.Concrete
             {
                 return new SuccessDataResult<List<Car>>(result);
             }
-            else
-            {
-                return new ErrorDataResult<List<Car>>(result, CarMessages.FailedCarListed);
-            }
+            return new ErrorDataResult<List<Car>>(result, CarMessages.FailedCarListed);
         }
 
         public IDataResult<List<Car>> GetComfortCars()
@@ -146,10 +123,7 @@ namespace Business.Concrete
             {
                 return new SuccessDataResult<List<Car>>(result);
             }
-            else
-            {
-                return new ErrorDataResult<List<Car>>(result, CarMessages.FailedCarListed);
-            }
+            return new ErrorDataResult<List<Car>>(result, CarMessages.FailedCarListed);
         }
 
         public IDataResult<List<Car>> GetEconomicCars()
@@ -159,10 +133,7 @@ namespace Business.Concrete
             {
                 return new SuccessDataResult<List<Car>>(result);
             }
-            else
-            {
-                return new ErrorDataResult<List<Car>>(result, CarMessages.FailedCarListed);
-            }
+            return new ErrorDataResult<List<Car>>(result, CarMessages.FailedCarListed);
         }
 
         public IDataResult<List<Car>> GetLuxuryCars()
@@ -172,10 +143,7 @@ namespace Business.Concrete
             {
                 return new SuccessDataResult<List<Car>>(result);
             }
-            else
-            {
-                return new ErrorDataResult<List<Car>>(result, CarMessages.FailedCarListed);
-            }
+            return new ErrorDataResult<List<Car>>(result, CarMessages.FailedCarListed);
         }
 
         [FluentValidationAspect(typeof(CarValidator))]

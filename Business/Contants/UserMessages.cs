@@ -15,5 +15,9 @@ namespace Business.Contants
         public static string FailedUserListed = "Kullanıcılar listelenirken beklenmeyen bir hata oluştu!";
 
         public static string FailedUserById = "Girdiğiniz Id'ye ait kullanıcı bulunamadı!!";
+
+        public static string FailedOperationClaimListed = "Yetkilendirmeler listelenirken beklenmeyen bir hata oluştu!";
+
+        public static string FailedEmail = "Girdiğiniz EMail adresine ait kullanıcı bulunamadı!!";
     }
 }

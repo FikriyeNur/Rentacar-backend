@@ -38,10 +38,7 @@ namespace Business.Concrete
                 _modelDal.Delete(model);
                 return new SuccessResult(ModelMessages.ModelDeleted);
             }
-            else
-            {
-                return new ErrorResult(ModelMessages.FailedModelDeleted);
-            }
+            return new ErrorResult(ModelMessages.FailedModelDeleted);
         }
 
         public IDataResult<List<Model>> GetAll()
@@ -51,10 +48,7 @@ namespace Business.Concrete
             {
                 return new SuccessDataResult<List<Model>>(result);
             }
-            else
-            {
-                return new ErrorDataResult<List<Model>>(result, ModelMessages.FailedModelListed);
-            }
+            return new ErrorDataResult<List<Model>>(result, ModelMessages.FailedModelListed);
         }
 
         public IDataResult<Model> GetById(int modelId)
@@ -64,10 +58,7 @@ namespace Business.Concrete
             {
                 return new SuccessDataResult<Model>(result);
             }
-            else
-            {
-                return new ErrorDataResult<Model>(result, ModelMessages.FailedModelById);
-            }
+            return new ErrorDataResult<Model>(result, ModelMessages.FailedModelById);
         }
 
         public IDataResult<List<ModelDetailDto>> GetAllModelDetails()
@@ -77,10 +68,7 @@ namespace Business.Concrete
             {
                 return new SuccessDataResult<List<ModelDetailDto>>(result);
             }
-            else
-            {
-                return new ErrorDataResult<List<ModelDetailDto>>(result, ModelMessages.FailedModelListed);
-            }
+            return new ErrorDataResult<List<ModelDetailDto>>(result, ModelMessages.FailedModelListed);
         }
 
         [FluentValidationAspect(typeof(ModelValidator))]

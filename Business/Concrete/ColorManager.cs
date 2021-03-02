@@ -37,10 +37,7 @@ namespace Business.Concrete
                 _colorDal.Delete(color);
                 return new SuccessResult(ColorMessages.ColorDeleted);
             }
-            else
-            {
-                return new ErrorResult(ColorMessages.FailedColorDeleted);
-            }
+            return new ErrorResult(ColorMessages.FailedColorDeleted);
         }
 
         public IDataResult<List<Color>> GetAll()
@@ -50,10 +47,7 @@ namespace Business.Concrete
             {
                 return new SuccessDataResult<List<Color>>(result);
             }
-            else
-            {
-                return new ErrorDataResult<List<Color>>(result, ColorMessages.FailedColorListed);
-            }
+            return new ErrorDataResult<List<Color>>(result, ColorMessages.FailedColorListed);
         }
 
         public IDataResult<Color> GetById(int colorId)
@@ -63,10 +57,7 @@ namespace Business.Concrete
             {
                 return new SuccessDataResult<Color>(result);
             }
-            else
-            {
-                return new ErrorDataResult<Color>(result, ColorMessages.FailedColorById);
-            }
+            return new ErrorDataResult<Color>(result, ColorMessages.FailedColorById);
         }
 
 

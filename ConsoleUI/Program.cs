@@ -545,7 +545,7 @@ namespace ConsoleUI
             string firstName, lastName, eMail, password;
             UserColons(out firstName, out lastName, out eMail, out password);
 
-            User updateUser = new User { UserId = userId, FirstName = firstName, LastName = lastName, EMail = eMail, Password = password };
+            User updateUser = new User { UserId = userId, FirstName = firstName, LastName = lastName, EMail = eMail};
 
             var result = userManager.Update(updateUser);
             SuccessUser(userManager, result);
@@ -557,7 +557,7 @@ namespace ConsoleUI
             string firstName, lastName, eMail, password;
             UserColons(out firstName, out lastName, out eMail, out password);
 
-            User addUser = new User { FirstName = firstName, LastName = lastName, EMail = eMail, Password = password };
+            User addUser = new User { FirstName = firstName, LastName = lastName, EMail = eMail};
 
             var result = userManager.Add(addUser);
             SuccessUser(userManager, result);
@@ -574,7 +574,7 @@ namespace ConsoleUI
             if (result.Data != null)
             {
                 Console.WriteLine("User Id\t\tFirst Name\tLast Name\tEMail\t\t\tPassword");
-                Console.WriteLine($"{result.Data.UserId}\t\t{result.Data.FirstName}\t\t{result.Data.LastName}\t\t{result.Data.EMail}\t{result.Data.Password}");
+                Console.WriteLine($"{result.Data.UserId}\t\t{result.Data.FirstName}\t\t{result.Data.LastName}\t\t{result.Data.EMail}");
             }
             else
             {

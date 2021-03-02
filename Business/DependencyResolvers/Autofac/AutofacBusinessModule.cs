@@ -36,7 +36,10 @@ namespace Business.DependencyResolvers.Autofac
             builder.RegisterType<EfUserDal>().As<IUserDal>().SingleInstance();
 
             builder.RegisterType<RentalManager>().As<IRentalService>().SingleInstance();
-            builder.RegisterType<EfRentalDal>().As<IRentalDal>().SingleInstance();
+            builder.RegisterType<EfRentalDal>().As<IRentalDal>().SingleInstance(); 
+            
+            builder.RegisterType<CarImageManager>().As<ICarImageService>().SingleInstance();
+            builder.RegisterType<EfCarImageDal>().As<ICarImageDal>().SingleInstance();
 
             // eğer istersek her class için tek tek veya sadece istediklerimiz içinde yazabiliriz ama biz hepsinde kullanacağımız için bu şekilde yazdık.
             var assembly = System.Reflection.Assembly.GetExecutingAssembly();

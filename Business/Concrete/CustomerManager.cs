@@ -38,10 +38,7 @@ namespace Business.Concrete
                 _customerDal.Delete(customer);
                 return new SuccessResult(CustomerMessages.CustomerDeleted);
             }
-            else
-            {
-                return new ErrorResult(CustomerMessages.FailedCustomerDeleted);
-            }
+            return new ErrorResult(CustomerMessages.FailedCustomerDeleted);
         }
 
         public IDataResult<List<Customer>> GetAll()
@@ -51,11 +48,7 @@ namespace Business.Concrete
             {
                 return new SuccessDataResult<List<Customer>>(result);
             }
-            else
-            {
-                return new ErrorDataResult<List<Customer>>(result, CustomerMessages.FailedCustomerListed);
-
-            }
+            return new ErrorDataResult<List<Customer>>(result, CustomerMessages.FailedCustomerListed);
         }
 
         public IDataResult<List<CustomerDetailDto>> GetAllCustomerDetails()
@@ -65,11 +58,7 @@ namespace Business.Concrete
             {
                 return new SuccessDataResult<List<CustomerDetailDto>>(result);
             }
-            else
-            {
-                return new ErrorDataResult<List<CustomerDetailDto>>(result, CustomerMessages.FailedCustomerListed);
-
-            }
+            return new ErrorDataResult<List<CustomerDetailDto>>(result, CustomerMessages.FailedCustomerListed);
         }
 
         public IDataResult<Customer> GetById(int customerId)
@@ -79,11 +68,7 @@ namespace Business.Concrete
             {
                 return new SuccessDataResult<Customer>(result);
             }
-            else
-            {
-                return new ErrorDataResult<Customer>(result, CustomerMessages.FailedCustomerById);
-
-            }
+            return new ErrorDataResult<Customer>(result, CustomerMessages.FailedCustomerById);
         }
 
         [FluentValidationAspect(typeof(CustomerValidator))]

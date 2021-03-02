@@ -37,10 +37,7 @@ namespace Business.Concrete
                 _brandDal.Delete(brand);
                 return new SuccessResult(BrandMessages.BrandDeleted);
             }
-            else
-            {
-                return new ErrorResult(BrandMessages.FailedBrandDeleted);
-            }
+            return new ErrorResult(BrandMessages.FailedBrandDeleted);
         }
 
         public IDataResult<List<Brand>> GetAll()
@@ -50,10 +47,7 @@ namespace Business.Concrete
             {
                 return new SuccessDataResult<List<Brand>>(result);
             }
-            else
-            {
-                return new ErrorDataResult<List<Brand>>(result, BrandMessages.FailedBrandListed);
-            }
+            return new ErrorDataResult<List<Brand>>(result, BrandMessages.FailedBrandListed);
         }
 
         public IDataResult<Brand> GetById(int brandId)
@@ -63,10 +57,7 @@ namespace Business.Concrete
             {
                 return new SuccessDataResult<Brand>(result);
             }
-            else
-            {
-                return new ErrorDataResult<Brand>(result, BrandMessages.FailedBrandById);
-            }
+            return new ErrorDataResult<Brand>(result, BrandMessages.FailedBrandById);
         }
 
         [FluentValidationAspect(typeof(BrandValidator))]
