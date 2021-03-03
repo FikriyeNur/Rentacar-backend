@@ -8,10 +8,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Business.BusinessAspects.Autofac;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingConcerns.Validation;
 using Core.Entities.Concrete;
+using Entities.DTOs;
 
 namespace Business.Concrete
 {
@@ -25,12 +27,14 @@ namespace Business.Concrete
         }
 
         [FluentValidationAspect(typeof(UserValidator))]
+        [SecuredOperation("User.Add")]
         public IResult Add(User user)
         {
             _userDal.Add(user);
             return new SuccessResult(UserMessages.UserAdded);
         }
 
+        [SecuredOperation("User.Delete")]
         public IResult Delete(User user)
         {
             if (user != null)
@@ -81,7 +85,18 @@ namespace Business.Concrete
             return new ErrorDataResult<List<OperationClaim>>(result, UserMessages.FailedOperationClaimListed);
         }
 
+        public IDataResult<List<OperationClaimDto>> GetClaimsDto(User user)
+        {
+            var result = _userDal.GetClaimsDto(user);
+            if (result.Count() > 0)
+            {
+                return new SuccessDataResult<List<OperationClaimDto>>(result);
+            }
+            return new ErrorDataResult<List<OperationClaimDto>>(result, UserMessages.FailedOperationClaimListed);
+        }
+
         [FluentValidationAspect(typeof(UserValidator))]
+        [SecuredOperation("User.Update")]
         public IResult Update(User user)
         {
             _userDal.Update(user);

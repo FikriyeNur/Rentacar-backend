@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Business.BusinessAspects.Autofac;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingConcerns.Validation;
@@ -24,12 +25,14 @@ namespace Business.Concrete
         }
 
         [FluentValidationAspect(typeof(BrandValidator))]
+        [SecuredOperation("Brand.Add")]
         public IResult Add(Brand brand)
         {
             _brandDal.Add(brand);
             return new SuccessResult(BrandMessages.BrandAdded);
         }
 
+        [SecuredOperation("Brand.Delete")]
         public IResult Delete(Brand brand)
         {
             if (brand != null)
@@ -61,6 +64,7 @@ namespace Business.Concrete
         }
 
         [FluentValidationAspect(typeof(BrandValidator))]
+        [SecuredOperation("Brand.Update")]
         public IResult Update(Brand brand)
         {
             _brandDal.Update(brand);

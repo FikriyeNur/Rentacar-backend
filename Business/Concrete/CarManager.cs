@@ -9,6 +9,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Business.BusinessAspects.Autofac;
+using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingConcerns.Validation;
@@ -28,12 +30,14 @@ namespace Business.Concrete
         // Cross Cutting Concerns : Validation, Log, Cache, Performans, Transaction, Authorization => AOP (Aspect Oriented Programming) kullanarak bu işlemleri yapacağız. AOP sadece bu işlemleri yaparken kullanılmalıdır.
 
         [FluentValidationAspect(typeof(CarValidator))]
+        [SecuredOperation("Car.Add")]
         public IResult Add(Car car)
         {
             _carDal.Add(car);
             return new SuccessResult(CarMessages.CarAdded);
         }
 
+        [SecuredOperation("Car.Delete")]
         public IResult Delete(Car car)
         {
             if (car != null)
@@ -147,6 +151,7 @@ namespace Business.Concrete
         }
 
         [FluentValidationAspect(typeof(CarValidator))]
+        [SecuredOperation("Car.Update")]
         public IResult Update(Car car)
         {
             _carDal.Update(car);

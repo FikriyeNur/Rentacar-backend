@@ -8,6 +8,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Business.BusinessAspects.Autofac;
+using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingConcerns.Validation;
@@ -24,12 +26,14 @@ namespace Business.Concrete
         }
 
         [FluentValidationAspect(typeof(ColorValidator))]
+        [SecuredOperation("Color.Add")]
         public IResult Add(Color color)
         {
             _colorDal.Add(color);
             return new SuccessResult(ColorMessages.ColorAdded);
         }
 
+        [SecuredOperation("Color.Delete")]
         public IResult Delete(Color color)
         {
             if (color != null)
@@ -60,8 +64,8 @@ namespace Business.Concrete
             return new ErrorDataResult<Color>(result, ColorMessages.FailedColorById);
         }
 
-
         [FluentValidationAspect(typeof(ColorValidator))]
+        [SecuredOperation("Color.Update")]
         public IResult Update(Color color)
         {
             _colorDal.Update(color);

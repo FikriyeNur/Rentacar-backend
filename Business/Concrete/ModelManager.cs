@@ -9,6 +9,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Business.BusinessAspects.Autofac;
+using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingConcerns.Validation;
@@ -25,11 +27,15 @@ namespace Business.Concrete
         }
 
         [FluentValidationAspect(typeof(ModelValidator))]
+        [SecuredOperation("Model.Add")]
+
         public IResult Add(Model model)
         {
             _modelDal.Add(model);
             return new SuccessResult(ModelMessages.ModelAdded);
         }
+
+        [SecuredOperation("Model.Delete")]
 
         public IResult Delete(Model model)
         {
@@ -72,6 +78,8 @@ namespace Business.Concrete
         }
 
         [FluentValidationAspect(typeof(ModelValidator))]
+        [SecuredOperation("Model.Update")]
+
         public IResult Update(Model model)
         {
             _modelDal.Update(model);
