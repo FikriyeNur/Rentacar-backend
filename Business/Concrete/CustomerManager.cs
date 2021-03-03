@@ -28,7 +28,6 @@ namespace Business.Concrete
 
         [FluentValidationAspect(typeof(CustomerValidator))]
         [SecuredOperation("Customer.Add")]
-
         public IResult Add(Customer customer)
         {
             _customerDal.Add(customer);
