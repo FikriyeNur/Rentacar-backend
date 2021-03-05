@@ -55,7 +55,12 @@ namespace Business.Concrete
             return new ErrorDataResult<List<CarImage>>(result, CarImageMessage.FailedCarImageListed);
         }
 
-        public IDataResult<List<CarImage>> GetByCarId(int carId)
+        public IDataResult<CarImage> GetById(int carImageId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IDataResult<List<CarImage>> GetImagesByCarId(int carId)
         {
             var result = _carImageDal.GetAll(ci => ci.CarId == carId);
             if (result.Count > 0)

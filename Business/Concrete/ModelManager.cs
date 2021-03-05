@@ -27,7 +27,7 @@ namespace Business.Concrete
         }
 
         [FluentValidationAspect(typeof(ModelValidator))]
-        [SecuredOperation("Model.Add")]
+        [SecuredOperation("model.add, admin")]
 
         public IResult Add(Model model)
         {
@@ -35,7 +35,7 @@ namespace Business.Concrete
             return new SuccessResult(ModelMessages.ModelAdded);
         }
 
-        [SecuredOperation("Model.Delete")]
+        [SecuredOperation("model.delete, admin")]
 
         public IResult Delete(Model model)
         {
@@ -78,7 +78,7 @@ namespace Business.Concrete
         }
 
         [FluentValidationAspect(typeof(ModelValidator))]
-        [SecuredOperation("Model.Update")]
+        [SecuredOperation("model.update, admin")]
 
         public IResult Update(Model model)
         {

@@ -27,14 +27,14 @@ namespace Business.Concrete
         }
 
         [FluentValidationAspect(typeof(CustomerValidator))]
-        [SecuredOperation("Customer.Add")]
+        [SecuredOperation("customer.add, admin")]
         public IResult Add(Customer customer)
         {
             _customerDal.Add(customer);
             return new SuccessResult(CustomerMessages.CustomerAdded);
         }
 
-        [SecuredOperation("Customer.Delete")]
+        [SecuredOperation("customer.delete, admin")]
         public IResult Delete(Customer customer)
         {
             if (customer != null)
@@ -76,7 +76,7 @@ namespace Business.Concrete
         }
 
         [FluentValidationAspect(typeof(CustomerValidator))]
-        [SecuredOperation("Customer.Update")]
+        [SecuredOperation("customer.update, admin")]
 
         public IResult Update(Customer customer)
         {

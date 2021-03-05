@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Core.Utilities.Results.Abstract;
 using Entities.Concrete;
+using Microsoft.AspNetCore.Http;
 
 namespace Business.Abstract
 {
@@ -12,6 +13,7 @@ namespace Business.Abstract
         IResult Update(CarImage carImage);
         IResult Delete(CarImage carImage);
         IDataResult<List<CarImage>> GetAll();
-        IDataResult<List<CarImage>> GetByCarId(int carId);
+        IDataResult<CarImage> GetById(int carImageId);
+        IDataResult<List<CarImage>> GetImagesByCarId(int carId);
     }
 }

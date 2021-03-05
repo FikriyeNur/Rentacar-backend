@@ -27,14 +27,14 @@ namespace Business.Concrete
         }
 
         [FluentValidationAspect(typeof(UserValidator))]
-        [SecuredOperation("User.Add")]
+        [SecuredOperation("user.add, admin")]
         public IResult Add(User user)
         {
             _userDal.Add(user);
             return new SuccessResult(UserMessages.UserAdded);
         }
 
-        [SecuredOperation("User.Delete")]
+        [SecuredOperation("user.delete, admin")]
         public IResult Delete(User user)
         {
             if (user != null)
@@ -96,7 +96,7 @@ namespace Business.Concrete
         }
 
         [FluentValidationAspect(typeof(UserValidator))]
-        [SecuredOperation("User.Update")]
+        [SecuredOperation("user.update, admin")]
         public IResult Update(User user)
         {
             _userDal.Update(user);

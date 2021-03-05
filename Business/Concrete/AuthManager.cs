@@ -24,7 +24,6 @@ namespace Business.Concrete
             _tokenHelper = tokenHelper;
         }
 
-        [SecuredOperation("Auth.Register")]
         public IDataResult<User> Register(UserForRegisterDto userForRegisterDto)
         {
             byte[] passwordHash, passwordSalt;

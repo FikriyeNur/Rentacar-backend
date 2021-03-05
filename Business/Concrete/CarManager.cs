@@ -9,9 +9,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using Business.BusinessAspects.Autofac;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Caching;
+using Core.Aspects.Autofac.Performance;
+using Core.Aspects.Autofac.Transaction;
 using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingConcerns.Validation;
 using FluentValidation;
@@ -30,14 +34,14 @@ namespace Business.Concrete
         // Cross Cutting Concerns : Validation, Log, Cache, Performans, Transaction, Authorization => AOP (Aspect Oriented Programming) kullanarak bu işlemleri yapacağız. AOP sadece bu işlemleri yaparken kullanılmalıdır.
 
         [FluentValidationAspect(typeof(CarValidator))]
-        [SecuredOperation("Car.Add")]
+        [SecuredOperation("car.add, admin")]
         public IResult Add(Car car)
         {
             _carDal.Add(car);
             return new SuccessResult(CarMessages.CarAdded);
         }
 
-        [SecuredOperation("Car.Delete")]
+        [SecuredOperation("car.delete, admin")]
         public IResult Delete(Car car)
         {
             if (car != null)
@@ -49,8 +53,11 @@ namespace Business.Concrete
 
         }
 
+        [PerformanceAspect(5)]
+        [CacheAspect]
         public IDataResult<List<Car>> GetAll()
         {
+            //Thread.Sleep(5000);
             var result = _carDal.GetAll();
             if (result != null)
             {
@@ -69,6 +76,7 @@ namespace Business.Concrete
             return new ErrorDataResult<List<CarDetailDto>>(result, CarMessages.FailedCarListed);
         }
 
+        [CacheAspect]
         public IDataResult<Car> GetById(int carId)
         {
             var result = _carDal.Get(c => c.CarId == carId);
@@ -150,8 +158,17 @@ namespace Business.Concrete
             return new ErrorDataResult<List<Car>>(result, CarMessages.FailedCarListed);
         }
 
+        [TransactionScopeAspect]
+        public IResult TransactionalOperation(Car car)
+        {
+            _carDal.Update(car);
+            _carDal.Add(car);
+            return new SuccessResult(CarMessages.CarUpdated);
+        }
+
         [FluentValidationAspect(typeof(CarValidator))]
-        [SecuredOperation("Car.Update")]
+        [SecuredOperation("car.update, admin")]
+        [CacheRemoveAspect("ICarService.Get")]
         public IResult Update(Car car)
         {
             _carDal.Update(car);

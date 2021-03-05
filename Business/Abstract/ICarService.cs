@@ -23,5 +23,7 @@ namespace Business.Abstract
         IDataResult<List<Car>> GetComfortCars();
         IDataResult<List<Car>> GetLuxuryCars();
 
+        IResult TransactionalOperation(Car car);
+
     }
 }

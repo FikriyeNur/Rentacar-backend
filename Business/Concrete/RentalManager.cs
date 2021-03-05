@@ -27,7 +27,7 @@ namespace Business.Concrete
         }
 
         [FluentValidationAspect(typeof(RentalValidator))]
-        [SecuredOperation("Rental.Add")]
+        [SecuredOperation("rental.add, admin")]
         public IResult Add(Rental rental)
         {
             if (_rentalDal.GetAll(r => r.CarId == rental.CarId && r.ReturnDate == null).Count > 0)
@@ -38,7 +38,7 @@ namespace Business.Concrete
             return new SuccessResult(RentalMessages.RentalAdded);
         }
 
-        [SecuredOperation("Rental.Delete")]
+        [SecuredOperation("rental.delete, admin")]
 
         public IResult Delete(Rental rental)
         {
@@ -81,7 +81,7 @@ namespace Business.Concrete
         }
 
         [FluentValidationAspect(typeof(RentalValidator))]
-        [SecuredOperation("Rental.Update")]
+        [SecuredOperation("rental.update, admin")]
 
         public IResult Update(Rental rental)
         {
