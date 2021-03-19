@@ -14,11 +14,11 @@ namespace WepAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CarImageController : ControllerBase
+    public class CarImagesController : ControllerBase
     {
         ICarImageService _carImageService;
 
-        public CarImageController(ICarImageService carImageService)
+        public CarImagesController(ICarImageService carImageService)
         {
             _carImageService = carImageService;
         }
@@ -35,9 +35,9 @@ namespace WepAPI.Controllers
         }
 
         [HttpPost("add")]
-        public IActionResult Add(CarImage carImage)
+        public IActionResult AddAsync([FromForm(Name = "Image")] IFormFile file, [FromForm] CarImage carImage)
         {
-            var result = _carImageService.Add(carImage);
+            var result = _carImageService.Add(carImage, file);
             if (result.Success)
             {
                 return Ok(result.Message);
@@ -45,27 +45,27 @@ namespace WepAPI.Controllers
             return BadRequest(result.Message);
         }
 
-        [HttpPost("update")]
-        public IActionResult Update(CarImage carImage)
-        {
-            var result = _carImageService.Update(carImage);
-            if (result.Success)
-            {
-                return Ok(result.Message);
-            }
-            return BadRequest(result.Message);
-        }
+        //[HttpPost("update")]
+        //public IActionResult Update(CarImage carImage)
+        //{
+        //    var result = _carImageService.Update(carImage);
+        //    if (result.Success)
+        //    {
+        //        return Ok(result.Message);
+        //    }
+        //    return BadRequest(result.Message);
+        //}
 
-        [HttpPost("delete")]
-        public IActionResult Delete(CarImage carImage)
-        {
-            var result = _carImageService.Delete(carImage);
-            if (result.Success)
-            {
-                return Ok(result.Message);
-            }
-            return BadRequest(result.Message);
-        }
+        //[HttpPost("delete")]
+        //public IActionResult Delete(CarImage carImage)
+        //{
+        //    var result = _carImageService.Delete(carImage);
+        //    if (result.Success)
+        //    {
+        //        return Ok(result.Message);
+        //    }
+        //    return BadRequest(result.Message);
+        //}
     }
 }
 

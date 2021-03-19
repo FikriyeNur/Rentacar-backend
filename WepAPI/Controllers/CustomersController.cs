@@ -26,9 +26,9 @@ namespace WepAPI.Controllers
             var result = _customerService.GetAll();
             if (result.Success)
             {
-                return Ok(result.Data);
+                return Ok(result);
             }
-            return BadRequest(result.Message);
+            return BadRequest(result);
         }
 
         [HttpGet("getbyid")]
@@ -81,9 +81,9 @@ namespace WepAPI.Controllers
             var result = _customerService.GetAllCustomerDetails();
             if (result.Success)
             {
-                return Ok(result.Data);
+                return Ok(result);
             }
-            return BadRequest(result.Message);
+            return BadRequest(result);
         }
     }
 }

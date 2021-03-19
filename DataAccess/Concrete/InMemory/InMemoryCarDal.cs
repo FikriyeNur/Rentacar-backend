@@ -46,7 +46,7 @@ namespace DataAccess.Concrete.InMemory
             return _cars;
         }
 
-        public List<CarDetailDto> GetAllCarDetails()
+        public List<CarDetailDto> GetAllCarDetails(Expression<Func<CarDetailDto, bool>> filter = null)
         {
             throw new NotImplementedException();
         }

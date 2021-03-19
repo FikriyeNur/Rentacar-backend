@@ -97,65 +97,65 @@ namespace Business.Concrete
             return new ErrorDataResult<CarDetailDto>(result, CarMessages.FailedCarById);
         }
 
-        public IDataResult<List<Car>> GetCarsByBrandId(int brandId)
+        public IDataResult<List<CarDetailDto>> GetCarsByBrandId(int brandId)
         {
-            var result = _carDal.GetAll(c => c.BrandId == brandId);
+            var result = _carDal.GetAllCarDetails(c => c.BrandId == brandId);
 
             if (result.Count() > 0)
             {
-                return new SuccessDataResult<List<Car>>(result);
+                return new SuccessDataResult<List<CarDetailDto>>(result);
             }
-            return new ErrorDataResult<List<Car>>(result, CarMessages.FailedCarListed);
+            return new ErrorDataResult<List<CarDetailDto>>(result, CarMessages.FailedCarListed);
         }
 
-        public IDataResult<List<Car>> GetCarsByColorId(int colorId)
+        public IDataResult<List<CarDetailDto>> GetCarsByColorId(int colorId)
         {
-            var result = _carDal.GetAll(c => c.ColorId == colorId);
+            var result = _carDal.GetAllCarDetails(c => c.ColorId == colorId);
             if (result.Count() > 0)
             {
-                return new SuccessDataResult<List<Car>>(result);
+                return new SuccessDataResult<List<CarDetailDto>>(result);
             }
-            return new ErrorDataResult<List<Car>>(result, CarMessages.FailedCarListed);
+            return new ErrorDataResult<List<CarDetailDto>>(result, CarMessages.FailedCarListed);
         }
 
-        public IDataResult<List<Car>> GetCarsByModelId(int modelId)
+        public IDataResult<List<CarDetailDto>> GetCarsByModelId(int modelId)
         {
-            var result = _carDal.GetAll(c => c.ModelId == modelId);
+            var result = _carDal.GetAllCarDetails(c => c.ModelId == modelId);
             if (result.Count() > 0)
             {
-                return new SuccessDataResult<List<Car>>(result);
+                return new SuccessDataResult<List<CarDetailDto>>(result);
             }
-            return new ErrorDataResult<List<Car>>(result, CarMessages.FailedCarListed);
+            return new ErrorDataResult<List<CarDetailDto>>(result, CarMessages.FailedCarListed);
         }
 
-        public IDataResult<List<Car>> GetComfortCars()
+        public IDataResult<List<CarDetailDto>> GetComfortCars()
         {
-            var result = _carDal.GetAll(c => c.Description.Contains("Konfor"));
+            var result = _carDal.GetAllCarDetails(c => c.Description.Contains("Konfor"));
             if (result.Count() > 0)
             {
-                return new SuccessDataResult<List<Car>>(result);
+                return new SuccessDataResult<List<CarDetailDto>>(result);
             }
-            return new ErrorDataResult<List<Car>>(result, CarMessages.FailedCarListed);
+            return new ErrorDataResult<List<CarDetailDto>>(result, CarMessages.FailedCarListed);
         }
 
-        public IDataResult<List<Car>> GetEconomicCars()
+        public IDataResult<List<CarDetailDto>> GetEconomicCars()
         {
-            var result = _carDal.GetAll(c => c.Description.Contains("Eko"));
+            var result = _carDal.GetAllCarDetails(c => c.Description.Contains("Eko"));
             if (result.Count() > 0)
             {
-                return new SuccessDataResult<List<Car>>(result);
+                return new SuccessDataResult<List<CarDetailDto>>(result);
             }
-            return new ErrorDataResult<List<Car>>(result, CarMessages.FailedCarListed);
+            return new ErrorDataResult<List<CarDetailDto>>(result, CarMessages.FailedCarListed);
         }
 
-        public IDataResult<List<Car>> GetLuxuryCars()
+        public IDataResult<List<CarDetailDto>> GetLuxuryCars()
         {
-            var result = _carDal.GetAll(c => c.Description.Contains("Lüks"));
+            var result = _carDal.GetAllCarDetails(c => c.Description.Contains("Lüks"));
             if (result.Count() > 0)
             {
-                return new SuccessDataResult<List<Car>>(result);
+                return new SuccessDataResult<List<CarDetailDto>>(result);
             }
-            return new ErrorDataResult<List<Car>>(result, CarMessages.FailedCarListed);
+            return new ErrorDataResult<List<CarDetailDto>>(result, CarMessages.FailedCarListed);
         }
 
         [TransactionScopeAspect]

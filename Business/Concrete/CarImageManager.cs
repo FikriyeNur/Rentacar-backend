@@ -7,10 +7,12 @@ using Business.Contants;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Business;
+using Core.Utilities.FileHelper;
 using Core.Utilities.Results.Abstract;
 using Core.Utilities.Results.Concrete;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Microsoft.AspNetCore.Http;
 
 namespace Business.Concrete
 {
@@ -24,18 +26,20 @@ namespace Business.Concrete
         }
 
         [FluentValidationAspect(typeof(CarImageValidator))]
-        public IResult Add(CarImage carImage)
+        public IResult Add(CarImage carImage, IFormFile file)
         {
             var result = BusinessRules.Run(CheckCarImageLimitExceeded(carImage.CarId));
             if (result != null)
             {
                 return result;
             }
+
+            carImage.ImagePath = FileHelper.AddAsync(file);
             _carImageDal.Add(carImage);
             return new SuccessResult(CarImageMessage.CarImageAdded);
         }
 
-        public IResult Delete(CarImage carImage)
+        public IResult Delete(CarImage carImage, IFormFile file)
         {
             if (carImage != null)
             {
@@ -71,7 +75,7 @@ namespace Business.Concrete
         }
 
         [FluentValidationAspect(typeof(CarImageValidator))]
-        public IResult Update(CarImage carImage)
+        public IResult Update(CarImage carImage, IFormFile file)
         {
             var result = BusinessRules.Run(CheckCarImageLimitExceeded(carImage.CarId));
             if (result != null)

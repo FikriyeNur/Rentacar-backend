@@ -13,7 +13,7 @@ namespace DataAccess.Concrete.EntityFramework
 {
     public class EfCarDal : EfEntityRepositoryBase<Car, RentACarContext>, ICarDal
     {
-        public List<CarDetailDto> GetAllCarDetails()
+        public List<CarDetailDto> GetAllCarDetails(Expression<Func<CarDetailDto, bool>> filter = null)
         {
             using (RentACarContext context= new RentACarContext())
             {
@@ -24,8 +24,12 @@ namespace DataAccess.Concrete.EntityFramework
                              on c.ColorId equals co.ColorId
                              join m in context.Models
                              on c.ModelId equals m.ModelId
-                             select new CarDetailDto { CarId = c.CarId, BrandName = b.BrandName, ModelName = m.ModelName, ModelYear = c.ModelYear, ColorName = co.ColorName, DailyPrice = c.DailyPrice, Description = c.Description };
-                return result.ToList();
+                             select new CarDetailDto { CarId = c.CarId, BrandId=b.BrandId, BrandName = b.BrandName, ModelId=m.ModelId, ModelName = m.ModelName, ModelYear = c.ModelYear, ColorId=co.ColorId, ColorName = co.ColorName, DailyPrice = c.DailyPrice, Description = c.Description };
+                if (filter == null)
+                {
+                    return result.ToList();
+                }
+                return result.Where(filter).ToList();
             }
         }
 
@@ -40,7 +44,7 @@ namespace DataAccess.Concrete.EntityFramework
                              on c.ColorId equals co.ColorId
                              join m in context.Models
                              on c.ModelId equals m.ModelId
-                             select new CarDetailDto { CarId = c.CarId, BrandName = b.BrandName, ModelName = m.ModelName, ModelYear = c.ModelYear, ColorName = co.ColorName, DailyPrice = c.DailyPrice, Description = c.Description };
+                             select new CarDetailDto { CarId = c.CarId, BrandId=b.BrandId, BrandName = b.BrandName, ModelId=m.ModelId, ModelName = m.ModelName, ModelYear = c.ModelYear, ColorId=co.ColorId, ColorName = co.ColorName, DailyPrice = c.DailyPrice, Description = c.Description };
 
                 return result.FirstOrDefault(c => c.CarId == carId);
             }

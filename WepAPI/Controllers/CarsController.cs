@@ -82,9 +82,9 @@ namespace WepAPI.Controllers
             var result = _carService.GetAllCarDetails();
             if (result.Success)
             {
-                return Ok(result.Data);
+                return Ok(result);
             }
-            return BadRequest(result.Message);
+            return BadRequest(result);
         }
 
         [HttpGet("getbyiddto")]
@@ -93,9 +93,9 @@ namespace WepAPI.Controllers
             var result = _carService.GetCarDetail(id);
             if (result.Success)
             {
-                return Ok(result.Data);
+                return Ok(result);
             }
-            return BadRequest(result.Message);
+            return BadRequest(result);
         }
 
         [HttpGet("getfilterbrandid")]
@@ -104,9 +104,9 @@ namespace WepAPI.Controllers
             var result = _carService.GetCarsByBrandId(id);
             if (result.Success)
             {
-                return Ok(result.Data);
+                return Ok(result);
             }
-            return BadRequest(result.Message);
+            return BadRequest(result);
         }
 
         [HttpGet("getfiltercolorid")]
@@ -115,9 +115,9 @@ namespace WepAPI.Controllers
             var result = _carService.GetCarsByColorId(id);
             if (result.Success)
             {
-                return Ok(result.Data);
+                return Ok(result);
             }
-            return BadRequest(result.Message);
+            return BadRequest(result);
         }
 
         [HttpGet("getfiltermodelid")]
@@ -154,7 +154,7 @@ namespace WepAPI.Controllers
         }
 
         [HttpGet("getluxurycars")]
-        public IActionResult GetFilterModelId()
+        public IActionResult GetFilterLuxuryId()
         {
             var result = _carService.GetLuxuryCars();
             if (result.Success)

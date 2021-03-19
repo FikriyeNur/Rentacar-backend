@@ -28,10 +28,12 @@ namespace WepAPI
         {
             services.AddControllers();
 
-            services.AddCors(options =>
-            {
-                options.AddPolicy("AllowOrigin", builder => builder.WithOrigins("http://localhost:3000"));
-            });
+            //services.AddCors(options =>
+            //{
+            //    options.AddPolicy("AllowOrigin", builder => builder.WithOrigins("http://localhost:3000"));
+            //});
+
+            services.AddCors();
 
             var tokenOptions = Configuration.GetSection("TokenOptions").Get<TokenOptions>();
 
@@ -60,7 +62,7 @@ namespace WepAPI
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseCors(builder => builder.WithOrigins("http://localhost:3000").AllowAnyHeader());
+            app.UseCors(builder => builder.WithOrigins("http://localhost:4300").AllowAnyHeader());
 
             app.UseHttpsRedirection();
 
