@@ -12,7 +12,6 @@ namespace Business.ValidationRules.FluentValidation
         {
             RuleFor(ci => ci.CarId).NotEmpty();
             RuleFor(ci => ci.CarId).GreaterThan(0);
-            RuleFor(ci => ci.Date).NotEmpty();
         }
     }
 }

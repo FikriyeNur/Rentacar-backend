@@ -29,43 +29,65 @@ namespace WepAPI.Controllers
             var result = _carImageService.GetAll();
             if (result.Success)
             {
-                return Ok(result.Data);
+                return Ok(result);
             }
-            return BadRequest(result.Message);
+            return BadRequest(result);
+        }
+
+        [HttpGet("getbyid")]
+        public IActionResult GetById([FromForm(Name = "Id")] int carImageId)
+        {
+            var result = _carImageService.GetById(carImageId);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+        [HttpGet("getimagesbycarid")]
+        public IActionResult GetImagesByCarId([FromForm(Name = "CarId")] int carId)
+        {
+            var result = _carImageService.GetImagesByCarId(carId);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
         }
 
         [HttpPost("add")]
-        public IActionResult AddAsync([FromForm(Name = "Image")] IFormFile file, [FromForm] CarImage carImage)
+        public IActionResult Add([FromForm(Name = "Image")] IFormFile file, [FromForm] CarImage carImage)
         {
             var result = _carImageService.Add(carImage, file);
             if (result.Success)
             {
-                return Ok(result.Message);
+                return Ok(result);
             }
-            return BadRequest(result.Message);
+            return BadRequest(result);
         }
 
-        //[HttpPost("update")]
-        //public IActionResult Update(CarImage carImage)
-        //{
-        //    var result = _carImageService.Update(carImage);
-        //    if (result.Success)
-        //    {
-        //        return Ok(result.Message);
-        //    }
-        //    return BadRequest(result.Message);
-        //}
+        [HttpPost("update")]
+        public IActionResult Update([FromForm] CarImage carImage, IFormFile file)
+        {
+            var result = _carImageService.Update(carImage, file);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
 
-        //[HttpPost("delete")]
-        //public IActionResult Delete(CarImage carImage)
-        //{
-        //    var result = _carImageService.Delete(carImage);
-        //    if (result.Success)
-        //    {
-        //        return Ok(result.Message);
-        //    }
-        //    return BadRequest(result.Message);
-        //}
+        [HttpPost("delete")]
+        public IActionResult Delete([FromForm] CarImage carImage)
+        {
+            var result = _carImageService.Delete(carImage);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
     }
 }
 

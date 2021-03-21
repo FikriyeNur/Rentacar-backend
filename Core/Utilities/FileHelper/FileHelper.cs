@@ -2,40 +2,82 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using Core.Utilities.Results.Abstract;
+using Core.Utilities.Results.Concrete;
 using Microsoft.AspNetCore.Http;
 
 namespace Core.Utilities.FileHelper
 {
     public class FileHelper
     {
-        public static string AddAsync(IFormFile file)
+        public static string Add(IFormFile file)
         {
             var result = NewPath(file);
 
             try
             {
                 var sourcePath = Path.GetTempFileName();
-                using (var stream = new FileStream(sourcePath, FileMode.Create))
+                if (file.Length > 0)
                 {
-                    file.CopyTo(stream);
+                    using (var stream = new FileStream(sourcePath, FileMode.Create))
+                    {
+                        file.CopyTo(stream);
+                    }
                 }
-                File.Move(sourcePath, result.newPath);
+                File.Move(sourcePath, result);
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+                throw ex;
+            }
+
+            return result;
+        }
+
+        public static string Update(string sourcePath, IFormFile file)
+        {
+            var result = NewPath(file);
+
+            try
+            {
+                if (sourcePath.Length > 0)
+                {
+                    using (var stream = new FileStream(result, FileMode.Create))
+                    {
+                        file.CopyTo(stream);
+                    }
+                }
+                File.Delete(sourcePath);
             }
             catch (Exception ex)
             {
                 return ex.Message;
             }
-
-            return result.path;
+            return result;
         }
 
-        public static (string newPath, string path) NewPath(IFormFile file)
+        public static IResult Delete(string path)
+        {
+            try
+            {
+                File.Delete(path);
+            }
+            catch (Exception ex)
+            {
+                return new ErrorResult(ex.Message);
+            }
+            return new SuccessResult();
+        }
+
+        public static string NewPath(IFormFile file)
         {
             FileInfo fileInfo = new FileInfo(file.FileName);
             string fileExtensions = fileInfo.Extension;
+
             var createUniqueFileName = Guid.NewGuid().ToString("N") + fileExtensions;
-            string result = $@"{Environment.CurrentDirectory + @"\wwwroot\Images"}\{createUniqueFileName}";
-            return (result, $@"\Images\{createUniqueFileName}");
+            string result = $@"{@".\wwwroot\Images"}\{createUniqueFileName}";
+            return result;
         }
     }
 }
