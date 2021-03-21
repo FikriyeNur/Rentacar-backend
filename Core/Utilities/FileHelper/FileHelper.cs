@@ -29,7 +29,7 @@ namespace Core.Utilities.FileHelper
             catch (Exception ex)
             {
                 return ex.Message;
-                throw ex;
+                throw;
             }
 
             return result;
@@ -52,7 +52,8 @@ namespace Core.Utilities.FileHelper
             }
             catch (Exception ex)
             {
-                return ex.Message;
+                //return ex.Message;
+                throw;
             }
             return result;
         }

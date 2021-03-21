@@ -43,6 +43,12 @@ namespace Business.Concrete
         [FluentValidationAspect(typeof(CarImageValidator))]
         public IResult Update(CarImage carImage, IFormFile file)
         {
+            var result = BusinessRules.Run(CheckCarImageLimitExceeded(carImage.CarId));
+            if (result != null)
+            {
+                return result;
+            }
+
             var resultPath = $@"{_carImageDal.Get(ci => ci.Id == carImage.Id).ImagePath}";
             carImage.ImagePath = FileHelper.Update(resultPath, file);
             carImage.Date = DateTime.Now;
@@ -57,7 +63,6 @@ namespace Business.Concrete
 
         public IResult Delete(CarImage carImage)
         {
-            var result = BusinessRules.Run(CheckCarImageLimitExceeded(carImage.CarId));
             var resultPath = $@"{_carImageDal.Get(ci => ci.Id == carImage.Id).ImagePath}";
             FileHelper.Delete(resultPath);
 
