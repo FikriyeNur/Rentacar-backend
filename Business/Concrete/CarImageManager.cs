@@ -96,7 +96,7 @@ namespace Business.Concrete
 
         public IDataResult<List<CarImage>> GetImagesByCarId(int carId)
         {
-            string path = @".\wwwroot\Images\Default.png";
+            string path = @".\Default.png";
             var result = _carImageDal.GetAll(ci => ci.CarId == carId);
             if (result.Count > 0)
             {

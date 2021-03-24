@@ -12,54 +12,39 @@ namespace Core.Utilities.FileHelper
     {
         public static string Add(IFormFile file)
         {
-            var result = NewPath(file);
+            var sourcePath = Path.GetTempFileName();
 
-            try
+            if (file.Length > 0)
             {
-                var sourcePath = Path.GetTempFileName();
-                if (file.Length > 0)
+                using (var stream = new FileStream(sourcePath, FileMode.Create))
                 {
-                    using (var stream = new FileStream(sourcePath, FileMode.Create))
-                    {
-                        file.CopyTo(stream);
-                    }
+                    file.CopyTo(stream);
                 }
-                File.Move(sourcePath, result);
             }
-            catch (Exception ex)
-            {
-                return ex.Message;
-                throw;
-            }
-
-            return result;
+            var result = newPath(file);
+            File.Move(sourcePath, result.newPath);
+            return result.resultPath.Replace("\\", "/");
         }
 
         public static string Update(string sourcePath, IFormFile file)
         {
-            var result = NewPath(file);
+            var result = newPath(file);
 
-            try
+            if (sourcePath.Length > 0)
             {
-                if (sourcePath.Length > 0)
+                using (var stream = new FileStream(result.newPath, FileMode.Create))
                 {
-                    using (var stream = new FileStream(result, FileMode.Create))
-                    {
-                        file.CopyTo(stream);
-                    }
+                    file.CopyTo(stream);
                 }
-                File.Delete(sourcePath);
             }
-            catch (Exception ex)
-            {
-                //return ex.Message;
-                throw;
-            }
-            return result;
+            File.Delete(sourcePath);
+
+            return result.resultPath.Replace("\\", "/");
         }
 
         public static IResult Delete(string path)
         {
+            path = path.Replace("/", "\\");
             try
             {
                 File.Delete(path);
@@ -71,14 +56,16 @@ namespace Core.Utilities.FileHelper
             return new SuccessResult();
         }
 
-        public static string NewPath(IFormFile file)
+        public static (string newPath, string resultPath) newPath(IFormFile file)
         {
             FileInfo fileInfo = new FileInfo(file.FileName);
             string fileExtensions = fileInfo.Extension;
 
-            var createUniqueFileName = Guid.NewGuid().ToString("N") + fileExtensions;
-            string result = $@"{@".\wwwroot\Images"}\{createUniqueFileName}";
-            return result;
+            string path = @".\wwwroot\Images";
+            var guidPath = Guid.NewGuid().ToString() + fileExtensions;
+
+            string result = $@"{path}\{guidPath}";
+            return (result, $"{guidPath}");
         }
     }
 }
