@@ -48,6 +48,7 @@ namespace DataAccess.Concrete.EntityFramework
 
                 return result.FirstOrDefault(c => c.CarId == carId);
             }
+
         }
     }
 }

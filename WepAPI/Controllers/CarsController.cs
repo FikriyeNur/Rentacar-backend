@@ -137,9 +137,9 @@ namespace WepAPI.Controllers
             var result = _carService.GetEconomicCars();
             if (result.Success)
             {
-                return Ok(result.Data);
+                return Ok(result);
             }
-            return BadRequest(result.Message);
+            return BadRequest(result);
         }
 
         [HttpGet("getcomfortcars")]
@@ -148,9 +148,9 @@ namespace WepAPI.Controllers
             var result = _carService.GetComfortCars();
             if (result.Success)
             {
-                return Ok(result.Data);
+                return Ok(result);
             }
-            return BadRequest(result.Message);
+            return BadRequest(result);
         }
 
         [HttpGet("getluxurycars")]
@@ -159,9 +159,9 @@ namespace WepAPI.Controllers
             var result = _carService.GetLuxuryCars();
             if (result.Success)
             {
-                return Ok(result.Data);
+                return Ok(result);
             }
-            return BadRequest(result.Message);
+            return BadRequest(result);
         }
 
         [HttpPost("transaction")]

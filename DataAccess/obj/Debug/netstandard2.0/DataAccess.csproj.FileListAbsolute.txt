@@ -1,0 +1,38 @@
+C:\Users\fikri\Desktop\ReCapProject\DataAccess\bin\Debug\netstandard2.0\DataAccess.deps.json
+C:\Users\fikri\Desktop\ReCapProject\DataAccess\bin\Debug\netstandard2.0\DataAccess.dll
+C:\Users\fikri\Desktop\ReCapProject\DataAccess\bin\Debug\netstandard2.0\DataAccess.pdb
+C:\Users\fikri\Desktop\ReCapProject\DataAccess\bin\Debug\netstandard2.0\Entities.dll
+C:\Users\fikri\Desktop\ReCapProject\DataAccess\bin\Debug\netstandard2.0\Entities.pdb
+C:\Users\fikri\Desktop\ReCapProject\DataAccess\obj\Debug\netstandard2.0\DataAccess.csprojAssemblyReference.cache
+C:\Users\fikri\Desktop\ReCapProject\DataAccess\obj\Debug\netstandard2.0\DataAccess.AssemblyInfoInputs.cache
+C:\Users\fikri\Desktop\ReCapProject\DataAccess\obj\Debug\netstandard2.0\DataAccess.AssemblyInfo.cs
+C:\Users\fikri\Desktop\ReCapProject\DataAccess\obj\Debug\netstandard2.0\DataAccess.csproj.CoreCompileInputs.cache
+C:\Users\fikri\Desktop\ReCapProject\DataAccess\obj\Debug\netstandard2.0\DataAccess.csproj.CopyComplete
+C:\Users\fikri\Desktop\ReCapProject\DataAccess\obj\Debug\netstandard2.0\DataAccess.dll
+C:\Users\fikri\Desktop\ReCapProject\DataAccess\obj\Debug\netstandard2.0\DataAccess.pdb
+D:\Yazılım Kampı\ReCapProject\DataAccess\bin\Debug\netstandard2.0\DataAccess.deps.json
+D:\Yazılım Kampı\ReCapProject\DataAccess\bin\Debug\netstandard2.0\DataAccess.dll
+D:\Yazılım Kampı\ReCapProject\DataAccess\bin\Debug\netstandard2.0\DataAccess.pdb
+D:\Yazılım Kampı\ReCapProject\DataAccess\bin\Debug\netstandard2.0\Entities.dll
+D:\Yazılım Kampı\ReCapProject\DataAccess\bin\Debug\netstandard2.0\Entities.pdb
+D:\Yazılım Kampı\ReCapProject\DataAccess\obj\Debug\netstandard2.0\DataAccess.csprojAssemblyReference.cache
+D:\Yazılım Kampı\ReCapProject\DataAccess\obj\Debug\netstandard2.0\DataAccess.AssemblyInfoInputs.cache
+D:\Yazılım Kampı\ReCapProject\DataAccess\obj\Debug\netstandard2.0\DataAccess.AssemblyInfo.cs
+D:\Yazılım Kampı\ReCapProject\DataAccess\obj\Debug\netstandard2.0\DataAccess.csproj.CoreCompileInputs.cache
+D:\Yazılım Kampı\ReCapProject\DataAccess\obj\Debug\netstandard2.0\DataAccess.csproj.CopyComplete
+D:\Yazılım Kampı\ReCapProject\DataAccess\obj\Debug\netstandard2.0\DataAccess.dll
+D:\Yazılım Kampı\ReCapProject\DataAccess\obj\Debug\netstandard2.0\DataAccess.pdb
+D:\Yazılım Kampı\CarRentalProject\DataAccess\bin\Debug\netstandard2.0\DataAccess.deps.json
+D:\Yazılım Kampı\CarRentalProject\DataAccess\bin\Debug\netstandard2.0\DataAccess.dll
+D:\Yazılım Kampı\CarRentalProject\DataAccess\bin\Debug\netstandard2.0\DataAccess.pdb
+D:\Yazılım Kampı\CarRentalProject\DataAccess\bin\Debug\netstandard2.0\Entities.dll
+D:\Yazılım Kampı\CarRentalProject\DataAccess\bin\Debug\netstandard2.0\Entities.pdb
+D:\Yazılım Kampı\CarRentalProject\DataAccess\obj\Debug\netstandard2.0\DataAccess.csprojAssemblyReference.cache
+D:\Yazılım Kampı\CarRentalProject\DataAccess\obj\Debug\netstandard2.0\DataAccess.AssemblyInfoInputs.cache
+D:\Yazılım Kampı\CarRentalProject\DataAccess\obj\Debug\netstandard2.0\DataAccess.AssemblyInfo.cs
+D:\Yazılım Kampı\CarRentalProject\DataAccess\obj\Debug\netstandard2.0\DataAccess.csproj.CoreCompileInputs.cache
+D:\Yazılım Kampı\CarRentalProject\DataAccess\obj\Debug\netstandard2.0\DataAccess.csproj.CopyComplete
+D:\Yazılım Kampı\CarRentalProject\DataAccess\obj\Debug\netstandard2.0\DataAccess.dll
+D:\Yazılım Kampı\CarRentalProject\DataAccess\obj\Debug\netstandard2.0\DataAccess.pdb
+D:\Yazılım Kampı\CarRentalProject\DataAccess\bin\Debug\netstandard2.0\Core.dll
+D:\Yazılım Kampı\CarRentalProject\DataAccess\bin\Debug\netstandard2.0\Core.pdb
