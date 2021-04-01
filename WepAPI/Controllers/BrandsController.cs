@@ -11,6 +11,7 @@ namespace WepAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+
     public class BrandsController : ControllerBase
     {
         IBrandService _brandService;
