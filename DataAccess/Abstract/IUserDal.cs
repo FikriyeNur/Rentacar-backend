@@ -12,5 +12,6 @@ namespace DataAccess.Abstract
     {
         List<OperationClaim> GetClaims(User user); // parametre olarak verilen kullanıcının Operation Claim'lerini listeleme
         List<OperationClaimDto> GetClaimsDto(User user);
+
     }
 }

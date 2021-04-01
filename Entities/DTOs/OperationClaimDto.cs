@@ -11,5 +11,6 @@ namespace Entities.DTOs
         public string OperationClaimName { get; set; }
         public string UserFirstName { get; set; }
         public string UserLastName { get; set; }
+
     }
 }

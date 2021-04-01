@@ -68,4 +68,5 @@ namespace Core.Utilities.FileHelper
             return (result, $"{guidPath}");
         }
     }
+
 }

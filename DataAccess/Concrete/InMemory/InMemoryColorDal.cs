@@ -12,6 +12,7 @@ namespace DataAccess.Concrete.InMemory
     {
         List<Color> _colors;
 
+        
         public InMemoryColorDal()
         {
             _colors = new List<Color>

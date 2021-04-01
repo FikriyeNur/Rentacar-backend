@@ -44,6 +44,7 @@ namespace Business.DependencyResolvers.Autofac
             builder.RegisterType<PaymentManager>().As<IPaymentService>().SingleInstance();
             builder.RegisterType<EfPaymentDal>().As<IPaymentDal>().SingleInstance();
 
+
             // eğer istersek her class için tek tek veya sadece istediklerimiz içinde yazabiliriz ama biz hepsinde kullanacağımız için bu şekilde yazdık.
             var assembly = System.Reflection.Assembly.GetExecutingAssembly();
 

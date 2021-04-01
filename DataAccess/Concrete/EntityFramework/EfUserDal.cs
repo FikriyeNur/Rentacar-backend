@@ -25,6 +25,7 @@ namespace DataAccess.Concrete.EntityFramework
             }
         }
 
+
         public List<OperationClaimDto> GetClaimsDto(User user)
         {
             using (RentACarContext context = new RentACarContext())

@@ -12,6 +12,7 @@ namespace DataAccess.Concrete.InMemory
     {
         List<Brand> _brands;
 
+       
         public InMemoryBrandDal()
         {
             _brands = new List<Brand>

@@ -13,6 +13,7 @@ namespace DataAccess.Concrete.InMemory
     {
         List<Model> _models;
 
+       
         public InMemoryModelDal()
         {
             _models = new List<Model>

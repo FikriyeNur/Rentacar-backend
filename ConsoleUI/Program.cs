@@ -77,7 +77,6 @@ namespace ConsoleUI
 
             Console.ReadLine();
         }
-
         private static void RentalPanel(RentalManager rentalManager)
         {
             Console.WriteLine("----- FNH Araç Kiralama Sitesine Hoş Geldiniz -----");

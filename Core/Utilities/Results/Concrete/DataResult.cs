@@ -17,6 +17,7 @@ namespace Core.Utilities.Results.Concrete
             Data = data;
         }
 
+
         public T Data { get; }
     }
 }

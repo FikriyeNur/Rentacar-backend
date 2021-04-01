@@ -12,5 +12,6 @@ namespace Entities.DTOs
         public string UserFirstName { get; set; }
         public string UserLastName { get; set; }
         public string EMail { get; set; }
+
     }
 }

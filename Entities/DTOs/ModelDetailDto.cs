@@ -10,5 +10,6 @@ namespace Entities.DTOs
         public int ModelId { get; set; }
         public string BrandName { get; set; }
         public string ModelName { get; set; }
+
     }
 }

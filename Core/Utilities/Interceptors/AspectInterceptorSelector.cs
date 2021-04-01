@@ -17,4 +17,5 @@ namespace Core.Utilities.Interceptors
             return classAttribute.OrderBy(x => x.Priority).ToArray();
         }
     }
+
 }

@@ -34,4 +34,5 @@ namespace Core.Aspects.Autofac.Performance
             _stopwatch.Reset();
         }
     }
+
 }

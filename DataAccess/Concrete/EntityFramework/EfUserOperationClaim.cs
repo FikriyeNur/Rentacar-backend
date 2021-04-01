@@ -9,5 +9,6 @@ namespace DataAccess.Concrete.EntityFramework
 {
     public class EfUserOperationClaim : EfEntityRepositoryBase<UserOperationClaim, RentACarContext>, IUserOperationClaim
     {
+
     }
 }

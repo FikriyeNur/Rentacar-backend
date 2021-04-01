@@ -25,5 +25,6 @@ namespace Core.Utilities.Results.Concrete
         {
 
         }
+
     }
 }

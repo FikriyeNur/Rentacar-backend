@@ -11,5 +11,6 @@ namespace Core.Utilities.Security.Ecryption
         {
             return new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha512Signature);
         }
+
     }
 }

@@ -14,3 +14,4 @@ namespace Entities.Concrete
         public DateTime? ReturnDate { get; set; }
     }
 }
+
