@@ -27,7 +27,7 @@ namespace Business.Concrete
         }
 
         [FluentValidationAspect(typeof(RentalValidator))]
-        [SecuredOperation("rental.add, admin")]
+        //[SecuredOperation("rental.add, admin")]
         public IResult Add(Rental rental)
         {
             if (_rentalDal.GetAll(r => r.CarId == rental.CarId && r.ReturnDate == null).Count > 0)
@@ -78,6 +78,27 @@ namespace Business.Concrete
                 return new SuccessDataResult<Rental>(result);
             }
             return new ErrorDataResult<Rental>(result);
+        }
+
+        public IDataResult<RentalDetailDto> GetDetailById(int rentalId)
+        {
+            var result = _rentalDal.GetRentalDetails(rentalId);
+            if (result != null)
+            {
+                return new SuccessDataResult<RentalDetailDto>(result);
+            }
+            return new ErrorDataResult<RentalDetailDto>(result);
+        }
+
+        public IResult IsCarAvailable(int carId)
+        {
+            var result = _rentalDal.IsCarAvailable(carId);
+            if (result)
+            {
+                return new SuccessResult(RentalMessages.RentalAvaible);
+            }
+            return new ErrorResult(RentalMessages.FailedRentalInformation);
+
         }
 
         [FluentValidationAspect(typeof(RentalValidator))]

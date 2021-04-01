@@ -48,9 +48,9 @@ namespace WepAPI.Controllers
             var result = _rentalService.Add(rental);
             if (result.Success)
             {
-                return Ok(result.Message);
+                return Ok(result);
             }
-            return BadRequest(result.Message);
+            return BadRequest(result);
         }
 
         [HttpPost("update")]
@@ -79,6 +79,28 @@ namespace WepAPI.Controllers
         public IActionResult GetAllDto()
         {
             var result = _rentalService.GetAllRentalDetails();
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+        [HttpGet("getdetailbyid")]
+        public IActionResult GetDetailById(int id)
+        {
+            var result = _rentalService.GetDetailById(id);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+        [HttpGet("iscaravailable")]
+        public IActionResult IsCarAvailable(int carId)
+        {
+            var result = _rentalService.IsCarAvailable(carId);
             if (result.Success)
             {
                 return Ok(result);

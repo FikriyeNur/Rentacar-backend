@@ -27,3 +27,15 @@ D:\Yazılım Kampı\CarRentalProject\Entities\obj\Debug\netstandard2.0\Entities.
 D:\Yazılım Kampı\CarRentalProject\Entities\bin\Debug\netstandard2.0\Core.dll
 D:\Yazılım Kampı\CarRentalProject\Entities\bin\Debug\netstandard2.0\Core.pdb
 D:\Yazılım Kampı\CarRentalProject\Entities\obj\Debug\netstandard2.0\Entities.csproj.CopyComplete
+D:\Yazılım Kampı\Rentacar-backend\Entities\bin\Debug\netstandard2.0\Entities.deps.json
+D:\Yazılım Kampı\Rentacar-backend\Entities\bin\Debug\netstandard2.0\Entities.dll
+D:\Yazılım Kampı\Rentacar-backend\Entities\bin\Debug\netstandard2.0\Entities.pdb
+D:\Yazılım Kampı\Rentacar-backend\Entities\bin\Debug\netstandard2.0\Core.dll
+D:\Yazılım Kampı\Rentacar-backend\Entities\bin\Debug\netstandard2.0\Core.pdb
+D:\Yazılım Kampı\Rentacar-backend\Entities\obj\Debug\netstandard2.0\Entities.csprojAssemblyReference.cache
+D:\Yazılım Kampı\Rentacar-backend\Entities\obj\Debug\netstandard2.0\Entities.AssemblyInfoInputs.cache
+D:\Yazılım Kampı\Rentacar-backend\Entities\obj\Debug\netstandard2.0\Entities.AssemblyInfo.cs
+D:\Yazılım Kampı\Rentacar-backend\Entities\obj\Debug\netstandard2.0\Entities.csproj.CoreCompileInputs.cache
+D:\Yazılım Kampı\Rentacar-backend\Entities\obj\Debug\netstandard2.0\Entities.csproj.CopyComplete
+D:\Yazılım Kampı\Rentacar-backend\Entities\obj\Debug\netstandard2.0\Entities.dll
+D:\Yazılım Kampı\Rentacar-backend\Entities\obj\Debug\netstandard2.0\Entities.pdb

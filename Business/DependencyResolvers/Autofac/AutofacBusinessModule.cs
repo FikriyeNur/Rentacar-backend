@@ -1,8 +1,4 @@
 ﻿using Autofac;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using Autofac.Core.Activators.Reflection;
 using Autofac.Extras.DynamicProxy;
 using Business.Abstract;
 using Business.Concrete;
@@ -44,6 +40,9 @@ namespace Business.DependencyResolvers.Autofac
 
             builder.RegisterType<AuthManager>().As<IAuthService>().SingleInstance();
             builder.RegisterType<JwtHelper>().As<ITokenHelper>().SingleInstance();
+
+            builder.RegisterType<PaymentManager>().As<IPaymentService>().SingleInstance();
+            builder.RegisterType<EfPaymentDal>().As<IPaymentDal>().SingleInstance();
 
             // eğer istersek her class için tek tek veya sadece istediklerimiz içinde yazabiliriz ama biz hepsinde kullanacağımız için bu şekilde yazdık.
             var assembly = System.Reflection.Assembly.GetExecutingAssembly();
