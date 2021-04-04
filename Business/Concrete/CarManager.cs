@@ -34,14 +34,14 @@ namespace Business.Concrete
         // Cross Cutting Concerns : Validation, Log, Cache, Performans, Transaction, Authorization => AOP (Aspect Oriented Programming) kullanarak bu işlemleri yapacağız. AOP sadece bu işlemleri yaparken kullanılmalıdır.
 
         [FluentValidationAspect(typeof(CarValidator))]
-        [SecuredOperation("car.add, admin")]
+        //[SecuredOperation("car.add, admin")]
         public IResult Add(Car car)
         {
             _carDal.Add(car);
             return new SuccessResult(CarMessages.CarAdded);
         }
 
-        [SecuredOperation("car.delete, admin")]
+        //[SecuredOperation("car.delete, admin")]
         public IResult Delete(Car car)
         {
             if (car != null)
@@ -167,7 +167,7 @@ namespace Business.Concrete
         }
 
         [FluentValidationAspect(typeof(CarValidator))]
-        [SecuredOperation("car.update, admin")]
+        //[SecuredOperation("car.update, admin")]
         [CacheRemoveAspect("ICarService.Get")]
         public IResult Update(Car car)
         {

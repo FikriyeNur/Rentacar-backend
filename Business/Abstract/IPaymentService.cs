@@ -1,4 +1,5 @@
-﻿using Core.Utilities.Results.Abstract;
+﻿using Core.Entities.Concrete;
+using Core.Utilities.Results.Abstract;
 using Entities.Concrete;
 using Entities.DTOs;
 using System;
@@ -9,14 +10,10 @@ namespace Business.Abstract
 {
     public interface IPaymentService
     {
-        IResult Add(Payment payment);
-        IResult Update(Payment payment);
-        IResult Delete(Payment payment);
-        IDataResult<List<Payment>> GetAll();
-        IDataResult<Payment> GetById(int paymentId);
-        IDataResult<List<PaymentDetailDto>> GetAllPaymentDetails();
-        IDataResult<PaymentDetailDto> GetByIdDto(int paymentId);
-        IResult VerifyCard(Payment payment);
-        IDataResult<List<Payment>> GetByCardNumber(string cardNumber);
+        IResult Add(CreditCard creditCard);
+        IResult Update(CreditCard creditCard);
+        IResult Delete(CreditCard creditCard);
+        IDataResult<List<CreditCard>> GetAll();
+        IDataResult<CreditCard> GetById(int creditCardId);
     }
 }

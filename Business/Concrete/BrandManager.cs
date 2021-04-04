@@ -25,14 +25,14 @@ namespace Business.Concrete
         }
 
         [FluentValidationAspect(typeof(BrandValidator))]
-        [SecuredOperation("brand.add, admin")]
+        //[SecuredOperation("brand.add, admin")]
         public IResult Add(Brand brand)
         {
             _brandDal.Add(brand);
             return new SuccessResult(BrandMessages.BrandAdded);
         }
 
-        [SecuredOperation("brand.delete, admin")]
+        //[SecuredOperation("brand.delete, admin")]
         public IResult Delete(Brand brand)
         {
             if (brand != null)
@@ -64,7 +64,7 @@ namespace Business.Concrete
         }
 
         [FluentValidationAspect(typeof(BrandValidator))]
-        [SecuredOperation("brand.update, admin")]
+        //[SecuredOperation("brand.update, admin")]
         public IResult Update(Brand brand)
         {
             _brandDal.Update(brand);

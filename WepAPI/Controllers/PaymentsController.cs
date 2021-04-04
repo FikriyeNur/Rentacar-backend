@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Core.Entities.Concrete;
 using Entities.Concrete;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -21,7 +22,7 @@ namespace WepAPI.Controllers
         }
 
         [HttpPost("add")]
-        public IActionResult Add(Payment payment)
+        public IActionResult Add(CreditCard payment)
         {
             var result = _paymentService.Add(payment);
             if (result.Success)
@@ -32,9 +33,9 @@ namespace WepAPI.Controllers
         }
 
         [HttpPost("update")]
-        public IActionResult Update(Payment payment)
+        public IActionResult Update(CreditCard creditCard)
         {
-            var result = _paymentService.Update(payment);
+            var result = _paymentService.Update(creditCard);
             if (result.Success)
             {
                 return Ok(result);
@@ -43,9 +44,9 @@ namespace WepAPI.Controllers
         }
 
         [HttpPost("delete")]
-        public IActionResult Delete(Payment payment)
+        public IActionResult Delete(CreditCard creditCard)
         {
-            var result = _paymentService.Delete(payment);
+            var result = _paymentService.Delete(creditCard);
             if (result.Success)
             {
                 return Ok(result);
@@ -65,55 +66,9 @@ namespace WepAPI.Controllers
         }
 
         [HttpGet("getbyid")]
-        public IActionResult GetById(int paymentId)
+        public IActionResult GetById(int creditCardId)
         {
-            var result = _paymentService.GetById(paymentId);
-            if (result.Success)
-            {
-                return Ok(result);
-            }
-            return BadRequest(result);
-        }
-
-        [HttpGet("getalldto")]
-        public IActionResult GetAllDto()
-        {
-            var result = _paymentService.GetAllPaymentDetails();
-            if (result.Success)
-            {
-                return Ok(result);
-            }
-            return BadRequest(result);
-        }
-
-
-        [HttpGet("getbyiddto")]
-        public IActionResult GetByIdDto()
-        {
-            var result = _paymentService.GetAllPaymentDetails();
-            if (result.Success)
-            {
-                return Ok(result);
-            }
-            return BadRequest(result);
-        }
-
-
-        [HttpPost("verifycard")]
-        public IActionResult VerifyCard(Payment payment)
-        {
-            var result = _paymentService.VerifyCard(payment);
-            if (result.Success)
-            {
-                return Ok(result);
-            }
-            return Ok(result);
-        }
-
-        [HttpGet("getbycardnumber")]
-        public IActionResult GetByCardNumber(string cardNumber)
-        {
-            var result = _paymentService.GetByCardNumber(cardNumber);
+            var result = _paymentService.GetById(creditCardId);
             if (result.Success)
             {
                 return Ok(result);

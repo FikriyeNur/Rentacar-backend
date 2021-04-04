@@ -10,9 +10,9 @@ D:\Yazılım Kampı\CarRentalProject\Core\obj\Debug\netstandard2.0\Core.csprojAs
 D:\Yazılım Kampı\Rentacar-backend\Core\bin\Debug\netstandard2.0\Core.deps.json
 D:\Yazılım Kampı\Rentacar-backend\Core\bin\Debug\netstandard2.0\Core.dll
 D:\Yazılım Kampı\Rentacar-backend\Core\bin\Debug\netstandard2.0\Core.pdb
-D:\Yazılım Kampı\Rentacar-backend\Core\obj\Debug\netstandard2.0\Core.csprojAssemblyReference.cache
 D:\Yazılım Kampı\Rentacar-backend\Core\obj\Debug\netstandard2.0\Core.AssemblyInfoInputs.cache
 D:\Yazılım Kampı\Rentacar-backend\Core\obj\Debug\netstandard2.0\Core.AssemblyInfo.cs
 D:\Yazılım Kampı\Rentacar-backend\Core\obj\Debug\netstandard2.0\Core.csproj.CoreCompileInputs.cache
 D:\Yazılım Kampı\Rentacar-backend\Core\obj\Debug\netstandard2.0\Core.dll
 D:\Yazılım Kampı\Rentacar-backend\Core\obj\Debug\netstandard2.0\Core.pdb
+D:\Yazılım Kampı\Rentacar-backend\Core\obj\Debug\netstandard2.0\Core.csprojAssemblyReference.cache

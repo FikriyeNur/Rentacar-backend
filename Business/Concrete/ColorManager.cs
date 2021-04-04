@@ -26,14 +26,14 @@ namespace Business.Concrete
         }
 
         [FluentValidationAspect(typeof(ColorValidator))]
-        [SecuredOperation("color.add, admin")]
+        //[SecuredOperation("color.add, admin")]
         public IResult Add(Color color)
         {
             _colorDal.Add(color);
             return new SuccessResult(ColorMessages.ColorAdded);
         }
 
-        [SecuredOperation("color.delete, admin")]
+        //[SecuredOperation("color.delete, admin")]
         public IResult Delete(Color color)
         {
             if (color != null)
@@ -65,7 +65,7 @@ namespace Business.Concrete
         }
 
         [FluentValidationAspect(typeof(ColorValidator))]
-        [SecuredOperation("color.update, admin")]
+        //[SecuredOperation("color.update, admin")]
         public IResult Update(Color color)
         {
             _colorDal.Update(color);

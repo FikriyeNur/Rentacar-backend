@@ -1,16 +1,11 @@
 ﻿using Core.DataAccess;
-using Entities.Concrete;
-using Entities.DTOs;
-using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
-using System.Text;
+using Core.Entities.Concrete;
 
 namespace DataAccess.Abstract
 {
-    public interface IPaymentDal : IEntityRepository<Payment>
+    public interface IPaymentDal : IEntityRepository<CreditCard>
     {
-        List<PaymentDetailDto> GetAllPaymentDetails(Expression<Func<PaymentDetailDto, bool>> filter = null);
-        PaymentDetailDto GetByIdDto(int paymentId);
+        //List<PaymentDetailDto> GetAllPaymentDetails(Expression<Func<PaymentDetailDto, bool>> filter = null);
+        //PaymentDetailDto GetByIdDto(int paymentId);
     }
 }

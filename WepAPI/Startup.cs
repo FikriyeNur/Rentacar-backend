@@ -63,6 +63,8 @@ namespace WepAPI
                 app.UseDeveloperExceptionPage();
             }
 
+            app.ConfigureCustomExceptionMiddlaware();
+
             app.UseCors(builder => builder.WithOrigins("http://localhost:4300").AllowAnyHeader());
 
             app.UseHttpsRedirection();

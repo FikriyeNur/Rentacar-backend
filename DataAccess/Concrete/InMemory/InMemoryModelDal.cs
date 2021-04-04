@@ -58,6 +58,11 @@ namespace DataAccess.Concrete.InMemory
             return _models.Where(m => m.ModelId == Id).ToList();
         }
 
+        public ModelDetailDto GetModelDetail(int modelId)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Update(Model model)
         {
             Model updateToModel = _models.SingleOrDefault(m => m.ModelId == model.ModelId);

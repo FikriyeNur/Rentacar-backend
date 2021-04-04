@@ -15,7 +15,7 @@ namespace DataAccess.Concrete.EntityFramework
     {
         public List<ModelDetailDto> GetAllModelDetails()
         {
-            using (RentACarContext context= new RentACarContext())
+            using (RentACarContext context = new RentACarContext())
             {
                 var result = from m in context.Models
                              join b in context.Brands
@@ -25,5 +25,16 @@ namespace DataAccess.Concrete.EntityFramework
             }
         }
 
+        public ModelDetailDto GetModelDetail(int modelId)
+        {
+            using (RentACarContext context = new RentACarContext())
+            {
+                var result = from m in context.Models
+                             join b in context.Brands
+                             on m.BrandId equals b.BrandId
+                             select new ModelDetailDto { ModelId = m.ModelId, BrandName = b.BrandName, ModelName = m.ModelName };
+                return result.FirstOrDefault(m => m.ModelId == modelId);
+            }
+        }
     }
 }

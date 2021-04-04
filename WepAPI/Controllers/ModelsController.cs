@@ -37,9 +37,9 @@ namespace WepAPI.Controllers
             var result = _modelService.GetById(id);
             if (result.Success)
             {
-                return Ok(result.Data);
+                return Ok(result);
             }
-            return BadRequest(result.Message);
+            return BadRequest(result);
         }
 
         [HttpPost("add")]
@@ -48,9 +48,9 @@ namespace WepAPI.Controllers
             var result = _modelService.Add(model);
             if (result.Success)
             {
-                return Ok(result.Message);
+                return Ok(result);
             }
-            return BadRequest(result.Message);
+            return BadRequest(result);
         }
 
         [HttpPost("update")]
@@ -59,9 +59,9 @@ namespace WepAPI.Controllers
             var result = _modelService.Update(model);
             if (result.Success)
             {
-                return Ok(result.Message);
+                return Ok(result);
             }
-            return BadRequest(result.Message);
+            return BadRequest(result);
         }
 
         [HttpPost("delete")]
@@ -70,15 +70,26 @@ namespace WepAPI.Controllers
             var result = _modelService.Delete(model);
             if (result.Success)
             {
-                return Ok(result.Message);
+                return Ok(result);
             }
-            return BadRequest(result.Message);
+            return BadRequest(result);
         }
 
         [HttpGet("getalldto")]
         public IActionResult GetAllDto()
         {
             var result = _modelService.GetAllModelDetails();
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+        [HttpGet("getbyiddto")]
+        public IActionResult GetByIdDto(int id)
+        {
+            var result = _modelService.GetModelDetail(id);
             if (result.Success)
             {
                 return Ok(result);

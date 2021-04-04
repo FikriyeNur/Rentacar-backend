@@ -27,16 +27,14 @@ namespace Business.Concrete
         }
 
         [FluentValidationAspect(typeof(ModelValidator))]
-        [SecuredOperation("model.add, admin")]
-
+        //[SecuredOperation("model.add, admin")]
         public IResult Add(Model model)
         {
             _modelDal.Add(model);
             return new SuccessResult(ModelMessages.ModelAdded);
         }
 
-        [SecuredOperation("model.delete, admin")]
-
+        //[SecuredOperation("model.delete, admin")]
         public IResult Delete(Model model)
         {
             if (model != null)
@@ -78,12 +76,21 @@ namespace Business.Concrete
         }
 
         [FluentValidationAspect(typeof(ModelValidator))]
-        [SecuredOperation("model.update, admin")]
-
+        //[SecuredOperation("model.update, admin")]
         public IResult Update(Model model)
         {
             _modelDal.Update(model);
             return new SuccessResult(ModelMessages.ModelUpdated);
+        }
+
+        public IDataResult<ModelDetailDto> GetModelDetail(int modelId)
+        {
+            var result = _modelDal.GetModelDetail(modelId);
+            if (result != null)
+            {
+                return new SuccessDataResult<ModelDetailDto>(result);
+            }
+            return new ErrorDataResult<ModelDetailDto>(result, ModelMessages.FailedModelById);
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using Entities.Concrete;
+﻿using Core.Entities.Concrete;
 using FluentValidation;
 using System;
 using System.Collections.Generic;
@@ -6,22 +6,20 @@ using System.Text;
 
 namespace Business.ValidationRules.FluentValidation
 {
-    public class PaymentValidator : AbstractValidator<Payment>
+    public class PaymentValidator : AbstractValidator<CreditCard>
     {
         public PaymentValidator()
         {
-            RuleFor(p => p.UserId).NotEmpty();
-            RuleFor(p => p.UserId).GreaterThan(0);
-            RuleFor(p => p.CardNameSurname).NotEmpty();
-            RuleFor(p => p.CardNameSurname).MinimumLength(6);
-            RuleFor(p => p.CardNumber).NotEmpty();
-            RuleFor(p => p.CardNumber).Length(16);
-            RuleFor(p => p.CardExpirationDateMonth).NotEmpty();
-            RuleFor(p => p.CardExpirationDateMonth).Length(2);
-            RuleFor(p => p.CardExpirationDateYear).NotEmpty();
-            RuleFor(p => p.CardExpirationDateYear).Length(4);
-            RuleFor(p => p.CardCvv).NotEmpty();
-            RuleFor(p => p.CardCvv).Length(3);
+            RuleFor(c => c.CardNameSurname).NotEmpty();
+            RuleFor(c => c.CardNameSurname).MinimumLength(6);
+            RuleFor(c => c.CardNumber).NotEmpty();
+            RuleFor(c => c.CardNumber).Length(16);
+            RuleFor(c => c.CardExpirationMonth).NotEmpty();
+            RuleFor(c => c.CardExpirationMonth).Length(2);
+            RuleFor(c => c.CardExpirationYear).NotEmpty();
+            RuleFor(c => c.CardExpirationYear).Length(4);
+            RuleFor(c => c.CardSecurityNumber).NotEmpty();
+            RuleFor(c => c.CardSecurityNumber).Length(3);
         }
     }
 }

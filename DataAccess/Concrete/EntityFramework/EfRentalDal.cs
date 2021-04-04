@@ -27,7 +27,7 @@ namespace DataAccess.Concrete.EntityFramework
                              on c.BrandId equals b.BrandId
                              join m in context.Models
                              on c.ModelId equals m.ModelId
-                             select new RentalDetailDto { Id = r.Id, CustomerId = cu.CustomerId, CompanyName = cu.CompanyName, UserFirstName = u.FirstName, UserLastName = u.LastName, CarId = c.CarId, BrandName = b.BrandName, ModelName = m.ModelName, DailyPrice = c.DailyPrice, RentDate = r.RentDate, ReturnDate = r.ReturnDate };
+                             select new RentalDetailDto { Id = r.Id, CustomerId = cu.CustomerId, CompanyName = cu.CompanyName, NameSurname = u.FirstName + " " + u.LastName, CarId = c.CarId, BrandName = b.BrandName, ModelName = m.ModelName, DailyPrice = c.DailyPrice, RentDate = r.RentDate, ReturnDate = r.ReturnDate };
                 if (filter == null)
                 {
                     return result.ToList();
@@ -51,7 +51,7 @@ namespace DataAccess.Concrete.EntityFramework
                              on c.BrandId equals b.BrandId
                              join m in context.Models
                              on c.ModelId equals m.ModelId
-                             select new RentalDetailDto { Id = r.Id, CustomerId = cu.CustomerId, CompanyName = cu.CompanyName, UserFirstName = u.FirstName, UserLastName = u.LastName, CarId = c.CarId, BrandName = b.BrandName, ModelName = m.ModelName, DailyPrice = c.DailyPrice, RentDate = r.RentDate, ReturnDate = r.ReturnDate };
+                             select new RentalDetailDto { Id = r.Id, CustomerId = cu.CustomerId, CompanyName = cu.CompanyName, NameSurname=u.FirstName + " " +u.LastName, CarId = c.CarId, BrandName = b.BrandName, ModelName = m.ModelName, DailyPrice = c.DailyPrice, RentDate = r.RentDate, ReturnDate = r.ReturnDate };
 
                 return result.FirstOrDefault(r => r.Id == rentalId);
             }
@@ -59,7 +59,7 @@ namespace DataAccess.Concrete.EntityFramework
 
         public bool IsCarAvailable(int carId)
         {
-            using (RentACarContext context=new RentACarContext())
+            using (RentACarContext context = new RentACarContext())
             {
                 var result = from r in context.Rentals
                              where r.CarId == carId && r.ReturnDate == null
